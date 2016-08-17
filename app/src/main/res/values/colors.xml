@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+100% — FF
+95% — F2
+90% — E6
+85% — D9
+80% — CC
+75% — BF
+70% — B3
+65% — A6
+60% — 99
+55% — 8C
+50% — 80
+45% — 73
+40% — 66
+35% — 59
+30% — 4D
+25% — 40
+20% — 33
+15% — 26
+10% — 1A
+5% — 0D
+0% — 00
+    -->
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+
+    <color name="red">#FF0000</color>
+    <color name="text_grey">#414141</color>
+
+    <color name="green">#159285</color>
+    <color name="background_icons">#323232</color>
+    <color name="black_transparency">#CC000000</color>
+    <color name="transparency_ubica_asiento">#E6000000</color>
+    <color name="transparency_resultados">#1A000000</color>
+    <color name="grey_color_low">#e1e3e3</color>
+    <color name="grey_color_strong">#414141</color>
+    <color name="red_strong">#9e0004</color>
+
+</resources>

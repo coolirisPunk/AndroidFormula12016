@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android" android:paddingBottom="10dp" android:paddingTop="10dp" android:weightSum="5" android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="@color/white">
+    <TextView android:fontFamily="sans-serif-condensed"  android:layout_weight="1" android:gravity="center" android:text="P" android:textSize="15sp" android:textColor="@color/red" android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    <TextView android:fontFamily="sans-serif-condensed"  android:layout_weight="1" android:gravity="center" android:text="PILOTO"  android:textSize="15sp" android:textColor="@color/red" android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    <TextView android:fontFamily="sans-serif-condensed"  android:layout_weight="1" android:gravity="center" android:text="EQUIPO"  android:textSize="15sp" android:textColor="@color/red" android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    <TextView android:fontFamily="sans-serif-condensed"  android:layout_weight="1" android:gravity="center" android:text="TIEMPO"  android:textSize="15sp" android:textColor="@color/red" android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    <TextView android:fontFamily="sans-serif-condensed"  android:layout_weight="1" android:gravity="center" android:text="PUNTOS"  android:textSize="15sp" android:textColor="@color/red" android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+</TableRow>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android" android:paddingBottom="10dp" android:paddingTop="10dp" android:weightSum="1" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@color/red_strong">
+    <TextView android:textAllCaps="true" android:id="@+id/event_type" android:fontFamily="sans-serif-condensed"  android:layout_weight="1" android:gravity="center" android:text="VIERNES 25" android:textSize="18sp" android:textStyle="bold" android:textColor="@color/white" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+</TableRow>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_home"
+            android:title="HOME" />
+        <item
+            android:id="@+id/nav_autodromo"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="AUTÓDROMO" />
+        <item
+            android:id="@+id/nav_horarios"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="HORARIOS" />
+        <item
+            android:id="@+id/nav_noticias"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="NOTICIAS" />
+        <item
+            android:id="@+id/nav_resultados"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="RESULTADOS" />
+        <item
+            android:id="@+id/nav_pilotos"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="PILOTOS" />
+        <item
+            android:id="@+id/nav_pasion_f1"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="PASIÓN F1" />
+        <item
+            android:id="@+id/nav_la_ciudad"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="LA CIUDAD" />
+        <item
+            android:id="@+id/nav_social_hub"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="SOCIAL HUB" />
+        <item
+            android:id="@+id/nav_store"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="STORE" />
+        <item
+            android:id="@+id/nav_beyond_the_track"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="BEYOND THE TRACK" />
+
+    </group>
+
+    <item android:title="Configuraciones">
+        <menu>
+            <item
+                android:id="@+id/nav_iniciar_sesion"
+                android:icon="@drawable/ic_menu_share"
+                android:title="INICIAR SESIÓN" />
+            <item
+                android:id="@+id/nav_configuracion"
+                android:icon="@drawable/ic_menu_send"
+                android:title="CONFIGURACIÓN" />
+        </menu>
+    </item>
+
+</menu>
