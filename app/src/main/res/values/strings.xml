@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Formula12016</string>
-    <string name="facebook_app_id">1750745801847352</string>
+    <string name="facebook_app_id">1742411486009179</string>
+    <string name="fb_login_protocol_scheme">fb1742411486009179</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -24,7 +25,9 @@
     <string name="activa_gps_ahora">ACTIVAR GPS AHORA</string>
     <string name="con_esta_funcion">CON ESTA FUNCIÓN PODRÁS UBICAR TU ASIENTO, ENCONTRAR LAS MEJORES OPCIONES DE TRANSPORTE Y LA UBICACIÓN DE LOS SERVICIOS DEL AUTÓDROMO.</string>
     <string name="notificaciones">NOTIFICACIONES</string>
-    <string name="notificacion1">NOTIFICACION 1</string>
+    <string name="notificacion1">HORARIOS</string>
+    <string name="notificacion2">NOTICIAS</string>
+    <string name="notificacion3">NOTIFICACION 3</string>
     <string name="con_esta_funcion_2">CON ESTA FUNCIÓN RECIBIRÁS INFORMACIÓN EN TIEMPO REAL DE LOS EVENTOS Y SUS RESULTADOS.</string>
     <string name="title_activity_login2">Sign in</string>
 
@@ -32,6 +35,7 @@
     <string name="prompt_email">Correo</string>
     <string name="prompt_usuario">Nombre de Usuario</string>
     <string name="prompt_nombre">Nombre</string>
+    <string name="prompt_username">Username</string>
     <string name="prompt_password_match">Confirmar Contraseña</string>
 
     <string name="prompt_password">Contraseña</string>
@@ -41,7 +45,8 @@
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
+    <string name="error_password_match">La contraseña es incorrecta.</string>
+    <string name="error_field_required">Campo requerido</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
@@ -121,7 +126,11 @@
     <string name="share">COMPARTIR</string>
     <string name="select_picture">Selecciona una foto:</string>
     <string name="compartir_usando">Compartir</string>
+    <string name="error_intro">Favor de completar los siguientes campos: </string>
+    <string name="error_email">Ingrese un correo válido.</string>
 
+    <string name="configuracion">CONFIGURACIÓN</string>
+    <string name="configuracion_asiento">ASIENTO</string>
 
 </resources>
 

@@ -1,5 +1,6 @@
 package com.punkmkt.formula12016;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.punkmkt.formula12016.fragments.AutodromoFragment;
+import com.punkmkt.formula12016.fragments.ConfiguracionFragment;
 import com.punkmkt.formula12016.fragments.HomeFragment;
 import com.punkmkt.formula12016.fragments.HorariosFragment;
 import com.punkmkt.formula12016.fragments.Pasion_f1;
@@ -182,10 +184,17 @@ public class MainActivity extends AppCompatActivity
 
         }
         else if (id == R.id.nav_iniciar_sesion) {
-
+            Intent intent_login = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(intent_login);
         }
         else if (id == R.id.nav_configuracion) {
-
+            getSupportActionBar().setTitle(getResources().getString(R.string.app_name));
+            Fragment fH = new ConfiguracionFragment();
+            FragmentTransaction ftH = getSupportFragmentManager().beginTransaction();
+            ftH.replace(R.id.frame, fH);
+            ftH.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+            ftH.addToBackStack(null);
+            ftH.commit();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

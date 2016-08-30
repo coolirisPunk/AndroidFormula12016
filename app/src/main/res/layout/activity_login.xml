@@ -16,11 +16,10 @@
         android:layout_marginBottom="8dp"
         android:visibility="gone" />
     <ScrollView
-        android:id="@+id/login_form"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
-            android:id="@+id/email_login_form"
+            android:id="@+id/login_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -36,7 +35,7 @@
                 android:layout_marginTop="20dp"
                 >
                 <EditText
-                    android:id="@+id/email"
+                    android:id="@+id/username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_usuario"
@@ -75,7 +74,7 @@
                     android:paddingLeft="20dp" />
             </android.support.design.widget.TextInputLayout>
             <Button
-                android:id="@+id/email_sign_in_button"
+                android:id="@+id/entrar"
                 style="?android:textAppearanceSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -130,6 +129,7 @@
                     android:layout_height="wrap_content"
                     style="@style/FacebookLoginButton"
                     android:scaleType="centerInside" />
+
             </LinearLayout>
             <Button
                 android:id="@+id/register_sign_in_button"

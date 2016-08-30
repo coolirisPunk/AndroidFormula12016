@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -40,10 +47,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <EditText
-                    android:id="@+id/Nombre"
+                    android:id="@+id/form_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/prompt_nombre"
+                    android:hint="@string/prompt_username"
                     android:textColorHint="#FFFFFF"
                     android:imeOptions="actionUnspecified"
                     android:inputType="text"
@@ -62,7 +69,7 @@
                 android:layout_marginTop="20dp"
                 >
                 <EditText
-                    android:id="@+id/password"
+                    android:id="@+id/form_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_password"
@@ -82,7 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <EditText
-                    android:id="@+id/password_match"
+                    android:id="@+id/form_password_match"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_password_match"
@@ -104,7 +111,7 @@
                 android:layout_marginTop="20dp"
                 >
                 <EditText
-                    android:id="@+id/email"
+                    android:id="@+id/form_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_email"
@@ -125,12 +132,27 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingLeft="50dp"
+                android:paddingRight="50dp"
+                android:layout_marginTop="20dp"
+                >
+                <com.facebook.login.widget.LoginButton
+                    android:id="@+id/fbLoginButton"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/FacebookLoginButton"
+                    android:scaleType="centerInside" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:paddingLeft="40dp"
                 android:paddingRight="40dp"
                 android:orientation="vertical"
                 >
                 <Button
-                    android:id="@+id/email_sign_in_button"
+                    android:id="@+id/guardar_cambios_action"
                     style="?android:textAppearanceSmall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -144,7 +166,7 @@
                     android:textSize="20sp"
                     android:textStyle="bold" />
                 <Button
-                    android:id="@+id/register_sign_in_button"
+                    android:id="@+id/cancelar_action"
                     style="?android:textAppearanceSmall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -161,3 +183,4 @@
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

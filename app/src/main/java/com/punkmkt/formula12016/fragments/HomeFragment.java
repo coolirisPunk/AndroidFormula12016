@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -59,6 +61,24 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_home,container,false);
+        RelativeLayout header_speed_lover = (RelativeLayout) v.findViewById(R.id.header_speed_lover);
+        ImageView header_speed_lover_image = (ImageView) v.findViewById(R.id.header_speed_lover_image);
+        ImageView header_speed_lover_background = (ImageView) v.findViewById(R.id.header_speed_lover_background);
+
+
+        String speed_lover = getActivity().getSharedPreferences("PREFERENCE", getActivity().MODE_PRIVATE).getString("speed_lover", null);
+        if(speed_lover==null){
+            header_speed_lover.setVisibility(View.GONE);
+        }
+        else if(speed_lover.equals("speed_lover_1")){
+            header_speed_lover_background.setImageResource(R.drawable.textura_speed_lovers);
+            header_speed_lover_image.setImageResource(R.drawable.speed_lovers_logo);
+        }
+        else if(speed_lover.equals("speed_lover_2")){
+            header_speed_lover_background.setImageResource(R.drawable.textura_speed_lovers);
+            header_speed_lover_image.setImageResource(R.drawable.speed_lovers_logo);
+        }
+
         configuracionEvento();
         view = v;
         mRecyclerView = (RecyclerView) v.findViewById(R.id.my_recycler_view);
@@ -93,7 +113,6 @@ public class HomeFragment extends Fragment {
                     }
                     Log.d("news",noticias.toString());
                     mAdapter.notifyDataSetChanged();
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

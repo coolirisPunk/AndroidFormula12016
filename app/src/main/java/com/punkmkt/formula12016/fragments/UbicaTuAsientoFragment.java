@@ -184,9 +184,6 @@ public class UbicaTuAsientoFragment extends Fragment implements OnMapReadyCallba
         } else {
             Toast.makeText(getActivity().getApplicationContext(), "no location detected", Toast.LENGTH_LONG).show();
         }
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeResource(getResources(), R.drawable.map_autodromo, options);
         GroundOverlayOptions newarkMap = new GroundOverlayOptions()
                 .image(BitmapDescriptorFactory.fromBitmap(decodeSampledBitmapFromResource(getResources(), R.drawable.map_autodromo, 500, 500)))
                 .position(NEWARK, 8600f, 6500f);

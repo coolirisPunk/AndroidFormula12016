@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "113229680514",
+    "firebase_url": "https://mexicogp-87440.firebaseio.com",
+    "project_id": "mexicogp-87440",
+    "storage_bucket": "mexicogp-87440.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:113229680514:android:67836edabc819a0b",
+        "android_client_info": {
+          "package_name": "com.punkmkt.formula12016"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "113229680514-b85qsok1ju65jk8kfdrg3liejgf4666l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.punkmkt.formula12016",
+            "certificate_hash": "5DEE335389690FCACFAEF32FE05C2B52BF077626"
+          }
+        },
+        {
+          "client_id": "113229680514-so1drt20v2hfdomp0fa5mnup20afdksf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArvvpJoZjf7tBXgBPB9Rkjyb6WzSx5mN0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "113229680514-so1drt20v2hfdomp0fa5mnup20afdksf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

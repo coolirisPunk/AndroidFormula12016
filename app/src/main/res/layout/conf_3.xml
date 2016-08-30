@@ -111,13 +111,22 @@
                         android:layout_weight="1"
                         android:layout_gravity="center"
                         />
-                    <ImageView
+                    <RelativeLayout
+                        android:orientation="horizontal"
+                        android:layout_gravity="center"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/circle1"
-                        android:layout_gravity="center"
-                        />
+                        android:layout_height="match_parent"
+                        >
+                        <ImageView
+                            android:id="@+id/notificacion1"
+                            android:layout_gravity="center"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/notificacion_inactiva"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true" />
+                    </RelativeLayout>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -130,19 +139,63 @@
                         android:paddingBottom="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/notificacion1"
+                        android:text="@string/notificacion2"
                         android:textSize="20sp"
                         android:textColor="@color/text_grey"
                         android:layout_weight="1"
                         android:layout_gravity="center"
                         />
-                    <ImageView
+                    <RelativeLayout
+                        android:orientation="horizontal"
+                        android:layout_gravity="center"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        >
+                        <ImageView
+                            android:id="@+id/notificacion2"
+                            android:layout_gravity="center"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/notificacion_inactiva"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    >
+                    <TextView
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/circle1"
+                        android:text="@string/notificacion3"
+                        android:textSize="20sp"
+                        android:textColor="@color/text_grey"
+                        android:layout_weight="1"
                         android:layout_gravity="center"
                         />
+                    <RelativeLayout
+                        android:orientation="horizontal"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        >
+                        <ImageView
+                            android:id="@+id/notificacion3"
+                            android:layout_gravity="center"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/notificacion_inactiva"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true" />
+                    </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
             <TextView

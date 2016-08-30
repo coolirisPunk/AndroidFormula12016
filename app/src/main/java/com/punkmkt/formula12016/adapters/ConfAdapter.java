@@ -16,10 +16,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.punkmkt.formula12016.ConfActivity;
 import com.punkmkt.formula12016.LoginActivity;
 import com.punkmkt.formula12016.R;
+import com.punkmkt.formula12016.RegistroActivity;
+
 /**
  * Created by DaniPunk on 11/07/16.
  */
@@ -61,7 +64,7 @@ public class ConfAdapter extends PagerAdapter {
         switch (position) {
             case 0:
                 TextView saltar_text = (TextView)activity.findViewById(R.id.saltar_text);
-                TextView saltar_x = (TextView)activity.findViewById(R.id.saltar_x);
+                ImageView saltar_x = (ImageView)activity.findViewById(R.id.saltar_x);
 
                 saltar_text.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -84,7 +87,7 @@ public class ConfAdapter extends PagerAdapter {
                 break;
             case 1:
                 TextView saltar_text_2 = (TextView)activity.findViewById(R.id.saltar_text_2);
-                TextView saltar_x_2 = (TextView)activity.findViewById(R.id.saltar_x_2);
+                ImageView saltar_x_2 = (ImageView)activity.findViewById(R.id.saltar_x_2);
                 saltar_text_2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -108,6 +111,29 @@ public class ConfAdapter extends PagerAdapter {
                 break;
             case 2:
                 TextView next_view = (TextView) activity.findViewById(R.id.next_view_3);
+                final ImageView notificacion1 = (ImageView) activity.findViewById(R.id.notificacion1);
+                final ImageView notificacion2 = (ImageView) activity.findViewById(R.id.notificacion2);
+                final ImageView notificacion3 = (ImageView) activity.findViewById(R.id.notificacion3);
+
+
+                notificacion1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        notificacion1.setImageResource(R.drawable.notificacion_activa);
+                    }
+                });
+                notificacion2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        notificacion2.setImageResource(R.drawable.notificacion_activa);
+                    }
+                });
+                notificacion3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        notificacion3.setImageResource(R.drawable.notificacion_activa);
+                    }
+                });
 
                 SwitchCompat mSwitchGPS = (SwitchCompat) view.findViewById(R.id.mySwitch);
                 mSwitchGPS.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -120,7 +146,8 @@ public class ConfAdapter extends PagerAdapter {
                 next_view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent goLogin = new Intent(activity, LoginActivity.class);
+                        Intent goLogin = new Intent(activity, RegistroActivity.class);
+                        goLogin.putExtra("intent_from", "CONF");
                         activity.startActivity(goLogin);
 
                     }

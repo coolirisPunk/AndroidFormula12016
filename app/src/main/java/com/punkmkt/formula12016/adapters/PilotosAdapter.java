@@ -19,12 +19,9 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.punkmkt.formula12016.MainActivity;
 import com.punkmkt.formula12016.MyVolleySingleton;
 import com.punkmkt.formula12016.R;
-import com.punkmkt.formula12016.SinglePilotoActivity;
-import com.punkmkt.formula12016.SinglePremioActivity;
 import com.punkmkt.formula12016.fragments.SinglePilotoFragment;
-import com.punkmkt.formula12016.fragments.SingleRaceFragment;
 import com.punkmkt.formula12016.models.Piloto;
-import com.punkmkt.formula12016.models.Premio;
+
 
 import java.util.List;
 

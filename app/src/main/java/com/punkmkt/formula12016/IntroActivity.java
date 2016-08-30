@@ -16,7 +16,7 @@ public class IntroActivity extends AppCompatActivity {
         //getSupportActionBar().hide();
         //getActionBar().hide();
         Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("isFirstRun", true);
-        isFirstRun = true;
+        //isFirstRun = true;
         if (isFirstRun) {
             Intent myIntent = new Intent(getApplicationContext(), ConfActivity.class);
             myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -26,8 +26,6 @@ public class IntroActivity extends AppCompatActivity {
         else{
             new loading().execute();
         }
-
-
     }
 
     private class loading extends AsyncTask<Void, Void, Void> {
@@ -53,8 +51,17 @@ public class IntroActivity extends AppCompatActivity {
             //progressDialog.dismiss();
             try {
                 Thread.sleep(1000);
-                Intent goHome = new Intent(IntroActivity.this, WelcomeActivity.class);
-                startActivity(goHome);
+                final String speed_lover = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getString("speed_lover",null);
+                if(speed_lover!=null){
+                    Intent goWelcome = new Intent(IntroActivity.this, WelcomeActivity.class);
+                    startActivity(goWelcome);
+                }
+                else{
+                    Intent goHome = new Intent(IntroActivity.this, MainActivity.class);
+                    startActivity(goHome);
+                }
+
+
             } catch (Exception e) {
                 e.printStackTrace();
             }

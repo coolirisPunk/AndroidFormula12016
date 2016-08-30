@@ -13,6 +13,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <RelativeLayout
+                android:id="@+id/header_speed_lover"
                 android:layout_width="wrap_content"
                 android:layout_height="63dp"
                 android:layout_gravity="center_horizontal"
@@ -21,6 +22,7 @@
 
                 >
                 <ImageView
+                    android:id="@+id/header_speed_lover_background"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/textura_speed_lovers"
@@ -32,9 +34,10 @@
                     android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true">
                     <ImageView
+                        android:id="@+id/header_speed_lover_image"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:src="@drawable/speed_lovers_logo"/>
+                        />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

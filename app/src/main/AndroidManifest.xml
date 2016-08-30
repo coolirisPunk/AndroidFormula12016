@@ -58,7 +58,7 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".IntroActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -72,18 +72,32 @@
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name="com.facebook.CustomTabActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="@string/fb_login_protocol_scheme" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".IntroActivity" />
+        <activity android:name=".WelcomeActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".UbicaTuAsientoActivity" />
+        <activity android:name=".ConfActivity" />
+        <activity android:name=".SinglePilotoActivity" />
+        <activity android:name=".RegistroActivity"></activity>
+        <activity android:name=".StickersActivity"></activity>
 
         <provider
             android:name="com.facebook.FacebookContentProvider"
-            android:authorities="com.facebook.app.FacebookContentProvider801692569977560"
+            android:authorities="com.facebook.app.FacebookContentProvider1742411486009179"
             android:exported="true" />
 
-        <activity android:name=".MainActivity" />
-        <activity android:name=".WelcomeActivity" />
-        <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".RegistroActivity"></activity>
-        <activity android:name=".SinglePilotoActivity"></activity>
-        <activity android:name=".ConfActivity"></activity>
     </application>
 
 </manifest>

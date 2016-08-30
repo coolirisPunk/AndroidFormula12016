@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:id="@+id/main_container_linearlayout"
-    android:background="@drawable/tutorial1_bg">
+    android:background="@drawable/tutorial2_bg">
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,14 +15,11 @@
         android:paddingTop="5dp"
         android:layout_alignParentRight="true"
         >
-        <TextView
+        <ImageView
             android:id="@+id/saltar_x_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/red"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:text="X"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/cerrar_boton"
             />
         <TextView
             android:id="@+id/saltar_text_2"
