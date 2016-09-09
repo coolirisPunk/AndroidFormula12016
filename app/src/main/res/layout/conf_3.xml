@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/white_texture">
+    android:background="@drawable/white_texture_back">
     <ScrollView
         android:id="@+id/img_con"
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/white_texture">
+            >
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="87dp"
@@ -91,7 +91,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="223dp"
                 android:orientation="vertical"
-                android:background="@drawable/white_texture"
+
                 android:padding="20dp"
                 >
                 <LinearLayout

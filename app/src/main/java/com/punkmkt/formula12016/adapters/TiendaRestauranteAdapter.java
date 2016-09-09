@@ -39,7 +39,7 @@ public class TiendaRestauranteAdapter extends RecyclerView.Adapter<TiendaRestaur
         public TextView nombre;
         public NetworkImageView imagen;
         public ImageButton vermasbutton;
-        public IMyViewHolderClicks mListener;
+        public TiendaRestauranteAdapter.TiendaViewHolder.IMyViewHolderClicks mListener;
 
         public TiendaViewHolder(View v, IMyViewHolderClicks listener) {
             super(v);
@@ -47,7 +47,11 @@ public class TiendaRestauranteAdapter extends RecyclerView.Adapter<TiendaRestaur
             imagen = (NetworkImageView) v.findViewById(R.id.imageView);
             vermasbutton = (ImageButton) v.findViewById(R.id.vermasbutton);
             nombre = (TextView) v.findViewById(R.id.item_name);
-            imagen.setOnClickListener(this);
+            if(imagen!=null)
+            {
+                imagen.setOnClickListener(this);
+            }
+
             vermasbutton.setOnClickListener(this);
         }
 
@@ -73,7 +77,7 @@ public class TiendaRestauranteAdapter extends RecyclerView.Adapter<TiendaRestaur
         if (imageLoader == null)
             imageLoader = MyVolleySingleton.getInstance().getImageLoader();
 
-        TiendaViewHolder vh = new TiendaViewHolder(v, new TiendaViewHolder.IMyViewHolderClicks() {
+        TiendaRestauranteAdapter.TiendaViewHolder vh = new TiendaRestauranteAdapter.TiendaViewHolder(v, new TiendaRestauranteAdapter.TiendaViewHolder.IMyViewHolderClicks() {
             public void onPotato(View caller, int i) {
                 TiendaRestaurante tiendaRestauranteId = items.get(i);
 
@@ -122,8 +126,10 @@ public class TiendaRestauranteAdapter extends RecyclerView.Adapter<TiendaRestaur
     }
 
     @Override
-    public void onBindViewHolder(final TiendaViewHolder viewHolder, int i) {
-        viewHolder.imagen.setImageUrl(items.get(i).getImagen(), imageLoader);
+    public void onBindViewHolder(final TiendaRestauranteAdapter.TiendaViewHolder viewHolder, int i) {
+        if(viewHolder.imagen!=null){
+            viewHolder.imagen.setImageUrl(items.get(i).getImagen(), imageLoader);
+        }
         viewHolder.nombre.setText(items.get(i).getNombre());
     }
     public TiendaRestauranteAdapter(List<TiendaRestaurante> items, Context context) {

@@ -1,3 +1,4 @@
+
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -5,9 +6,8 @@
     android:layout_height="fill_parent"
     android:padding="20dp"
     android:elevation="22dp"
-    android:background="@color/black_transparency"
+    android:background="@color/black_transparent"
     android:alpha="0.8">
-
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -15,7 +15,6 @@
         android:layout_gravity="center_vertical|center_horizontal"
         android:gravity="center_horizontal"
         >
-
         <TextView
             android:id="@+id/agrega_cantidad"
             android:text="@string/item_qty"
@@ -25,7 +24,6 @@
             android:textStyle="bold"
             android:gravity="center"
             android:textColor="@color/white"/>
-
         <NumberPicker
             android:id="@+id/item_cantidad"
             android:layout_width="wrap_content"
@@ -42,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:text="@string/continuar"
-            android:background="@color/red"
+            android:background="@color/red_button"
             android:textColor="@color/white"
             android:layout_centerHorizontal="true"
             android:gravity="center_horizontal|center_vertical"
@@ -60,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:text="@string/cancelar"
-            android:background="@color/text_grey"
+            android:background="@color/grey_button"
             android:textColor="@color/white"
             android:layout_centerHorizontal="true"
             android:gravity="center_horizontal|center_vertical"

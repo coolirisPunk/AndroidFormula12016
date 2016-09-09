@@ -3,7 +3,11 @@ package com.punkmkt.formula12016.fragments;
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RectShape;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -28,6 +32,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.StringRequest;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.punkmkt.formula12016.MyVolleySingleton;
 import com.punkmkt.formula12016.R;
 import com.punkmkt.formula12016.helpers.TiendaDBHelper;
@@ -57,7 +63,7 @@ public class TiendaFragmentProducts extends Fragment{
     ImageButton imageButton;
     private TiendaDBHelper tiendaDBHelper;
     TextView verWishList;
-    private ImageView img;
+    private ImageView imgdown,imgup;
 
     private static final String TAG = "WishList";
     private SlidingUpPanelLayout mLayout;
@@ -68,40 +74,42 @@ public class TiendaFragmentProducts extends Fragment{
     private Context context;
     float x1,x2;
     float y1, y2;
+    View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tienda_lista_items_restaurante,container,false);
+        view = v;
+        Tracker tracker = ((MyVolleySingleton) getActivity().getApplication()).getTracker(MyVolleySingleton.TrackerName.APP_TRACKER);
+        tracker.setScreenName(getString(R.string.tienda_titulo));
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
 
-        return v;
-
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        tabla_informacion = (TableLayout) getActivity().findViewById(R.id.tabla_informacion);
+        tabla_informacion = (TableLayout) view.findViewById(R.id.tabla_informacion);
+        tabla_informacion_wishlist = (TableLayout) view.findViewById(R.id.tabla_info_wl);
         loadSellerProduts();
-        //verWishList();
         tituloListaWishList();
-        //cargaWishListItems();
-        mLayout = (SlidingUpPanelLayout) getActivity().findViewById(R.id.sliding_layout);
+        /*imgup = (ImageView) getActivity().findViewById(R.id.up);
+        imgdown = (ImageView) getActivity().findViewById(R.id.donw);*/
+        mLayout = (SlidingUpPanelLayout) view.findViewById(R.id.sliding_layout);
         mLayout.addPanelSlideListener(new SlidingUpPanelLayout.PanelSlideListener() {
-            @Override
-            public void onPanelSlide(View panel, float slideOffset) {
-                tabla_informacion_wishlist.removeAllViewsInLayout();
-                total_texto = (TextView) getActivity().findViewById(R.id.total);
-                total_texto.setText(null);
-                total_final = (TextView) getActivity().findViewById(R.id.sum_total);
-                total_final.setText(null);
-            }
-
             @Override
             public void onPanelStateChanged(View panel, SlidingUpPanelLayout.PanelState previousState, SlidingUpPanelLayout.PanelState newState) {
                 tituloListaWishList();
                 cargaWishListItems();
+                /*imgdown.setVisibility(View.VISIBLE);
+                imgup.setVisibility(View.GONE);*/
             }
+            @Override
+            public void onPanelSlide(View panel, float slideOffset) {
+                tabla_informacion_wishlist.removeAllViewsInLayout();
+                total_texto = (TextView) view.findViewById(R.id.total);
+                total_texto.setText(null);
+                total_final = (TextView) view.findViewById(R.id.sum_total);
+                total_final.setText(null);
+                /*imgdown.setVisibility(View.GONE);
+                imgup.setVisibility(View.VISIBLE);*/
+            }
+
         });
         mLayout.setFadeOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,9 +117,10 @@ public class TiendaFragmentProducts extends Fragment{
                 mLayout.setPanelState(SlidingUpPanelLayout.PanelState.COLLAPSED);
             }
         });
-        //tituloListaWishList();
+        return v;
 
     }
+
 
 
     public void loadSellerProduts(){
@@ -120,7 +129,7 @@ public class TiendaFragmentProducts extends Fragment{
         String rId = tiendaRId.getString("restauranteId");
         String pR = tiendaRId.getString("portadaRestaurante");
 
-        mNetworkImageView = (NetworkImageView) getActivity().findViewById(R.id.bg_seller);
+        mNetworkImageView = (NetworkImageView) view.findViewById(R.id.bg_seller);
         imageLoader = MyVolleySingleton.getInstance().getImageLoader();
         mNetworkImageView.setImageUrl(pR, imageLoader);
         //Toast.makeText(getActivity(), rId, Toast.LENGTH_LONG).show();
@@ -132,7 +141,7 @@ public class TiendaFragmentProducts extends Fragment{
                 @Override
                 public void onResponse(String response) {
                     try {
-
+                        productos.clear();
                         JSONArray object = new JSONArray(response);
                         for (int count = 0; count < object.length(); count++) {
                             JSONObject anEntry = object.getJSONObject(count);
@@ -155,7 +164,6 @@ public class TiendaFragmentProducts extends Fragment{
                     error.printStackTrace();
                 }
             });
-            request.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
             MyVolleySingleton.getInstance().addToRequestQueue(request);
 
@@ -164,7 +172,11 @@ public class TiendaFragmentProducts extends Fragment{
     public void createContentRow(ArrayList<TiendaRestauranteItem> restauranteItems){
 
         tiendaDBHelper = new TiendaDBHelper(getActivity());
+        //ShapeDrawable border = new ShapeDrawable(new RectShape());
+
         for(int count=0; count<restauranteItems.size();count++){
+            /*border.getPaint().setStyle(Paint.Style.STROKE);
+            border.getPaint().setColor(Color.BLACK);*/
             final TiendaRestauranteItem item = restauranteItems.get(count);
             final LayoutInflater inflater = (LayoutInflater) getActivity().getApplicationContext().getSystemService(getActivity().getApplicationContext().LAYOUT_INFLATER_SERVICE );
             final TableRow row_pos = (TableRow)inflater.inflate(R.layout.tienda_listaitems_retaurante_tablerow, null);
@@ -173,6 +185,7 @@ public class TiendaFragmentProducts extends Fragment{
             ((TextView)row_pos.findViewById(R.id.precio)).setText("$"+item.getPrecio().toString()+"MXN");
             imageButton = ((ImageButton)row_pos.findViewById(R.id.addToWishlis));
             imageButton.setId(item.getId());
+            //(row_pos.setBackground(border);
 
             ((TextView)row_pos.findViewById(R.id.item_price)).setText(item.getPrecio().toString());
             imageButton.setOnClickListener(new View.OnClickListener() {
@@ -225,38 +238,22 @@ public class TiendaFragmentProducts extends Fragment{
         }
     }
 
-    /*public void verWishList(){
-
-        //verWishList = (TextView) getActivity().findViewById(R.id.verWishList);
-        verWishList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tiendaDBHelper = new TiendaDBHelper(getActivity());
-                Cursor cursor = tiendaDBHelper.getAllItems();
-                if ( cursor.getCount() < 1){
-                    Toast.makeText(getActivity(), "¡NO TIENES PRODUCTOS EN TU WISHLIST!", Toast.LENGTH_SHORT).show();
-                }else {
-                    Intent lpwl = new Intent(getActivity(), ListaProductosWishList.class);
-                    getActivity().startActivity(lpwl);
-                }
-            }
-        });
-
-    }*/
-
     public void tituloListaWishList(){
         LayoutInflater inflater = (LayoutInflater) getActivity().getApplicationContext().getSystemService(getActivity().getApplicationContext().LAYOUT_INFLATER_SERVICE );
-        //LayoutInflater inflater = LayoutInflater.from(getActivity().getApplicationContext());
-        tabla_informacion_wishlist = (TableLayout) getActivity().findViewById(R.id.tabla_info_wl);
+
+
         TableRow row_title = (TableRow) inflater.inflate(R.layout.tienda_wishlist_header, null);
         tabla_informacion_wishlist.addView(row_title);
+
     }
     public void cargaWishListItems() {
-
         tiendaDBHelper = new TiendaDBHelper(getActivity());
         Cursor cursor = tiendaDBHelper.getAllItems();
+        ShapeDrawable border = new ShapeDrawable(new RectShape());
         if (cursor.getCount() > 0) {
             while (cursor.moveToNext()) {
+                border.getPaint().setStyle(Paint.Style.STROKE);
+                border.getPaint().setColor(Color.BLACK);
                 final int item_id = cursor.getInt(cursor.getColumnIndex("id"));
                 final String item_name = cursor.getString(cursor.getColumnIndex("name"));
                 int item_qty = cursor.getInt(cursor.getColumnIndex("qty"));
@@ -268,7 +265,8 @@ public class TiendaFragmentProducts extends Fragment{
                 final TableRow row_pos = (TableRow) inflater.inflate(R.layout.tienda_wishlist_item_row, null);
                 ((TextView) row_pos.findViewById(R.id.nombre)).setText(item_name);
                 ((TextView) row_pos.findViewById(R.id.cantidad)).setText(final_qty);
-                ((TextView) row_pos.findViewById(R.id.precio)).setText(final_price);
+                ((TextView) row_pos.findViewById(R.id.precio)).setText("$"+final_price);
+                row_pos.setBackground(border);
                 tabla_informacion_wishlist.addView(row_pos);
 
                 ImageButton eliminar = (ImageButton) row_pos.findViewById(R.id.eliminar);
@@ -292,7 +290,7 @@ public class TiendaFragmentProducts extends Fragment{
                                 tabla_informacion_wishlist.removeView(row_pos);
                                 Double item_total = tiendaDBHelper.getTotal();
                                 TextView total_final = (TextView) getActivity().findViewById(R.id.sum_total);
-                                total_final.setText(String.valueOf(item_total));
+                                total_final.setText("$"+String.valueOf(item_total)+" MXN");
                                 alertDialog.dismiss();
                                 Toast.makeText(getActivity(), getResources().getString(R.string.prod_eliminado), Toast.LENGTH_SHORT).show();
                             }
@@ -310,11 +308,12 @@ public class TiendaFragmentProducts extends Fragment{
 
                     }
                 });
-                total_texto = (TextView) getActivity().findViewById(R.id.total);
+                total_texto = (TextView) view.findViewById(R.id.total);
                 total_texto.setText(getResources().getString(R.string.wishlist_total));
                 Double item_total = tiendaDBHelper.getTotal();
-                total_final = (TextView) getActivity().findViewById(R.id.sum_total);
-                total_final.setText(String.valueOf(item_total));
+                total_final = (TextView) view.findViewById(R.id.sum_total);
+                total_final.setText("$"+String.valueOf(item_total)+" MXN");
+
             }
         }
     }

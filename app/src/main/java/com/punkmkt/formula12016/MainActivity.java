@@ -258,6 +258,7 @@ public class MainActivity extends AppCompatActivity
             Log.d("main","store");
             Boolean isFirstRunShop = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
                     .getBoolean("isFirstRunShop", true);
+
             //isFirstRunShop = true;
             if (isFirstRunShop) {
                 Intent tiendaIntent = new Intent(getApplicationContext(), TutorialTiendaActivity.class);
