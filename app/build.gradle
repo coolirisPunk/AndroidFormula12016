@@ -10,6 +10,9 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        buildConfigField "String", "CLIENT_ID", "\"${loadSecret("UBER_CLIENT_ID")}\"" //Add your client id to gradle.properties
+        buildConfigField "String", "REDIRECT_URI", "\"${loadSecret("UBER_REDIRECT_URI")}\"" //Add your redirect uri to gradle.properties
+        buildConfigField "String", "SERVER_TOKEN", "\"${loadSecret("UBER_SERVER_TOKEN")}\"" //Add your server token to gradle.properties
     }
     buildTypes {
         release {
@@ -17,6 +20,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 repositories {
@@ -35,11 +39,18 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:9.2.1'
     compile 'com.google.android.gms:play-services-location:9.2.1'
     compile 'com.google.android.gms:play-services-analytics:9.2.1'
+    compile 'com.sothree.slidinguppanel:library:3.3.0'
+    compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.1'
 
     compile project(":volley")
 
-    compile 'com.uber.sdk:rides-android:0.5.2'
+    compile 'com.uber.sdk:rides-android:0.5.3'
 
 }
 
 apply plugin: 'com.google.gms.google-services'
+
+
+def loadSecret(String name) {
+    return hasProperty(name) ? getProperty(name) : "MISSING"
+}

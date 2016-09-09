@@ -107,12 +107,12 @@ public class PilotosAdapter extends RecyclerView.Adapter<PilotosAdapter.PremiosV
     public void onBindViewHolder(PremiosViewHolder premioViewHolder, int i) {
         premioViewHolder.thumbnail.setImageUrl(items.get(i).getPicture(), imageLoader);
         premioViewHolder.name.setText(items.get(i).getName());
-        if (((i+1) % 2) == 0) {
-            Log.d("test",String.valueOf(i+1)+"par");
-            RelativeLayout.LayoutParams layoutParams =(RelativeLayout.LayoutParams)premioViewHolder.name.getLayoutParams();
-            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_END);
-            premioViewHolder.name.setLayoutParams(layoutParams);
-        }
+//        if (((i+1) % 2) == 0) {
+//            Log.d("test",String.valueOf(i+1)+"par");
+//            RelativeLayout.LayoutParams layoutParams =(RelativeLayout.LayoutParams)premioViewHolder.name.getLayoutParams();
+//            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_END);
+//            premioViewHolder.name.setLayoutParams(layoutParams);
+//        }
     }
 
     @Override

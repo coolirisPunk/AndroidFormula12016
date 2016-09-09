@@ -19,21 +19,28 @@
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
             tools:context="com.punkmkt.formula12016.MainActivity">
-
             <android.support.design.widget.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/AppTheme.AppBarOverlay">
-
+                >
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    android:background="?attr/colorPrimary"
-                    app:popupTheme="@style/AppTheme.PopupOverlay" />
+                    android:background="@color/white"
+                    app:theme="@style/MyMaterialTheme.AppBarOverlay"
+                    >
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/logo_header"
+                        android:gravity="center_horizontal"
+
+                        />
+
+            </android.support.v7.widget.Toolbar>
 
             </android.support.design.widget.AppBarLayout>
-
 
         </android.support.design.widget.CoordinatorLayout>
         <FrameLayout

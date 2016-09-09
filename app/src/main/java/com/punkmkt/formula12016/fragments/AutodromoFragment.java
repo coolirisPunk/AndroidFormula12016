@@ -1,33 +1,24 @@
 package com.punkmkt.formula12016.fragments;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.punkmkt.formula12016.NonSwipeableViewPager;
 import com.punkmkt.formula12016.R;
-import com.uber.sdk.android.core.UberSdk;
-import com.uber.sdk.core.auth.Scope;
-import com.uber.sdk.rides.client.SessionConfiguration;
+import com.punkmkt.formula12016.adapters.ViewPagerAdapter;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -36,7 +27,6 @@ import java.util.List;
 public class AutodromoFragment extends Fragment {
     private TabLayout tabLayout;
     private NonSwipeableViewPager viewPager;
-    public static FragmentManager fragmentManager;
     int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 4;
     String TAG = AutodromoFragment.class.getName();
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,15 +42,12 @@ public class AutodromoFragment extends Fragment {
                 requestPermissions(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION,android.Manifest.permission.ACCESS_COARSE_LOCATION}, MY_PERMISSIONS_REQUEST_FINE_LOCATION);
             }
         }
-
         viewPager = (NonSwipeableViewPager) v.findViewById(R.id.viewpager);
         setupViewPager(viewPager);
         tabLayout = (TabLayout) v.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
-        fragmentManager = getChildFragmentManager();
         return v;
-
     }
 
     @Override
@@ -139,6 +126,7 @@ public class AutodromoFragment extends Fragment {
     }
 
     private void setupViewPager(ViewPager viewPager) {
+
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
         adapter.addFragment(new ComoLlegarFragment(), getResources().getString(R.string.como_llegar));
         adapter.addFragment(new UbicaTuAsientoFragment(), getResources().getString(R.string.ubica_tu_asiento));
@@ -147,44 +135,13 @@ public class AutodromoFragment extends Fragment {
         viewPager.setAdapter(adapter);
     }
 
-    class ViewPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
 
-        public ViewPagerAdapter(FragmentManager manager) {
-            super(manager);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return mFragmentList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragmentList.size();
-        }
-
-        public void addFragment(Fragment fragment, String title) {
-            mFragmentList.add(fragment);
-            mFragmentTitleList.add(title);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return null;
-        }
-
-
-    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d(TAG, String.valueOf(requestCode));
         if (requestCode == MY_PERMISSIONS_REQUEST_FINE_LOCATION && resultCode == getActivity().RESULT_OK) {
             Log.d(TAG,"location ok");
         }
-
     }
-
 
 }

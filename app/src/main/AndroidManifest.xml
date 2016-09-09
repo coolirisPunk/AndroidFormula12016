@@ -9,6 +9,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -37,6 +39,11 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <permission
+        android:name="com.punkmkt.formula12016.permission.CALL_PHONE"
+        android:protectionLevel="signature" />
+
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
@@ -58,7 +65,7 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".IntroActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -84,20 +91,25 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".IntroActivity" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".WelcomeActivity" />
+        <activity android:name=".RegistroActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".UbicaTuAsientoActivity" />
         <activity android:name=".ConfActivity" />
-        <activity android:name=".SinglePilotoActivity" />
-        <activity android:name=".RegistroActivity"></activity>
-        <activity android:name=".StickersActivity"></activity>
-
+        <activity android:name=".UbicaTuAsientoActivity" />
+        <activity android:name=".StickersActivity" />
+        <activity android:name=".TutorialTiendaActivity" />
+        <activity android:name=".ForgotActivity" />
+        <activity android:name=".ThanksActivity"></activity>
         <provider
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider1742411486009179"
             android:exported="true" />
 
+
+
+        <service android:name="com.umbel.CloudService"></service>
+        <receiver android:name="com.umbel.AlarmReceiver"></receiver>
     </application>
 
 </manifest>

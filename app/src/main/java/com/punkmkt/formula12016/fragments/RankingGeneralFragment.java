@@ -12,6 +12,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.android.volley.Cache;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -22,11 +23,13 @@ import com.punkmkt.formula12016.MyVolleySingleton;
 import com.punkmkt.formula12016.R;
 import com.punkmkt.formula12016.models.Posicion;
 import com.punkmkt.formula12016.utils.AuthRequest;
+import com.punkmkt.formula12016.utils.NetworkUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 /**
@@ -43,12 +46,43 @@ public class RankingGeneralFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_ranking_general, container, false);
         tabla_resultados = (TableLayout) v.findViewById(R.id.tabla_resultados);
+        if (NetworkUtils.haveNetworkConnection(getActivity().getApplicationContext())) {
+            StringRequest request = new AuthRequest(getActivity().getApplicationContext(), Request.Method.GET, AHR_RANKING_GENERAL, "utf-8", new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        JSONArray object = new JSONArray(response);
+                        for (int count = 0; count < object.length(); count++) {
+                            JSONObject anEntry = object.getJSONObject(count);
+                            Posicion posicion = new Posicion();
+                            posicion.setPiloto_sobrenombre(anEntry.optString("driver"));
+                            posicion.setEscuderia(anEntry.optString("team"));
+                            posicion.setPuntos(anEntry.optString("points"));
+                            posicion.setEscuderia_img(anEntry.optString("picture_team"));
+                            posiciones_ranking_general.add(posicion);
+                        }
+                        iniciarranking();
 
-        StringRequest request = new AuthRequest(getActivity().getApplicationContext(), Request.Method.GET, AHR_RANKING_GENERAL, "utf-8", new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("volley", "Error during request");
+                    error.printStackTrace();
+                }
+            });
+            MyVolleySingleton.getInstance().addToRequestQueue(request);
+        }
+        else {
+            Cache mCache = MyVolleySingleton.getInstance().getRequestQueue().getCache();
+            Cache.Entry mEntry = mCache.get(AHR_RANKING_GENERAL);
+            if (mEntry != null) {
                 try {
-                    JSONArray object = new JSONArray(response);
+                    String cacheData = new String(mEntry.data, "UTF-8");
+                    JSONArray object = new JSONArray(cacheData);
                     for (int count = 0; count < object.length(); count++) {
                         JSONObject anEntry = object.getJSONObject(count);
                         Posicion posicion = new Posicion();
@@ -60,19 +94,11 @@ public class RankingGeneralFragment extends Fragment{
                     }
                     iniciarranking();
 
-                } catch (JSONException e) {
+                } catch (UnsupportedEncodingException | JSONException e) {
                     e.printStackTrace();
                 }
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("volley", "Error during request");
-                error.printStackTrace();
-            }
-        });
-        MyVolleySingleton.getInstance().addToRequestQueue(request);
-
+        }
         return v;
     }
     public void iniciarranking() {

@@ -6,8 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.punkmkt.formula12016.R;
+import com.punkmkt.formula12016.utils.NetworkUtils;
 
 /**
  * Created by germanpunk on 17/08/16.
@@ -20,7 +22,25 @@ public class SocialHubFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.activity_social_hub, container, false);
         mWebView = (WebView) v.findViewById(R.id.webview);
-        mWebView.loadUrl(AHZ_URL_SOCIAL_HUB);
+        mWebView.setWebViewClient(new WebViewClient() {
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                //hide loading image
+                v.findViewById(R.id.imageLoading).setVisibility(View.GONE);
+                //show webview
+                v.findViewById(R.id.webview).setVisibility(View.VISIBLE);
+            }
+
+
+        });
+        if (NetworkUtils.haveNetworkConnection(getActivity().getApplicationContext())){
+            mWebView.loadUrl(AHZ_URL_SOCIAL_HUB);
+        }
+        else{
+
+        }
+
         return v;
     }
 

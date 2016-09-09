@@ -36,9 +36,6 @@ public class AuthRequest extends StringRequest {
 
     Map<String, String> createBasicAuthHeader(String token) {
         Map<String, String> headerMap = new HashMap<String, String>();
-
-        //String credentials = username + ":" + password;
-        //String encodedCredentials = Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
         headerMap.put("Content-Type", "application/json; charset=utf-8");
         headerMap.put("Authorization", "Token " + token);
 
@@ -58,7 +55,7 @@ public class AuthRequest extends StringRequest {
         } catch (UnsupportedEncodingException e) {
             parsed = new String(response.data);
         }
-        return Response.success(parsed, parseIgnoreCacheHeaders(response));
+        return Response.success(parsed, HttpHeaderParser.parseCacheHeaders(response));
     }
 
     /**
@@ -76,47 +73,9 @@ public class AuthRequest extends StringRequest {
         this.charset = charset;
     }
 
-    public static Cache.Entry parseIgnoreCacheHeaders(NetworkResponse response) {
-        long now = System.currentTimeMillis();
 
-        Map<String, String> headers = response.headers;
-        long serverDate = 0;
-        String serverEtag = null;
-        String headerValue;
 
-        headerValue = headers.get("Date");
-        if (headerValue != null) {
-            serverDate = HttpHeaderParser.parseDateAsEpoch(headerValue);
-        }
 
-        serverEtag = headers.get("ETag");
-
-        final long cacheHitButRefreshed = 3 * 60 * 1000; // in 3 minutes cache will be hit, but also refreshed on background
-        final long cacheExpired = 24 * 60 * 60 * 1000; // in 24 hours this cache entry expires completely
-        final long softExpire = now + cacheHitButRefreshed;
-        final long ttl = now + cacheExpired;
-
-        Cache.Entry entry = new Cache.Entry();
-        entry.data = response.data;
-        entry.etag = serverEtag;
-        entry.softTtl = softExpire;
-        entry.ttl = ttl;
-        entry.serverDate = serverDate;
-        entry.responseHeaders = headers;
-
-        return entry;
-    }
-
-    @Override
-    protected VolleyError parseNetworkError(VolleyError volleyError) {
-        Log.d("DEBUG", "parseNetworkError");
-        return super.parseNetworkError(volleyError);
-    }
-
-    @Override
-    public void deliverError(final VolleyError error) {
-        Log.d("DEBUG", "deliverError");
-    }
 
 }
 

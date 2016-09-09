@@ -23,7 +23,6 @@ import com.punkmkt.formula12016.BaseAlbumDirFactory;
 import com.punkmkt.formula12016.FroyoAlbumDirFactory;
 import com.punkmkt.formula12016.StickersActivity;
 import com.punkmkt.formula12016.R;
-import com.punkmkt.formula12016.TakeSelectPhotoActivity;
 
 import java.io.File;
 import java.io.IOException;
@@ -42,7 +41,7 @@ public class Pasion_f1 extends Fragment {
 
     private static final String JPEG_FILE_PREFIX = "IMG_";
     private static final String JPEG_FILE_SUFFIX = ".jpg";
-    String TAG = TakeSelectPhotoActivity.class.getName();
+    String TAG = Pasion_f1.class.getName();
     private AlbumStorageDirFactory mAlbumStorageDirFactory = null;
 
     private static String[] PERMISSIONS_STORAGE = {

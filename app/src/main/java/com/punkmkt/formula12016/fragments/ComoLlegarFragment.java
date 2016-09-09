@@ -1,21 +1,11 @@
 package com.punkmkt.formula12016.fragments;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.location.Location;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.InflateException;
@@ -28,30 +18,14 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.GroundOverlayOptions;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.VisibleRegion;
-import com.punkmkt.formula12016.AutodromoActivity;
 import com.punkmkt.formula12016.R;
+import com.punkmkt.formula12016.utils.NetworkUtils;
 
 /**
  * Created by DaniPunk on 19/07/16.
@@ -102,6 +76,7 @@ public class ComoLlegarFragment extends Fragment implements GoogleApiClient.Conn
         /* map is already there, just return view as it is */
         }
 
+
         mWebView = (WebView) view.findViewById(R.id.mapwebview);
         WebSettings webSettings = mWebView.getSettings();
         mWebView.setWebChromeClient(new WebChromeClient(){
@@ -111,7 +86,18 @@ public class ComoLlegarFragment extends Fragment implements GoogleApiClient.Conn
             }
         });
         webSettings.setJavaScriptEnabled(true);
-        mWebView.setWebViewClient(new WebViewClient());
+        //mWebView.setWebViewClient(new WebViewClient());
+        mWebView.setWebViewClient(new WebViewClient() {
+
+            @Override
+            public void onPageFinished(WebView webview, String url) {
+                //hide loading image
+                view.findViewById(R.id.imageLoading).setVisibility(View.GONE);
+                //show webview
+                view.findViewById(R.id.mapwebview).setVisibility(View.VISIBLE);
+            }
+
+        });
         buildGoogleApiClient();
         mGoogleApiClient.connect();
         return view;
@@ -156,7 +142,12 @@ public class ComoLlegarFragment extends Fragment implements GoogleApiClient.Conn
         } else {
             url = "http://maps.google.com/maps?saddr="+currentLattitude+","+currentLongitude+"&daddr="+targetLat+","+targetLang;
         }
-        mWebView.loadUrl(url);
+        if (NetworkUtils.haveNetworkConnection(getActivity().getApplicationContext())) {
+            mWebView.loadUrl(url);
+        }
+        else{
+
+        }
     }
     @Override
     public void onConnectionFailed(ConnectionResult result) {

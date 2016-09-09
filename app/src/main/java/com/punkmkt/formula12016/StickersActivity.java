@@ -1,17 +1,25 @@
 package com.punkmkt.formula12016;
 
 import android.annotation.TargetApi;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.util.LruCache;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,14 +29,18 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.punkmkt.formula12016.models.ImgSticker;
+import com.punkmkt.formula12016.utils.BitmapManager;
+import com.punkmkt.formula12016.utils.RecyclingBitmapDrawable;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -39,11 +51,12 @@ public class StickersActivity extends AppCompatActivity {
     String TAG = StickersActivity.class.getName();
     PhotoSortrView photoSorter;
     private ArrayList<ImgSticker> mImages = new ArrayList<>();
-    private static final int[] STICKERS = { R.drawable.m74hubble, R.drawable.catarina, R.drawable.tahiti, R.drawable.sunset, R.drawable.lake };
+    private static final int[] STICKERS = { R.drawable.euphoric_sticker_low,R.drawable.speed_lovers_sticker_low,R.drawable.true_stickers_low,R.drawable.vip_party_sticker_low};
     private LinearLayout stickersLayout;
     private RelativeLayout canvas_container;
     private int currentIndex;
-    Button cancel_button,continue_button, save_button, share_button;
+    Button cancel_button,continue_button;
+    ImageButton save_button, share_button;
     boolean isTouchable = true;
     private AlbumStorageDirFactory mAlbumStorageDirFactory = null;
     private static String[] PERMISSIONS_STORAGE = {
@@ -52,20 +65,39 @@ public class StickersActivity extends AppCompatActivity {
     };
     private static final int REQUEST_EXTERNAL_STORAGE = 2;
     ImageView photo;
+    ProgressDialog progressDialog;
+    private CoordinatorLayout coordinatorLayout;
+    static public LruCache<String, Bitmap> mMemoryCache;
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pasion);
+
+        final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
+
+        // Use 1/8th of the available memory for this memory cache.
+        final int cacheSize = maxMemory / 8;
+
+        mMemoryCache = new LruCache<String, Bitmap>(cacheSize) {
+            @Override
+            protected int sizeOf(String key, Bitmap bitmap) {
+                // The cache size will be measured in kilobytes rather than
+                // number of items.
+                return bitmap.getByteCount() / 1024;
+            }
+        };
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
             mAlbumStorageDirFactory = new FroyoAlbumDirFactory();
         } else {
             mAlbumStorageDirFactory = new BaseAlbumDirFactory();
         }
-
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id
+                .coordinatorLayout);
         cancel_button = (Button) findViewById(R.id.cancel_button);
         continue_button = (Button) findViewById(R.id.continue_button);
-        save_button = (Button) findViewById(R.id.save_button);
-        share_button = (Button) findViewById(R.id.share_button);
+        save_button = (ImageButton) findViewById(R.id.save_button);
+        share_button = (ImageButton) findViewById(R.id.share_button);
         cancel_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,7 +149,7 @@ public class StickersActivity extends AppCompatActivity {
         });
 
         canvas_container = (RelativeLayout) findViewById(R.id.canvas_container);
-
+        Log.d(TAG,"entro nuevamente");
         stickers_init();
         photoSorter = new PhotoSortrView(this,mImages, mCurrentPhotoPath);
 
@@ -134,7 +166,6 @@ public class StickersActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     currentIndex = indexJ;
                     Log.d(TAG,String.valueOf(currentIndex));
-
                     photoSorter.addImagetoCanvas(getApplicationContext(),currentIndex);
                 }
             });
@@ -178,8 +209,12 @@ public class StickersActivity extends AppCompatActivity {
         lp.setMargins(20,0, 20, 0);
         ImageView imageView = new ImageView(getApplicationContext());
         imageView.setLayoutParams(lp);
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageView.setImageResource(resource_id);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        loadBitmap(resource_id, imageView);
+        //imageView.setImageResource(resource_id);
+        //Bitmap icon = BitmapFactory.decodeResource(getResources(), resource_id);
+
+       // imageView.setImageBitmap(getBitmapResized(photo.getWidth(),photo.getHeight()
         return imageView;
     }
 
@@ -205,8 +240,6 @@ public class StickersActivity extends AppCompatActivity {
         return BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
     }
     public void overlay(Bitmap bmp1, Bitmap bmp2, boolean share) {
-
-
         if (share){
 
             Intent i = new Intent();
@@ -221,7 +254,11 @@ public class StickersActivity extends AppCompatActivity {
     public boolean onTouchEvent(MotionEvent event) {
         return isTouchable;
     }
-    void saveImage(boolean share){
+    void saveImage(final boolean share){
+        //initialize the progress dialog and show it
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Cargando...");
+        progressDialog.show();
         canvas_container.setDrawingCacheEnabled(true);
         Bitmap b = canvas_container.getDrawingCache();
         File myDir = getAlbumDir();
@@ -238,6 +275,11 @@ public class StickersActivity extends AppCompatActivity {
             out.close();
         } catch (Exception e) {
             e.printStackTrace();
+            progressDialog.dismiss();
+            Snackbar snackbar = Snackbar
+                    .make(coordinatorLayout, "Error al intentar guardar la imagen.", Snackbar.LENGTH_SHORT);
+            snackbar.setActionTextColor(Color.RED);
+            snackbar.show();
         }
         // Tell the media scanner about the new file so that it is
         // immediately available to the user.
@@ -246,6 +288,16 @@ public class StickersActivity extends AppCompatActivity {
                     public void onScanCompleted(String path, Uri uri) {
                         Log.i("ExternalStorage", "Scanned " + path + ":");
                         Log.i("ExternalStorage", "-> uri=" + uri);
+                        progressDialog.dismiss();
+                        if (!share){
+                        Snackbar snackbar = Snackbar
+                                .make(coordinatorLayout, "Imagen guardada.", Snackbar.LENGTH_SHORT);
+                        snackbar.setActionTextColor(Color.WHITE);
+                        snackbar.show();
+                            //Intent goHome = new Intent(StickersActivity.this, MainActivity.class);
+                            //goHome.putExtra("fragment","select-photo");
+                            //startActivity(goHome);
+                        }
                     }
                 });
         if (share){
@@ -315,4 +367,143 @@ public class StickersActivity extends AppCompatActivity {
         //    finish();
 
     }
+
+    public void loadBitmap(int resId, ImageView imageView) {
+        if (cancelPotentialWork(resId, imageView)) {
+            Bitmap bitmap;
+            bitmap =  BitmapManager.decodeSampledBitmapFromResource(getApplicationContext().getResources(), R.drawable.loading, 100, 100);
+            final BitmapWorkerTask task = new BitmapWorkerTask(imageView);
+            final AsyncDrawable asyncDrawable = new AsyncDrawable(getApplicationContext().getResources(),bitmap, task);
+            imageView.setImageDrawable(asyncDrawable);
+            task.execute(resId);
+            new RecyclingBitmapDrawable(getResources(),bitmap);
+        }
+    }
+
+    public void addBitmapToMemoryCache(String key, Bitmap bitmap) {
+        if (getBitmapFromMemCache(key) == null) {
+            mMemoryCache.put(key, bitmap);
+        }
+    }
+
+    public Bitmap getBitmapFromMemCache(String key) {
+        return mMemoryCache.get(key);
+    }
+    static class AsyncDrawable extends BitmapDrawable {
+        private final WeakReference<BitmapWorkerTask> bitmapWorkerTaskReference;
+
+        public AsyncDrawable(Resources res, Bitmap bitmap,
+                             BitmapWorkerTask bitmapWorkerTask) {
+            super(res, bitmap);
+            bitmapWorkerTaskReference =
+                    new WeakReference<BitmapWorkerTask>(bitmapWorkerTask);
+        }
+
+        public BitmapWorkerTask getBitmapWorkerTask() {
+            return bitmapWorkerTaskReference.get();
+        }
+    }
+
+    public static boolean cancelPotentialWork(int data, ImageView imageView) {
+        final BitmapWorkerTask bitmapWorkerTask = getBitmapWorkerTask(imageView);
+
+        if (bitmapWorkerTask != null) {
+            final int bitmapData = bitmapWorkerTask.data;
+            if (bitmapData != data) {
+                // Cancel previous task
+                bitmapWorkerTask.cancel(true);
+            } else {
+                // The same work is already in progress
+                return false;
+            }
+        }
+        // No task associated with the ImageView, or an existing task was cancelled
+        return true;
+    }
+
+    private static BitmapWorkerTask getBitmapWorkerTask(ImageView imageView) {
+        if (imageView != null) {
+            final Drawable drawable = imageView.getDrawable();
+            if (drawable instanceof AsyncDrawable) {
+                final AsyncDrawable asyncDrawable = (AsyncDrawable) drawable;
+                return asyncDrawable.getBitmapWorkerTask();
+            }
+        }
+        return null;
+    }
+
+    class BitmapWorkerTask extends AsyncTask<Integer, Void, Bitmap> {
+        private final WeakReference<ImageView> imageViewReference;
+        private int data = 0;
+
+        public BitmapWorkerTask(ImageView imageView) {
+            // Use a WeakReference to ensure the ImageView can be garbage collected
+            imageViewReference = new WeakReference<>(imageView);
+        }
+
+        // Decode image in background.
+        @Override
+        protected Bitmap doInBackground(Integer... params) {
+            final Bitmap bitmap = decodeSampledBitmapFromResource(getApplicationContext().getResources(), params[0], 150, 100);
+            addBitmapToMemoryCache(String.valueOf(params[0]), bitmap);
+            return bitmap;
+        }
+
+        // Once complete, see if ImageView is still around and set bitmap.
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            if (isCancelled()) {
+                bitmap = null;
+            }
+
+            if (imageViewReference != null && bitmap != null) {
+                final ImageView imageView = imageViewReference.get();
+                final BitmapWorkerTask bitmapWorkerTask =
+                        getBitmapWorkerTask(imageView);
+                if (this == bitmapWorkerTask && imageView != null) {
+                    imageView.setImageBitmap(bitmap);
+                }
+            }
+        }
+    }
+
+    public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
+                                                         int reqWidth, int reqHeight) {
+
+        // First decode with inJustDecodeBounds=true to check dimensions
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeResource(res, resId, options);
+
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeResource(res, resId, options);
+    }
+    public static int calculateInSampleSize(
+            BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+
+            final int halfHeight = height / 2;
+            final int halfWidth = width / 2;
+
+            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+            // height and width larger than the requested height and width.
+            while ((halfHeight / inSampleSize) > reqHeight
+                    && (halfWidth / inSampleSize) > reqWidth) {
+                inSampleSize *= 2;
+            }
+        }
+
+        return inSampleSize;
+    }
+
+
 }

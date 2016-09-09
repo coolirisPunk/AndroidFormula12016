@@ -29,6 +29,7 @@
 
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
+    <item name="grey_background" type="color">#eeeeee</item>
 
     <color name="red">#FF0000</color>
     <color name="text_grey">#414141</color>
@@ -40,6 +41,10 @@
     <color name="transparency_resultados">#1A000000</color>
     <color name="grey_color_low">#e1e3e3</color>
     <color name="grey_color_strong">#414141</color>
+    <color name="grey_color_semi_strong">#656565</color>
     <color name="red_strong">#9e0004</color>
+    <color name="bg_tienda_tuto">#222222</color>
+    <color name="titulo_take_picture">#454646</color>
+
 
 </resources>

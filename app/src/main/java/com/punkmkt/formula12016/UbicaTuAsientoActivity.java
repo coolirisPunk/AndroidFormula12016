@@ -1,7 +1,10 @@
 package com.punkmkt.formula12016;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +18,7 @@ import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -35,21 +39,25 @@ import java.util.Map;
 public class UbicaTuAsientoActivity extends AppCompatActivity {
     String TAG = UbicaTuAsientoActivity.class.getName();
     private Spinner zonas,gradas,seccion,filas, asientos;
-    private String AHR_USERPROFILE_JSON_API_URL = "http://104.236.3.158:82/api/auth/rest-auth/user/";
-    private String AHR_CREATEPROFILE_JSON_API_URL = "http://104.236.3.158:82/api/auth/rest-auth/user-profile/users/";
+    private CoordinatorLayout coordinatorLayout;
+    ProgressDialog progressDialog;
+    private String AHR_CREATEPROFILE_JSON_API_URL = "http://104.236.3.158:82/api/auth/rest-auth/user-profile/user/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ubica_tu_asiento);
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id
+                .coordinatorLayout);
         Button saltar = (Button) findViewById(R.id.saltar);
         Button guardar_cambios = (Button) findViewById(R.id.guardar_cambios);
         final String Ukey = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getString("access_token",null);
         if (Ukey!=null){
-            Toast.makeText(getApplicationContext(), Ukey, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), Ukey, Toast.LENGTH_SHORT).show();
+            Log.d(TAG,Ukey);
         }
         else{
             Toast.makeText(getApplicationContext(), "Sin token", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            Intent intent = new Intent(getApplicationContext(), RegistroActivity.class);
             startActivity(intent);
         }
         zonas = (Spinner) findViewById(R.id.zonas_spinner);
@@ -163,6 +171,10 @@ public class UbicaTuAsientoActivity extends AppCompatActivity {
         guardar_cambios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                progressDialog = new ProgressDialog(UbicaTuAsientoActivity.this);
+                progressDialog.setMessage("Guardando...");
+                progressDialog.show();
                 JSONObject js = new JSONObject();
 
                 try {
@@ -171,10 +183,12 @@ public class UbicaTuAsientoActivity extends AppCompatActivity {
                     js.put("section", seccion.getSelectedItem().toString());
                     js.put("fila", filas.getSelectedItem().toString());
                     js.put("seat", asientos.getSelectedItem().toString());
-                    js.put("speed_lover", "speed_lover_1");
+                    js.put("speed_lover", "true_racers");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
+                Log.d(TAG,Ukey);
                 Log.d(TAG,js.toString());
                 JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,AHR_CREATEPROFILE_JSON_API_URL,js,
                         new Response.Listener<JSONObject>() {
@@ -184,34 +198,66 @@ public class UbicaTuAsientoActivity extends AppCompatActivity {
                                     JSONObject object = response;
                                     Toast.makeText(getApplicationContext(), object.toString(), Toast.LENGTH_SHORT).show();
                                     Log.d("response", object.toString());
-                                    if (object.has("speed_lover") ){
                                         getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putString("userid", object.optString("userid")).commit();
                                         getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putString("zone", object.optString("zone")).commit();
                                         getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putString("grada", object.optString("grada")).commit();
                                         getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putString("section", object.optString("section")).commit();
                                         getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putString("fila", object.optString("fila")).commit();
                                         getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putString("seat", object.optString("seat")).commit();
-                                        getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putString("seat", object.optString("seat")).commit();
                                         getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putString("speed_lover", object.optString("speed_lover")).commit();
-                                        getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putString("username", object.optString("speed_lover")).commit();
+                                        getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putString("username", object.optString("username")).commit();
                                         getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putString("email", object.optString("email")).commit();
-
+                                        getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putString("profile_id", object.optString("id")).commit();
+                                        progressDialog.dismiss();
+                                        Snackbar snackbar = Snackbar
+                                                .make(coordinatorLayout,"Perfil guardado.", Snackbar.LENGTH_SHORT);
+                                        snackbar.setActionTextColor(Color.WHITE);
+                                        snackbar.show();
                                         Intent myIntent = new Intent(getApplicationContext(), WelcomeActivity.class);
-                                        startActivity(myIntent);
-                                    }
-                                    else {
-                                        Log.d("response","No object created");
-                                    }
+                                       startActivity(myIntent);
+
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                     //alert con error
+                                    progressDialog.dismiss();
+                                    Snackbar snackbar = Snackbar
+                                            .make(coordinatorLayout,e.getMessage(), Snackbar.LENGTH_SHORT);
+                                    snackbar.setActionTextColor(Color.RED);
+                                    snackbar.show();
                                 }
                             }
                         }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        progressDialog.dismiss();
                         VolleyLog.d("V", "Error: " + error.getMessage());
+                        String json = null;
+                        NetworkResponse response = error.networkResponse;
+
+                        if(response != null && response.data != null){
+                            switch(response.statusCode){
+                                case 400:
+                                    json = new String(response.data);
+                                    try{
+                                        JSONObject obj = new JSONObject(json);
+                                        Log.d(TAG,obj.toString());
+                                        if(obj.has("detail")){
+                                            if(obj.optString("detail")!=null){
+                                                Toast.makeText(getApplicationContext(),obj.optString("detail"),Toast.LENGTH_SHORT).show();
+
+                                            }
+                                        }
+                                    } catch(JSONException e){
+                                        e.printStackTrace();
+                                    }
+                                    break;
+                                default:
+
+                                    break;
+                            }
+                            //Additional cases
+                        }
                         //alert con error
                     }
                 }) {

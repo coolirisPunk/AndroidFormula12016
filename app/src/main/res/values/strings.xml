@@ -1,11 +1,12 @@
 <resources>
     <string name="app_name">Formula12016</string>
-    <string name="facebook_app_id">1742411486009179</string>
-    <string name="fb_login_protocol_scheme">fb1742411486009179</string>
+    <string name="facebook_app_id">801692569977560</string>
+    <string name="fb_login_protocol_scheme">fb801692569977560</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Configuración</string>
+    <string name="action_login">Iniciar sesión</string>
     <string name="user_api_token">5d324baacc85c965edce77af072bf8d81c4944dc</string>
     <string name="google_maps_api">AIzaSyARGwm1wqxhQ6H7uqtW_J-zTYOrHWV5mxE</string>
     <!-- Tutorial -->
@@ -27,12 +28,12 @@
     <string name="notificaciones">NOTIFICACIONES</string>
     <string name="notificacion1">HORARIOS</string>
     <string name="notificacion2">NOTICIAS</string>
-    <string name="notificacion3">NOTIFICACION 3</string>
+    <string name="notificacion3">RESULTADOS</string>
     <string name="con_esta_funcion_2">CON ESTA FUNCIÓN RECIBIRÁS INFORMACIÓN EN TIEMPO REAL DE LOS EVENTOS Y SUS RESULTADOS.</string>
     <string name="title_activity_login2">Sign in</string>
 
     <!-- Strings related to login -->
-    <string name="prompt_email">Correo</string>
+    <string name="prompt_email">Correo electrónico</string>
     <string name="prompt_usuario">Nombre de Usuario</string>
     <string name="prompt_nombre">Nombre</string>
     <string name="prompt_username">Username</string>
@@ -46,6 +47,7 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_password_match">La contraseña es incorrecta.</string>
+    <string name="error_field_length">La contraseña deberá contener 6 caracteres mínimos.</string>
     <string name="error_field_required">Campo requerido</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
@@ -113,8 +115,8 @@
     <string name="piloto_grandpix">GRANDS PRIX</string>
     <string name="piloto_campeonatos">CAMPEONATOS</string>
     <string name="piloto_podium">PODIUMS</string>
-    <string name="notificacion">Notificación</string>
-    <string name="inicia">Inicia</string>
+    <string name="notificacion">NOTIFICACIÓN</string>
+    <string name="inicia">INICIA</string>
     <string name="album_name">ahr</string>
     <string name="comparte_guarda_foto">COMPARTE O GUARDA TU FOTO</string>
     <string name="seleccciona__creafoto">SELECCIONA UNA FOTOGRAFÍA O CREA UNA NUEVA.</string>
@@ -131,6 +133,52 @@
 
     <string name="configuracion">CONFIGURACIÓN</string>
     <string name="configuracion_asiento">ASIENTO</string>
+    <string name="instrucciones_asiento_conf">Iniciar sesión ó Registrarse para acceder a esta configuración. </string>
+
+    <string name="hoteles">HOTELES</string>
+    <string name="restaurantes">RESTAURANTES</string>
+    <string name="a_donde_ir">A DÓNDE IR</string>
+
+    <string name="ver_wishlist">VER WISHLIST</string>
+    <string name="item_name">ARTÍCULO</string>
+    <string name="item_qty">CANTIDAD</string>
+    <string name="item_price">PRECIO</string>
+    <string name="item_elim">    </string>
+    <string name="wishlist_total">TOTAL</string>
+    <string name="eliminar">X</string>
+    <string name="moneda">$</string>
+    <string name="prod_eliminado">¡PRODUCTO ELIMINADO!</string>
+    <!--Tienda-->
+    <string name="tienda_paso_uno">PASO 1\n</string>
+<string name="tpuno_instruccion">Selecciona qué quieres comer y tomar \n
+a través de esta sección.\n\n
+<b>¡Guarda tu lista para que no se te olvide nada!</b></string>
+    <string name="tienda_footer">TERMINA EL TUTORIAL PARA ACCEDER AL CATÁLOGO</string>
+    <string name="tienda_paso_dos">PASO 2\n</string>
+<string name="tpuno_instruccion2">¿Ya sabs qué pedir? \n
+    Ubica desde el mapa los puntos más cercanos de venta.\n
+    Ubica tu fila para comprar los tickets de comida/bebida.
+<b>¡Guarda tu lista para que no se te olvide nada!</b></string>
+    <string name="tuto_tip_dos"><b><font color="red">Tip.</font></b> Recuerda que existen filas diferentes para pagar con tarjeta o en efectivo.</string>
+    <string name="tienda_paso_tres">PASO 3\n</string>
+    <string name="tpuno_instruccion3">¡Recoge tu pedido!</string>
+    <string name="tuto_tip_tres"><b><font color="red">Tip.</font></b> Si pediste de varias marcas deberás dirigirte a la fila de correspondiente en cada caso.</string>
+    <string name="tuto_termina">TERMINA EL TUTORIAL PARA ACCEDER AL CATÁLOGO</string>
+    <string name="tienda_titulo">CATÁLOGO DE PRODUCTOS</string>
+
+    <string name="menu_tienda">STORE</string>
+    <string name="welcome">BIENVENIDO</string>
+    <string name="welcome_speed_lover">SPEED LOVER</string>
+    <string name="welcome_euphoric_fans">EUPHORIC FANS</string>
+    <string name="welcome_true_racers">TRUE RACERS</string>
+    <string name="welcome_vip_party_racers">VIP PARTY RACERS</string>
+
+    <string name="forgot_password_title">¿OLVIDASTE TU CONTRASEÑA?</string>
+    <string name="description_forgot_password">Pon tu dirección de correo electrónico que usaste para registrarte. Te enviaremos un mensaje con tu nombre de usuario y un enlace para restablecer tu contraseña.</string>
+    <string name="action_register_long">action_register_long</string>
+    <string name="enviar">ENVIAR</string>
+    <string name="description_thanks_password">LOS PASOS PARA REESTABLECER TU CONTRASEÑA HAN SIDO ENVIADOS A TU CORREO ELECTRÓNICO.</string>
+
 
 </resources>
 

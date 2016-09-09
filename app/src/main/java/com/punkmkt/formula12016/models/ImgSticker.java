@@ -51,6 +51,7 @@ public class ImgSticker {
     public void load(Resources res) {
         getMetrics(res);
         this.drawable = res.getDrawable(resId);
+
         this.width = drawable.getIntrinsicWidth();
         this.height = drawable.getIntrinsicHeight();
         float cx, cy, sx, sy;

@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.android.volley.Cache;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -23,42 +25,89 @@ import com.punkmkt.formula12016.R;
 import com.punkmkt.formula12016.adapters.PremiosAdapter;
 import com.punkmkt.formula12016.models.Premio;
 import com.punkmkt.formula12016.utils.AuthRequest;
+import com.punkmkt.formula12016.utils.NetworkUtils;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 /**
  * Created by germanpunk on 17/08/16.
  */
 public class ResultadosFragment extends Fragment {
-    private RecyclerView mRecyclerView;
     private final String AHR_URL_PREMIOS = "http://104.236.3.158:82/api/premio/premios/";
     private ArrayList<Premio> premios = new ArrayList<>();
-    private RecyclerView.Adapter adapter;
+    private RecyclerView.Adapter adapter = null;
+    String TAG = ResultadosFragment.class.getName();
+    RecyclerView mRecyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_resultados, container, false);
-        mRecyclerView = (RecyclerView) v.findViewById(R.id.my_recycler_view);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        Log.d(TAG,"oncreateview");
 
+
+        //adapter = null;
+        mRecyclerView = (RecyclerView) v.findViewById(R.id.my_recycler_view);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        mRecyclerView.setHasFixedSize(true);
+        //adapter = new PremiosAdapter(premios,getActivity().getApplicationContext());
         adapter = new PremiosAdapter(premios,getActivity().getApplicationContext());
         mRecyclerView.setAdapter(adapter);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+
         TextView trg = (TextView) v.findViewById(R.id.ranking_general);
         ImageButton brg = (ImageButton) v.findViewById(R.id.go);
-        StringRequest request = new AuthRequest(getActivity().getApplicationContext(), Request.Method.GET, AHR_URL_PREMIOS, "UTF-8", new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
+        if (NetworkUtils.haveNetworkConnection(getActivity().getApplicationContext())) {
+            StringRequest request = new AuthRequest(getActivity().getApplicationContext(), Request.Method.GET, AHR_URL_PREMIOS, "UTF-8", new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        premios.clear();
+                        Log.d("response", response);
+                        JSONObject object = new JSONObject(response);
+                        JSONArray array_object = object.getJSONArray("results");
+                        for (int count = 0; count < array_object.length(); count++) {
+                            JSONObject anEntry = array_object.getJSONObject(count);
+                            Premio premio = new Premio();
+                            premio.setId(Integer.parseInt(anEntry.optString("id")));
+                            premio.setName(anEntry.optString("name"));
+                            premio.setPicture(anEntry.optString("picture"));
+                            premios.add(premio);
+                        }
+                        adapter.notifyDataSetChanged();
+
+                        //adapter.notifyDataSetChanged();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    error.printStackTrace();
+                }
+            });
+            request.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+            MyVolleySingleton.getInstance().addToRequestQueue(request);
+
+        }
+        else{
+            Cache mCache = MyVolleySingleton.getInstance().getRequestQueue().getCache();
+            Cache.Entry mEntry = mCache.get(AHR_URL_PREMIOS);
+            if (mEntry != null) {
                 try {
-                    Log.d("response",response);
-                    JSONObject object = new JSONObject(response);
-                    JSONArray array_object = object.getJSONArray("results");
-                    for (int count = 0; count < array_object.length(); count++) {
-                        JSONObject anEntry = array_object.getJSONObject(count);
+                    String cacheData = new String(mEntry.data, "UTF-8");
+                    JSONObject object = new JSONObject(cacheData);
+                    JSONArray results = object.getJSONArray("results");
+                    for (int count = 0; count < results.length(); count++) {
+                        JSONObject anEntry = results.getJSONObject(count);
                         Premio premio = new Premio();
                         premio.setId(Integer.parseInt(anEntry.optString("id")));
                         premio.setName(anEntry.optString("name"));
@@ -67,19 +116,16 @@ public class ResultadosFragment extends Fragment {
                     }
                     adapter.notifyDataSetChanged();
 
-                } catch (JSONException e) {
+                } catch (UnsupportedEncodingException |JSONException e) {
                     e.printStackTrace();
                 }
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        });
-        request.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            else{
 
-        MyVolleySingleton.getInstance().addToRequestQueue(request);
+            }
+
+        }
+
 
         brg.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -107,5 +153,4 @@ public class ResultadosFragment extends Fragment {
         });
         return v;
     }
-
 }

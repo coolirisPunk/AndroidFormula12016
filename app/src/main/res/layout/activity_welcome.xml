@@ -1,17 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.punkmkt.formula12016.WelcomeActivity"
-    android:background="@drawable/textura_speed_lovers"
     android:gravity="center"
     android:id="@+id/background_speed_lover"
+    android:background="@drawable/textura_speed_lovers"
+    android:orientation="vertical"
     >
     <ImageView
         android:id="@+id/img_speed_lover"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
         android:src="@drawable/speed_lovers_logo"
         />
-</RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="BIENVENIDO"
+        android:gravity="center"
+        android:textSize="30sp"
+        />
+    <TextView
+        android:id="@+id/text_welcome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:text="VIP PARTY RACERS"
+        android:gravity="center"
+        android:textSize="38sp"
+        android:textStyle="bold"
+        />
+
+</LinearLayout>

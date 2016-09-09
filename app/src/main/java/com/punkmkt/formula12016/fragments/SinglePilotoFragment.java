@@ -1,6 +1,5 @@
 package com.punkmkt.formula12016.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.volley.Cache;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -26,11 +26,13 @@ import com.punkmkt.formula12016.MyVolleySingleton;
 import com.punkmkt.formula12016.R;
 import com.punkmkt.formula12016.models.Foto;
 import com.punkmkt.formula12016.utils.AuthRequest;
+import com.punkmkt.formula12016.utils.NetworkUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 /**
@@ -66,57 +68,106 @@ public class SinglePilotoFragment extends Fragment{
         Bundle bundle = getArguments();
         String id = bundle.getString("id");
         AHR_PILOTOS_JSON_API_URL = AHR_PILOTOS_JSON_API_URL + id + "/";
-        request = new AuthRequest(getActivity().getApplicationContext(), Request.Method.GET, AHR_PILOTOS_JSON_API_URL, "utf-8", new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject object = new JSONObject(response);
-                    nombre.setText(object.optString("name"));
-                    numero.setText(object.optString("number"));
-                    nacionalidad.setText(object.optString("nationality"));
-                    fecha_nacimiento.setText(object.optString("birthday"));
-                    lugar_nacimiento.setText(object.optString("place_of_birth"));
-                    campeonatos.setText(object.optString("championships"));
-                    JSONArray json_photos = object.getJSONArray("photos");
-                    for (int count = 0; count < json_photos.length(); count++) {
-                        JSONObject anEntry = json_photos.getJSONObject(count);
-                        Log.d("foto",anEntry.optString("name"));
-                        Foto photo = new Foto();
-                        photo.setId(anEntry.optString("id"));
-                        photo.setPicture(anEntry.optString("picture"));
-                        photo.setName(anEntry.optString("name"));
-                        photo.setThumbnail(anEntry.optString("thumbnail"));
-                        photos.add(photo);
-                    }
-                    customFragmentPageAdapter.notifyDataSetChanged();
-                    int count = 0;
-                    for(Foto photo:photos){
-                        String imageAbsolutePath = photo.getThumbnail();
-                        ImageView addImageView = getNewImageView(imageAbsolutePath);
-                        final int indexJ = count;
-                        addImageView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                currentIndex = indexJ;
-                                largeViewPager.setCurrentItem(currentIndex);
-                            }
-                        });
-                        galleryLayout.addView(addImageView);
-                        count ++;
-                    }
+        if (NetworkUtils.haveNetworkConnection(getActivity().getApplicationContext())) {
+            request = new AuthRequest(getActivity().getApplicationContext(), Request.Method.GET, AHR_PILOTOS_JSON_API_URL, "utf-8", new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        JSONObject object = new JSONObject(response);
+                        nombre.setText(object.optString("name"));
+                        numero.setText(object.optString("number"));
+                        nacionalidad.setText(object.optString("nationality"));
+                        fecha_nacimiento.setText(object.optString("birthday"));
+                        lugar_nacimiento.setText(object.optString("place_of_birth"));
+                        campeonatos.setText(object.optString("championships"));
+                        JSONArray json_photos = object.getJSONArray("photos");
+                        for (int count = 0; count < json_photos.length(); count++) {
+                            JSONObject anEntry = json_photos.getJSONObject(count);
+                            Log.d("foto", anEntry.optString("name"));
+                            Foto photo = new Foto();
+                            photo.setId(anEntry.optString("id"));
+                            photo.setPicture(anEntry.optString("picture"));
+                            photo.setName(anEntry.optString("name"));
+                            photo.setThumbnail(anEntry.optString("thumbnail"));
+                            photos.add(photo);
+                        }
+                        customFragmentPageAdapter.notifyDataSetChanged();
+                        int count = 0;
+                        for (Foto photo : photos) {
+                            String imageAbsolutePath = photo.getThumbnail();
+                            ImageView addImageView = getNewImageView(imageAbsolutePath);
+                            final int indexJ = count;
+                            addImageView.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    currentIndex = indexJ;
+                                    largeViewPager.setCurrentItem(currentIndex);
+                                }
+                            });
+                            galleryLayout.addView(addImageView);
+                            count++;
+                        }
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    error.printStackTrace();
+                }
+            });
+            request.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            MyVolleySingleton.getInstance().addToRequestQueue(request);
+        }
+            else{
+                Cache mCache = MyVolleySingleton.getInstance().getRequestQueue().getCache();
+                Cache.Entry mEntry = mCache.get(AHR_PILOTOS_JSON_API_URL);
+                if (mEntry != null) {
+                    try {
+                        String cacheData = new String(mEntry.data, "UTF-8");
+                        JSONObject object = new JSONObject(cacheData);
+                        nombre.setText(object.optString("name"));
+                        numero.setText(object.optString("number"));
+                        nacionalidad.setText(object.optString("nationality"));
+                        fecha_nacimiento.setText(object.optString("birthday"));
+                        lugar_nacimiento.setText(object.optString("place_of_birth"));
+                        campeonatos.setText(object.optString("championships"));
+                        JSONArray json_photos = object.getJSONArray("photos");
+                        for (int count = 0; count < json_photos.length(); count++) {
+                            JSONObject anEntry = json_photos.getJSONObject(count);
+                            Log.d("foto", anEntry.optString("name"));
+                            Foto photo = new Foto();
+                            photo.setId(anEntry.optString("id"));
+                            photo.setPicture(anEntry.optString("picture"));
+                            photo.setName(anEntry.optString("name"));
+                            photo.setThumbnail(anEntry.optString("thumbnail"));
+                            photos.add(photo);
+                        }
+                        customFragmentPageAdapter.notifyDataSetChanged();
+                        int count = 0;
+                        for (Foto photo : photos) {
+                            String imageAbsolutePath = photo.getThumbnail();
+                            ImageView addImageView = getNewImageView(imageAbsolutePath);
+                            final int indexJ = count;
+                            addImageView.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    currentIndex = indexJ;
+                                    largeViewPager.setCurrentItem(currentIndex);
+                                }
+                            });
+                            galleryLayout.addView(addImageView);
+                            count++;
+                        }
+                    } catch (UnsupportedEncodingException | JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+
                 }
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        });
-        request.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        MyVolleySingleton.getInstance().addToRequestQueue(request);
         return v;
     }
     public class CustomFragmentPagerAdapter extends FragmentPagerAdapter {

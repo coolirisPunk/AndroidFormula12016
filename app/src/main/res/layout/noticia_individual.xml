@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    android:background="@color/white"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/top_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.android.volley.toolbox.NetworkImageView
+                android:id="@+id/imagen_principal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:layout_alignParentTop="true"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
+                android:layout_gravity="top" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/noticia_texto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingRight="30dp"
+            android:paddingLeft="30dp"
+            android:paddingTop="30dp"
+            android:paddingBottom="0dp"
+            android:layout_below="@+id/top_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/titulo"
+                android:textSize="25dp"
+                android:layout_marginBottom="15dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:gravity="center_horizontal|top"
+                android:layout_gravity="center_horizontal"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/red"
+                android:layout_marginBottom="30dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:id="@+id/descripcion"
+                android:textSize="14dp"
+                android:layout_marginBottom="30dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/red"/>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="30dp"
+            android:layout_below="@+id/noticia_texto">
+
+            <TextView
+                android:id="@+id/text_not_relacionadas"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="NOTICIAS RELACIONADAS"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="center_horizontal"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="22dp"/>
+
+            <RelativeLayout
+                android:id="@+id/noticia_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_not_relacionadas"
+                android:layout_marginBottom="20dp"
+                >
+                <TextView
+                    android:id="@+id/idn1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"/>
+                <com.android.volley.toolbox.NetworkImageView
+                    android:id="@+id/img_noticia1"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_alignParentTop="true"
+                    android:scaleType="centerCrop"
+                    android:adjustViewBounds="true" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/titulo_noticia_1"
+                    android:textColor="@color/red"
+                    android:textSize="15sp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:textStyle="bold"
+                    android:maxLength="80"
+                    android:padding="10dp"
+                    android:background="@color/grey_background"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:layout_below="@+id/img_noticia1"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/noticia_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/noticia_1"
+                >
+                <TextView
+                    android:id="@+id/idn2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"/>
+                <com.android.volley.toolbox.NetworkImageView
+                    android:id="@+id/img_noticia2"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_alignParentTop="true"
+                    android:scaleType="centerCrop"
+                    android:adjustViewBounds="true" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/titulo_noticia_2"
+                    android:textColor="@color/red"
+                    android:textSize="15sp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:textStyle="bold"
+                    android:maxLength="80"
+                    android:padding="10dp"
+                    android:background="@color/grey_background"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:layout_below="@+id/img_noticia2"
+                    />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+</ScrollView>

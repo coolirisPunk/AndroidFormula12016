@@ -1,13 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.punkmkt.formula12016.HomeActivity">
     <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -19,7 +16,6 @@
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
                 android:orientation="horizontal"
-
                 >
                 <ImageView
                     android:id="@+id/header_speed_lover_background"
@@ -39,6 +35,7 @@
                         android:layout_height="50dp"
                         />
                     <TextView
+                        android:id="@+id/text_welcome"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/bienvenido_speedlover"
@@ -99,6 +96,7 @@
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/container_links"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:orientation="horizontal"
@@ -107,88 +105,7 @@
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 >
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    >
-                    <ImageView
-                        android:layout_alignParentTop="true"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/icon_autodromo"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="18sp"
-                        android:textColor="@color/white"
-                        />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    >
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/icon_autodromo"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="18sp"
-                        android:textColor="@color/white"
-                        />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    >
-                    <ImageView
-                        android:layout_alignParentTop="true"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/icon_autodromo"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="18sp"
-                        android:textColor="@color/white"
-                        />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    >
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/icon_autodromo"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="18sp"
-                        android:textColor="@color/white"
-                        />
-                </LinearLayout>
+
             </LinearLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -198,23 +115,43 @@
                 android:paddingBottom="20dp"
                 >
                 <TextView
+                    android:id="@+id/title_news"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/noticias"
-                    android:textSize="20sp"
+                    android:textSize="22sp"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     android:gravity="center"
-                    android:layout_alignParentBottom="true"
+                    android:layout_alignTop="@+id/imageView2"
                     android:layout_centerHorizontal="true" />
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/down_arrow"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+
+                    android:id="@+id/imageView2" />
             </RelativeLayout>
-            <!-- A RecyclerView with some commonly used attributes -->
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/my_recycler_view"
-                android:clickable="true"
-                android:scrollbars="vertical"
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:descendantFocusability="blocksDescendants">
+                <!-- DEV NOTE: Outer wrapper relative layout is added intentionally to address issue
+                     that only happens on Marshmallow & Nougat devices (API 23 & 24).
+                     On marshmallow API 23, the "RecyclerView" `layout_height="wrap_content"` does NOT
+                     occupy the height of all the elements added to it via adapter. The result is cut out
+                     items that is outside of device viewport when it loads initially.
+                     Wrapping "RecyclerView" with "RelativeLayout" fixes the issue on Marshmallow devices.
+                -->
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/my_recycler_view"
+                    android:clickable="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                </RelativeLayout>
         </LinearLayout>
     </ScrollView>
-</LinearLayout>

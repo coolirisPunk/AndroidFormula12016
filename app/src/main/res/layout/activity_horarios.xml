@@ -7,18 +7,30 @@
     android:padding="0dp"
     android:background="@drawable/grey_texture"
     android:layout_margin="0dp">
-    <TextView
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/text_grey"
-        android:textSize="20sp"
-        android:text="@string/horarios"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
-        android:textColor="@color/white"
+        android:layout_height="63dp"
+        android:layout_gravity="center_horizontal"
         android:gravity="center"
-        android:textStyle="bold"
-        />
+        >
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/black_texture"
+            android:scaleType="centerCrop" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="@string/horarios"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textStyle="bold"
+            />
+    </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

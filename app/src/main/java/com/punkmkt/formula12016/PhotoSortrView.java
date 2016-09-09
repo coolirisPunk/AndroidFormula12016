@@ -119,9 +119,9 @@ public class PhotoSortrView extends View implements MultiTouchController.MultiTo
 	/** Called by activity's onPause() method to free memory used for loading the images */
 	public void unloadImages() {
         Log.d(TAG,"unloadImages");
-		int n = mImages.size();
-		for (int i = 0; i < n; i++)
-			mImages.get(i).unload();
+		//int n = mImages.size();
+		//for (int i = 0; i < n; i++)
+		//	mImages.get(i).unload();
 	}
 
 	// ---------------------------------------------------------------------------------------------------

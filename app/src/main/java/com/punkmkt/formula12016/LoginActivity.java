@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -37,11 +38,13 @@ import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
+import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.punkmkt.formula12016.adapters.ConfAdapter;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.security.MessageDigest;
@@ -56,6 +59,7 @@ public class LoginActivity extends AppCompatActivity {
     String TAG = LoginActivity.class.getName();
     String AHR_LOGIN_JSON_API_URL = "http://104.236.3.158:82/api/auth/rest-auth/login/";
     String AHR_LOGIN_FACEBOOK_JSON_API_URL = "http://104.236.3.158:82/api/auth/rest-auth/facebook/";
+    String AHR_USER_PROFILE_JSON_API_URL = "http://104.236.3.158:82/api/auth/rest-auth/user-profile/user/";
 
     private EditText mUsernameView;
     private EditText mPasswordView;
@@ -73,29 +77,33 @@ public class LoginActivity extends AppCompatActivity {
         String shared_token = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getString("access_token", null);
         Intent intent = getIntent();
         String inf = intent.getStringExtra("intent_from");
-        Toast.makeText(getApplicationContext(), inf, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), inf, Toast.LENGTH_SHORT).show();
         if(inf!="" && inf!=null){
             Log.d(TAG,"Intent from config");
             intent_from = inf;
         }
         if (shared_token!=null){
-            Toast.makeText(getApplicationContext(), shared_token, Toast.LENGTH_SHORT).show();
+         //   Toast.makeText(getApplicationContext(), shared_token, Toast.LENGTH_SHORT).show();
             current_token = shared_token;
-            Intent intent_home = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent_home);
+            //Intent intent_home = new Intent(getApplicationContext(), MainActivity.class);
+            //startActivity(intent_home);
         }
         FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(getApplication());
+
 
         callbackManager = CallbackManager.Factory.create();
 
         activity = this;
 
         setContentView(R.layout.activity_login);
+        disconnectFromFacebook();
         Button entrar = (Button) findViewById(R.id.entrar);
+        TextView cancelar = (TextView) findViewById(R.id.cancelar_action);
         mUsernameView = (EditText) findViewById(R.id.username);
         mPasswordView = (EditText) findViewById(R.id.password);
-        mUsernameView.setText("germanpunk");
-        mPasswordView.setText("cooliris");
+        //mUsernameView.setText("germanpunk");
+        //mPasswordView.setText("cooliris");
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -110,6 +118,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 attemptLogin();
+            }
+        });
+
+        cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
             }
         });
         mLoginFormView = findViewById(R.id.login_form);
@@ -148,7 +164,7 @@ public class LoginActivity extends AppCompatActivity {
         forgot_password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), RegistroActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ForgotActivity.class);
                 startActivity(intent);
             }
         });
@@ -233,8 +249,9 @@ public class LoginActivity extends AppCompatActivity {
                                     String key = object.optString("key");
                                     Log.d(TAG,key);
                                     getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putString("access_token", key).commit();
+                                    getuserprofile(key);
                                     if(intent_from == null){
-                                        Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+                                        Intent myIntent = new Intent(getApplicationContext(), WelcomeActivity.class);
                                         myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(myIntent);
                                     }
@@ -269,9 +286,42 @@ public class LoginActivity extends AppCompatActivity {
                 public void onErrorResponse(VolleyError error) {
                     VolleyLog.d("V", "Error: " + error.getMessage());
                     //alert con error
-                    mPasswordView.setError(getString(R.string.error_incorrect_password));
-                    mPasswordView.requestFocus();
+                    //mUsernameView.setError(getString(R.string.error_incorrect_password));
+
                     showProgress(false);
+                    String json = null;
+                    NetworkResponse response = error.networkResponse;
+
+                    if(response != null && response.data != null){
+                        switch(response.statusCode){
+                            case 400:
+                                json = new String(response.data);
+                                try{
+                                    JSONObject obj = new JSONObject(json);
+                                    Log.d(TAG,obj.toString());
+                                    if(obj.has("non_field_errors")){
+                                        if(obj.optString("non_field_errors")!=null){
+                                            JSONArray array_object = obj.getJSONArray("non_field_errors");
+                                            for (int count = 0; count < array_object.length(); count++) {
+                                                //Toast.makeText(getApplicationContext(),array_object.get(count).toString(),Toast.LENGTH_SHORT).show();
+                                                mUsernameView.setError(array_object.get(count).toString());
+                                                mUsernameView.requestFocus();
+                                            }
+                                        }
+                                    }
+
+                                } catch(JSONException e){
+                                    e.printStackTrace();
+                                }
+                                break;
+                            default:
+
+                                break;
+
+                        }
+                        //Additional cases
+                    }
+
                 }
             }) {
 
@@ -336,7 +386,6 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-
     public void process_login_facebook(){
         if (AccessToken.getCurrentAccessToken() != null) {
             Log.d(TAG,AccessToken.getCurrentAccessToken().getToken());
@@ -360,8 +409,9 @@ public class LoginActivity extends AppCompatActivity {
                                     String key = object.optString("key");
                                     Log.d(TAG,key);
                                     getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putString("access_token", key).commit();
+                                    getuserprofile(key);
                                     if(intent_from == null){
-                                        Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+                                        Intent myIntent = new Intent(getApplicationContext(), WelcomeActivity.class);
                                         myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(myIntent);
                                     }
@@ -378,8 +428,6 @@ public class LoginActivity extends AppCompatActivity {
                                         }
                                     }
 
-
-
                                 }
                                 else {
                                     Toast.makeText(getApplicationContext(), "Login error key facebook", Toast.LENGTH_SHORT).show();
@@ -392,7 +440,35 @@ public class LoginActivity extends AppCompatActivity {
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    VolleyLog.d(TAG, "Error: " + error.getMessage());
+                    String json = null;
+                    NetworkResponse response = error.networkResponse;
+
+                    if(response != null && response.data != null){
+                        switch(response.statusCode){
+                            case 400:
+                                json = new String(response.data);
+                                try{
+                                    JSONObject obj = new JSONObject(json);
+                                    Log.d(TAG,obj.toString());
+                                    if(obj.has("non_field_errors")){
+                                        if(obj.optString("non_field_errors")!=null){
+                                            JSONArray array_object = obj.getJSONArray("non_field_errors");
+                                            for (int count = 0; count < array_object.length(); count++) {
+                                                Toast.makeText(getApplicationContext(),array_object.get(count).toString(),Toast.LENGTH_SHORT).show();
+
+                                            }
+                                        }
+                                    }
+                                } catch(JSONException e){
+                                    e.printStackTrace();
+                                }
+                                break;
+                            default:
+
+                                break;
+                        }
+                        //Additional cases
+                    }
                     //alert con error
                 }
             }) {
@@ -412,5 +488,85 @@ public class LoginActivity extends AppCompatActivity {
         else{
             Log.d(TAG,"No token");
         }
+    }
+
+    public void getuserprofile(String token) {
+        final String Ukey = token;
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
+                AHR_USER_PROFILE_JSON_API_URL, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            Log.d("Response",response.toString());
+                            JSONObject object = response;
+                            getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putString("profile_id", object.optString("profile_id")).commit();
+                            getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putString("username", object.optString("username")).commit();
+                            getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putString("email", object.optString("email")).commit();
+                            getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putString("userid", object.optString("id")).commit();
+                                getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putString("zone", object.optString("zone")).commit();
+                                getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putString("grada", object.optString("grada")).commit();
+                                getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putString("section", object.optString("section")).commit();
+                                getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putString("fila", object.optString("fila")).commit();
+                                getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putString("seat", object.optString("seat")).commit();
+                                getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putString("speed_lover", object.optString("speed_lover")).commit();
+                                Intent myIntent = new Intent(getApplicationContext(), WelcomeActivity.class);
+                                startActivity(myIntent);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String json = null;
+                NetworkResponse response = error.networkResponse;
+
+                if(response != null && response.data != null){
+                    switch(response.statusCode){
+                        case 400:
+                            json = new String(response.data);
+                            try{
+                                JSONObject obj = new JSONObject(json);
+                                Log.d(TAG,obj.toString());
+                                if(obj.has("detail")){
+                                    if(obj.optString("detail")!=null){
+                                            Toast.makeText(getApplicationContext(),obj.optString("detail"),Toast.LENGTH_SHORT).show();
+
+                                    }
+                                }
+                            } catch(JSONException e){
+                                e.printStackTrace();
+                            }
+                            break;
+                        default:
+
+                            break;
+                    }
+                    //Additional cases
+                }
+
+            }
+        }) {
+            /**
+             * Passing some request headers
+             */
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json;");
+                headers.put("Authorization", "Token "+ Ukey);
+
+                return headers;
+            }
+        };
+
+        jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(
+                9000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        MyVolleySingleton.getInstance().addToRequestQueue(jsonObjReq);
     }
 }

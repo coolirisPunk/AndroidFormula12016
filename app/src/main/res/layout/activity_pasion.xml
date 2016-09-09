@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -106,13 +113,12 @@
             android:layout_weight="1"
             />
 
-        <Button
+        <ImageButton
             android:id="@+id/save_button"
             style="?android:textAppearanceSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/save"
-            android:background="@color/text_grey"
+            android:src="@drawable/guardar"
             android:textColor="@color/white"
             android:layout_gravity="center"
             android:paddingLeft="10dp"
@@ -122,14 +128,15 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:layout_weight="1"
+            android:background="@color/text_grey"
             android:visibility="gone"
             />
-        <Button
+        <ImageButton
             android:id="@+id/share_button"
             style="?android:textAppearanceSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/share"
+            android:src="@drawable/share"
             android:background="@color/red"
             android:textColor="@color/white"
             android:layout_gravity="center"
@@ -145,3 +152,4 @@
     </LinearLayout>
 </LinearLayout>
 
+</android.support.design.widget.CoordinatorLayout>

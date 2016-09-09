@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/tuto_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:baselineAligned="false"
+        android:layout_alignParentTop="true">
+        />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tienda_titulo"
+            android:gravity="center_horizontal"
+            android:background="@color/bg_tienda_tuto"
+            android:textColor="@color/white"
+            android:textSize="17dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            >
+
+            <android.support.v7.widget.RecyclerView
+                android:scrollbars="none"
+                android:background="@color/white"
+                android:id="@+id/my_recycler_view"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="0dp"
+                android:clickable="true"
+                android:focusable="true"
+                />
+
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

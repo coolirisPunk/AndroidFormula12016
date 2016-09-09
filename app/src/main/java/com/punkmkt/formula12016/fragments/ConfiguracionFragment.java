@@ -1,8 +1,11 @@
 package com.punkmkt.formula12016.fragments;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,23 +15,25 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.punkmkt.formula12016.MainActivity;
+import com.punkmkt.formula12016.LoginActivity;
 import com.punkmkt.formula12016.MyVolleySingleton;
 import com.punkmkt.formula12016.R;
-import com.punkmkt.formula12016.WelcomeActivity;
 import com.punkmkt.formula12016.adapters.CustomizedSpinnerAdapter;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -41,20 +46,38 @@ import java.util.Map;
 public class ConfiguracionFragment extends Fragment {
     private Spinner zonas,gradas,seccion,filas, asientos;
     String TAG = ConfiguracionFragment.class.getName();
-    String AHR_UPDATEPROFILE_JSON_API_URL = "http://104.236.3.158:82/api/auth/rest-auth/user-profile/users/";
-    String AHR_CREATEPROFILE_JSON_API_URL = "http://104.236.3.158:82/api/auth/rest-auth/user-profile/users/";
-    String current_token = null;
-    String Ukey;
+    String AHR_UPDATEPROFILE_JSON_API_URL = "http://104.236.3.158:82/api/auth/rest-auth/user-profile/user/";
+    String AHR_CREATEPROFILE_JSON_API_URL = "http://104.236.3.158:82/api/auth/rest-auth/user-profile/user/";
+    String Ukey,zone,grada,section,fila,seat,speed_lover,profile_id;
+    ProgressDialog progressDialog;
+    private CoordinatorLayout coordinatorLayout;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_configuracion, container, false);
-
-
+        final Button guardar_cambios = (Button) view.findViewById(R.id.guardar_cambios);
         Ukey = getActivity().getSharedPreferences("PREFERENCE", getActivity().MODE_PRIVATE).getString("access_token",null);
+        if(Ukey==null){
+            LinearLayout container_configuracion_asiento = (LinearLayout) view.findViewById(R.id.container_configuracion_asiento);
+            container_configuracion_asiento.setVisibility(View.GONE);
+            guardar_cambios.setVisibility(View.GONE);
+        }
+        else{
+            Log.d(TAG,Ukey);
+            TextView instrucciones_conf = (TextView) view.findViewById(R.id.instrucciones_conf);
+            instrucciones_conf.setVisibility(View.GONE);
+        }
+
+        zone = getActivity().getSharedPreferences("PREFERENCE", getActivity().MODE_PRIVATE).getString("zone",null);
+        grada = getActivity().getSharedPreferences("PREFERENCE", getActivity().MODE_PRIVATE).getString("grada",null);
+        section = getActivity().getSharedPreferences("PREFERENCE", getActivity().MODE_PRIVATE).getString("section",null);
+        fila = getActivity().getSharedPreferences("PREFERENCE", getActivity().MODE_PRIVATE).getString("fila",null);
+        seat = getActivity().getSharedPreferences("PREFERENCE", getActivity().MODE_PRIVATE).getString("seat",null);
+        speed_lover = getActivity().getSharedPreferences("PREFERENCE", getActivity().MODE_PRIVATE).getString("speed_lover",null);
+        profile_id = getActivity().getSharedPreferences("PREFERENCE", getActivity().MODE_PRIVATE).getString("profile_id",null);
+        coordinatorLayout = (CoordinatorLayout) view.findViewById(R.id
+                .coordinatorLayout);
         final ImageView notificacion1 = (ImageView) view.findViewById(R.id.notificacion1);
         final ImageView notificacion2 = (ImageView) view.findViewById(R.id.notificacion2);
         final ImageView notificacion3 = (ImageView) view.findViewById(R.id.notificacion3);
-
-        final Button guardar_cambios = (Button) view.findViewById(R.id.guardar_cambios);
 
 
         zonas = (Spinner) view.findViewById(R.id.zonas_spinner);
@@ -174,11 +197,23 @@ public class ConfiguracionFragment extends Fragment {
         guardar_cambios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Ukey!=null){
-
+                //initialize the progress dialog and show it
+                progressDialog = new ProgressDialog(getActivity());
+                progressDialog.setMessage("Actualizando la información....");
+                progressDialog.show();
+                Log.d(TAG,profile_id);
+                if (Ukey==null){
+                    Intent myIntent = new Intent(getActivity().getApplicationContext(), LoginActivity.class);
+                    startActivity(myIntent);
                 }
-                else if (Ukey!=null ){
-
+                else if (profile_id==null || profile_id.equals("null")){
+                    Log.d(TAG,"create");
+                    createinfo();
+                }
+                else{
+                    Log.d(TAG,"update");
+                    AHR_UPDATEPROFILE_JSON_API_URL = AHR_UPDATEPROFILE_JSON_API_URL + profile_id + "/";
+                    updateinfo();
                 }
             }
         });
@@ -186,9 +221,7 @@ public class ConfiguracionFragment extends Fragment {
         return view;
     }
     public void createinfo() {
-
-    }
-    public void updateinfo() {
+        Log.d(TAG,"create");
         JSONObject js = new JSONObject();
 
         try {
@@ -197,40 +230,46 @@ public class ConfiguracionFragment extends Fragment {
             js.put("section", seccion.getSelectedItem().toString());
             js.put("fila", filas.getSelectedItem().toString());
             js.put("seat", asientos.getSelectedItem().toString());
-            js.put("speed_lover", "speed_lover_1");
+            js.put("speed_lover", "speed_lovers");
         } catch (JSONException e) {
             e.printStackTrace();
         }
         Log.d(TAG,js.toString());
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.PUT,AHR_CREATEPROFILE_JSON_API_URL,js,
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,AHR_CREATEPROFILE_JSON_API_URL,js,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
                             JSONObject object = response;
-                            Toast.makeText(getActivity().getApplicationContext(), object.toString(), Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getActivity().getApplicationContext(), object.toString(), Toast.LENGTH_SHORT).show();
                             Log.d("response", object.toString());
-                            if (object.has("speed_lover") ){
                                 getActivity().getSharedPreferences("PREFERENCE", getActivity().MODE_PRIVATE).edit().putString("userid", object.optString("userid")).commit();
                                 getActivity().getSharedPreferences("PREFERENCE", getActivity().MODE_PRIVATE).edit().putString("zone", object.optString("zone")).commit();
                                 getActivity().getSharedPreferences("PREFERENCE", getActivity().MODE_PRIVATE).edit().putString("grada", object.optString("grada")).commit();
                                 getActivity().getSharedPreferences("PREFERENCE", getActivity().MODE_PRIVATE).edit().putString("section", object.optString("section")).commit();
                                 getActivity().getSharedPreferences("PREFERENCE", getActivity().MODE_PRIVATE).edit().putString("fila", object.optString("fila")).commit();
                                 getActivity().getSharedPreferences("PREFERENCE", getActivity().MODE_PRIVATE).edit().putString("seat", object.optString("seat")).commit();
-                                getActivity().getSharedPreferences("PREFERENCE", getActivity().MODE_PRIVATE).edit().putString("seat", object.optString("seat")).commit();
                                 getActivity().getSharedPreferences("PREFERENCE", getActivity().MODE_PRIVATE).edit().putString("speed_lover", object.optString("speed_lover")).commit();
-                                getActivity().getSharedPreferences("PREFERENCE", getActivity().MODE_PRIVATE).edit().putString("username", object.optString("speed_lover")).commit();
+                                getActivity().getSharedPreferences("PREFERENCE", getActivity().MODE_PRIVATE).edit().putString("username", object.optString("username")).commit();
                                 getActivity().getSharedPreferences("PREFERENCE", getActivity().MODE_PRIVATE).edit().putString("email", object.optString("email")).commit();
+                                getActivity().getSharedPreferences("PREFERENCE", getActivity().MODE_PRIVATE).edit().putString("profile_id", object.optString("id")).commit();
+                                profile_id =object.optString("id");
 
-                                Intent myIntent = new Intent(getActivity().getApplicationContext(), WelcomeActivity.class);
-                                startActivity(myIntent);
-                            }
-                            else {
-                                Log.d("response","No object created");
-                            }
+                                progressDialog.dismiss();
+
+                                Snackbar snackbar = Snackbar
+                                        .make(coordinatorLayout, "Información guardada.", Snackbar.LENGTH_SHORT);
+                                snackbar.setActionTextColor(Color.WHITE);
+                                snackbar.show();
+
                         } catch (Exception e) {
                             e.printStackTrace();
                             //alert con error
+                            progressDialog.dismiss();
+                            Snackbar snackbar = Snackbar
+                                    .make(coordinatorLayout, e.getMessage(), Snackbar.LENGTH_SHORT);
+                            snackbar.setActionTextColor(Color.RED);
+                            snackbar.show();
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -238,7 +277,65 @@ public class ConfiguracionFragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.d("V", "Error: " + error.getMessage());
-                //alert con error
+                progressDialog.dismiss();
+                String json = null;
+                NetworkResponse response = error.networkResponse;
+
+                if(response != null && response.data != null){
+                    switch(response.statusCode){
+                        case 400:
+                            json = new String(response.data);
+                            try{
+                                JSONObject obj = new JSONObject(json);
+                                Log.d(TAG,obj.toString());
+                                if(obj.has("non_field_errors")){
+                                    if(obj.optString("non_field_errors")!=null){
+                                        JSONArray array_object = obj.getJSONArray("non_field_errors");
+                                        for (int count = 0; count < array_object.length(); count++) {
+                                            Toast.makeText(getActivity().getApplicationContext(),array_object.get(count).toString(),Toast.LENGTH_SHORT).show();
+
+                                        }
+                                    }
+                                }
+                            } catch(JSONException e){
+                                e.printStackTrace();
+                            }
+                            break;
+                        case 404:
+                            json = new String(response.data);
+                            try{
+                                JSONObject obj = new JSONObject(json);
+                                Log.d(TAG,obj.toString());
+                                if(obj.has("detail")){
+                                    if(obj.optString("detail").equals("Not found.")){
+                                        createinfo();
+                                    }
+                                }
+                            } catch(JSONException e){
+                                e.printStackTrace();
+                            }
+                            break;
+                        case 500:
+                            json = new String(response.data);
+                            try{
+                                JSONObject obj = new JSONObject(json);
+                                Log.d(TAG,obj.toString());
+                                if(obj.has("detail")){
+                                    if(obj.optString("detail").equals("Not found.")){
+                                        createinfo();
+                                    }
+                                }
+                            } catch(JSONException e){
+                                e.printStackTrace();
+                            }
+                            break;
+                        default:
+
+                            break;
+                    }
+                    //Additional cases
+                }
+
             }
         }) {
 
@@ -258,5 +355,126 @@ public class ConfiguracionFragment extends Fragment {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         MyVolleySingleton.getInstance().addToRequestQueue(jsonObjReq);
+    }
+    public void updateinfo() {
+        Log.d(TAG,"update");
+        JSONObject js = new JSONObject();
+        try {
+            js.put("zone", zonas.getSelectedItem().toString());
+            js.put("grada", gradas.getSelectedItem().toString());
+            js.put("section", seccion.getSelectedItem().toString());
+            js.put("fila", filas.getSelectedItem().toString());
+            js.put("seat", asientos.getSelectedItem().toString());
+            js.put("speed_lover", "euphoric_fans");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.d(TAG,js.toString());
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.PUT,AHR_UPDATEPROFILE_JSON_API_URL,js,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONObject object = response;
+                            //Toast.makeText(getActivity().getApplicationContext(), object.toString(), Toast.LENGTH_SHORT).show();
+                            Log.d("response", object.toString());
+                                getActivity().getSharedPreferences("PREFERENCE", getActivity().MODE_PRIVATE).edit().putString("userid", object.optString("userid")).commit();
+                                getActivity().getSharedPreferences("PREFERENCE", getActivity().MODE_PRIVATE).edit().putString("zone", object.optString("zone")).commit();
+                                getActivity().getSharedPreferences("PREFERENCE", getActivity().MODE_PRIVATE).edit().putString("grada", object.optString("grada")).commit();
+                                getActivity().getSharedPreferences("PREFERENCE", getActivity().MODE_PRIVATE).edit().putString("section", object.optString("section")).commit();
+                                getActivity().getSharedPreferences("PREFERENCE", getActivity().MODE_PRIVATE).edit().putString("fila", object.optString("fila")).commit();
+                                getActivity().getSharedPreferences("PREFERENCE", getActivity().MODE_PRIVATE).edit().putString("seat", object.optString("seat")).commit();
+                                getActivity().getSharedPreferences("PREFERENCE", getActivity().MODE_PRIVATE).edit().putString("speed_lover", object.optString("speed_lover")).commit();
+                                getActivity().getSharedPreferences("PREFERENCE", getActivity().MODE_PRIVATE).edit().putString("username", object.optString("username")).commit();
+                                getActivity().getSharedPreferences("PREFERENCE", getActivity().MODE_PRIVATE).edit().putString("email", object.optString("email")).commit();
+
+                                //Intent myIntent = new Intent(getActivity().getApplicationContext(), WelcomeActivity.class);
+                                //startActivity(myIntent);
+                            progressDialog.dismiss();
+                                Snackbar snackbar = Snackbar
+                                        .make(coordinatorLayout, "Información actualizada.", Snackbar.LENGTH_SHORT);
+                                snackbar.setActionTextColor(Color.WHITE);
+                                snackbar.show();
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            //alert con error
+                            Snackbar snackbar = Snackbar
+                                    .make(coordinatorLayout,e.getMessage().toString(), Snackbar.LENGTH_SHORT);
+                            snackbar.setActionTextColor(Color.RED);
+                            snackbar.show();
+
+                        }
+                        progressDialog.dismiss();
+
+                    }
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String json = null;
+                NetworkResponse response = error.networkResponse;
+
+                if(response != null && response.data != null){
+                    switch(response.statusCode){
+                        case 400:
+                            json = new String(response.data);
+                            try{
+                                JSONObject obj = new JSONObject(json);
+                                Log.d(TAG,obj.toString());
+                                if(obj.has("non_field_errors")){
+                                    if(obj.optString("non_field_errors")!=null){
+                                        JSONArray array_object = obj.getJSONArray("non_field_errors");
+                                        for (int count = 0; count < array_object.length(); count++) {
+                                            Toast.makeText(getActivity().getApplicationContext(),array_object.get(count).toString(),Toast.LENGTH_SHORT).show();
+
+                                        }
+                                    }
+                                }
+                            } catch(JSONException e){
+                                e.printStackTrace();
+                            }
+                            break;
+                        case 404:
+                            json = new String(response.data);
+                            try{
+                                JSONObject obj = new JSONObject(json);
+                                Log.d(TAG,obj.toString());
+                                if(obj.has("detail")){
+                                    if(obj.optString("detail").equals("Not found.")){
+                                    createinfo();
+                                    }
+                                }
+                            } catch(JSONException e){
+                                e.printStackTrace();
+                            }
+                            break;
+                        default:
+
+                            break;
+                    }
+                    //Additional cases
+                }
+
+            }
+        }) {
+
+            /**
+             * Passing some request headers
+             */
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json; charset=utf-8");
+                headers.put("Authorization", "Token " + Ukey);
+                return headers;
+            }
+        };
+        jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(
+                9000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        MyVolleySingleton.getInstance().addToRequestQueue(jsonObjReq);
+        AHR_UPDATEPROFILE_JSON_API_URL = AHR_CREATEPROFILE_JSON_API_URL;
     }
 }

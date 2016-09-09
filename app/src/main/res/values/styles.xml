@@ -7,8 +7,12 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/white</item>
         <item name="android:textColorHint">@color/white</item>
-    </style>
+        <item name="android:actionOverflowButtonStyle">@style/MyActionButtonOverflow</item>
 
+    </style>
+    <style name="MyActionButtonOverflow" parent="android:style/Widget.Holo.Light.ActionButton.Overflow">
+        <item name="android:textColor">@color/black</item>
+    </style>
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -88,6 +92,33 @@
         <item name="tabPaddingBottom">-1dp</item>
         <item name="tabPaddingTop">-1dp</item>
     </style>
+    <style name="NumberPickerTextColorStyle">
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="MyMaterialTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textColorSecondary">@color/black</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+        <item name="titleTextColor">@color/black</item>
+
+
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <!-- To change the popup menu and app text color  -->
+        <item name="android:textColor">@color/black</item>
+        <item name="android:actionMenuTextColor">@color/black</item>
+
+        <!-- To change the background of options menu-->
+        <item name="android:itemBackground">@color/white</item>
+    </style>
+    <style name="DrawerArrowStyle" parent="@style/Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">@color/black</item>
+    </style>
+
 </resources>
 
 

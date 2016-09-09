@@ -38,7 +38,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NoticiaViewHol
             thumbnail = (NetworkImageView) itemView.findViewById(R.id.thumbnail);
             name = (TextView) itemView.findViewById(R.id.name);
             short_description = (TextView) itemView.findViewById(R.id.short_description);
-            thumbnail.setOnClickListener(this);
+            if(thumbnail!=null)
+            {
+                thumbnail.setOnClickListener(this);
+            }
+
             itemView.setOnClickListener(this);
         }
 
@@ -89,7 +93,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NoticiaViewHol
 
     @Override
     public void onBindViewHolder(NoticiaViewHolder noticiaViewHolder, int i) {
-        noticiaViewHolder.thumbnail.setImageUrl(items.get(i).getThumbnail(), imageLoader);
+        if(noticiaViewHolder.thumbnail!=null){
+            noticiaViewHolder.thumbnail.setImageUrl(items.get(i).getThumbnail(), imageLoader);
+
+        }
+
         noticiaViewHolder.name.setText(items.get(i).getShort_title());
         noticiaViewHolder.short_description.setText(items.get(i).getShort_description());
     }
