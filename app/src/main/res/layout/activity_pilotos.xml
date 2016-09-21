@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.punkmkt.formula12016.fragments.UbicaTuAsientoFragment">
+    tools:context="com.punkmkt.ahrapp.fragments.UbicaTuAsientoFragment">
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package com.punkmkt.formula12016;
+package com.punkmkt.ahrapp;
 
 import org.junit.Test;
 

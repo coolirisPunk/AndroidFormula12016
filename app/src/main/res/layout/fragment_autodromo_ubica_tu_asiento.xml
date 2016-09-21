@@ -2,14 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.punkmkt.formula12016.fragments.UbicaTuAsientoFragment">
+    tools:context="com.punkmkt.ahrapp.fragments.UbicaTuAsientoFragment">
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/text_grey"
         android:gravity="center_horizontal">
-        <com.punkmkt.formula12016.utils.CustomScrollView
+        <com.punkmkt.ahrapp.utils.CustomScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <LinearLayout
@@ -120,7 +120,7 @@
                         />
                 </LinearLayout>
             </LinearLayout>
-        </com.punkmkt.formula12016.utils.CustomScrollView>
+        </com.punkmkt.ahrapp.utils.CustomScrollView>
     </LinearLayout>
 
 </RelativeLayout>

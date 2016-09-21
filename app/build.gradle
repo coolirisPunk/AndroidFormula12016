@@ -5,11 +5,11 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "com.punkmkt.formula12016"
+        applicationId "autodromo.punkmkt.com.ahrapp"
         minSdkVersion 19
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        versionCode 18
+        versionName "2.0"
         buildConfigField "String", "CLIENT_ID", "\"${loadSecret("UBER_CLIENT_ID")}\"" //Add your client id to gradle.properties
         buildConfigField "String", "REDIRECT_URI", "\"${loadSecret("UBER_REDIRECT_URI")}\"" //Add your redirect uri to gradle.properties
         buildConfigField "String", "SERVER_TOKEN", "\"${loadSecret("UBER_SERVER_TOKEN")}\"" //Add your server token to gradle.properties

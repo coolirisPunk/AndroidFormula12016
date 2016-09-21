@@ -20,6 +20,6 @@
     <!-- This will Enable reporting exceptions -->
     <bool name="ga_reportUncaughtExceptions">true</bool>
 
-    <screenName name="com.punkmkt.formula12016.MyVolleySingleton">Autódromo Hermanos Rodríguez</screenName>
+    <screenName name="com.punkmkt.ahrapp.MyVolleySingleton">Autódromo Hermanos Rodríguez</screenName>
 </resources>
 

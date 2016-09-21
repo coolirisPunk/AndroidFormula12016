@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
-            tools:context="com.punkmkt.formula12016.MainActivity">
+            tools:context="com.punkmkt.ahrapp.MainActivity">
             <android.support.design.widget.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
