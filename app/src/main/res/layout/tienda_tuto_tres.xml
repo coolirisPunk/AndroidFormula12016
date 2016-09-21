@@ -103,11 +103,11 @@
                 android:id="@+id/next_view"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="SIGUIENTE"
+                android:text="@string/finalizar"
                 android:textColor="@color/white"
                 android:textSize="18dp"
                 android:textStyle="bold"
-                android:onClick="NextViewPager"
+                android:onClick="EndViewPager"
                 android:gravity="center_horizontal"
                 android:paddingBottom="10dp"/>
 

@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:scrollbars="none"
     android:background="@color/white"
+    android:fillViewport="true"
     >
 
     <RelativeLayout
@@ -74,93 +75,22 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/noticia_texto"
             android:padding="30dp"
-            android:layout_below="@+id/noticia_texto">
-
-            <TextView
-                android:id="@+id/text_not_relacionadas"
+            android:descendantFocusability="blocksDescendants">
+            <!-- DEV NOTE: Outer wrapper relative layout is added intentionally to address issue
+                 that only happens on Marshmallow & Nougat devices (API 23 & 24).
+                 On marshmallow API 23, the "RecyclerView" `layout_height="wrap_content"` does NOT
+                 occupy the height of all the elements added to it via adapter. The result is cut out
+                 items that is outside of device viewport when it loads initially.
+                 Wrapping "RecyclerView" with "RelativeLayout" fixes the issue on Marshmallow devices.
+            -->
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/my_recycler_view"
+                android:clickable="true"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="NOTICIAS RELACIONADAS"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:layout_marginBottom="20dp"
-                android:gravity="center_horizontal"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textSize="22dp"/>
-
-            <RelativeLayout
-                android:id="@+id/noticia_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/text_not_relacionadas"
-                android:layout_marginBottom="20dp"
-                >
-                <TextView
-                    android:id="@+id/idn1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:visibility="gone"/>
-                <com.android.volley.toolbox.NetworkImageView
-                    android:id="@+id/img_noticia1"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_alignParentTop="true"
-                    android:scaleType="centerCrop"
-                    android:adjustViewBounds="true" />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/titulo_noticia_1"
-                    android:textColor="@color/red"
-                    android:textSize="15sp"
-                    android:fontFamily="sans-serif-condensed"
-                    android:textStyle="bold"
-                    android:maxLength="80"
-                    android:padding="10dp"
-                    android:background="@color/grey_background"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:layout_below="@+id/img_noticia1"
-                    />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/noticia_2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/noticia_1"
-                >
-                <TextView
-                    android:id="@+id/idn2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:visibility="gone"/>
-                <com.android.volley.toolbox.NetworkImageView
-                    android:id="@+id/img_noticia2"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_alignParentTop="true"
-                    android:scaleType="centerCrop"
-                    android:adjustViewBounds="true" />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/titulo_noticia_2"
-                    android:textColor="@color/red"
-                    android:textSize="15sp"
-                    android:fontFamily="sans-serif-condensed"
-                    android:textStyle="bold"
-                    android:maxLength="80"
-                    android:padding="10dp"
-                    android:background="@color/grey_background"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:layout_below="@+id/img_noticia2"
-                    />
-            </RelativeLayout>
-
+                android:layout_height="wrap_content"/>
         </RelativeLayout>
-
     </RelativeLayout>
 
 

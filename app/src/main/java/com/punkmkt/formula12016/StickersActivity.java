@@ -51,7 +51,7 @@ public class StickersActivity extends AppCompatActivity {
     String TAG = StickersActivity.class.getName();
     PhotoSortrView photoSorter;
     private ArrayList<ImgSticker> mImages = new ArrayList<>();
-    private static final int[] STICKERS = { R.drawable.euphoric_sticker_low,R.drawable.speed_lovers_sticker_low,R.drawable.true_stickers_low,R.drawable.vip_party_sticker_low};
+    private static final int[] STICKERS = { R.drawable.euphoric_200,R.drawable.speed_lovers_200,R.drawable.true_racers_200,R.drawable.vip_party_200};
     private LinearLayout stickersLayout;
     private RelativeLayout canvas_container;
     private int currentIndex;

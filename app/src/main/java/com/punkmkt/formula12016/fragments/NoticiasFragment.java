@@ -37,12 +37,12 @@ public class NoticiasFragment extends Fragment {
 
         tabLayout = (TabLayout) v.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+
         return v;
     }
 
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
     }
 
     private void setupViewPager(ViewPager viewPager) {

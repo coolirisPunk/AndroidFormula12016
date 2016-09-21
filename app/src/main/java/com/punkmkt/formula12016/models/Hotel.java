@@ -13,6 +13,7 @@ public class Hotel {
     private String longitud_mapa;
     private String imagen;
     private String urlmap;
+    private String website;
 
     public Hotel(){
 
@@ -88,5 +89,13 @@ public class Hotel {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
     }
 }

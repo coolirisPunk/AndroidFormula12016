@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableRow xmlns:android="http://schemas.android.com/apk/res/android" android:paddingBottom="10dp" android:paddingTop="10dp" android:weightSum="3" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@color/red">
-    <LinearLayout android:layout_width="wrap_content" android:layout_weight="1" android:layout_height="wrap_content" android:paddingLeft="10dp">
+    <LinearLayout android:layout_width="wrap_content" android:layout_weight="1" android:layout_height="wrap_content" android:paddingStart="10dp">
         <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/calendario" android:layout_marginEnd="5dp"/>
         <TextView android:id="@+id/dia" android:fontFamily="sans-serif-condensed"   android:gravity="center" android:text="VIERNES 25" android:textSize="18sp" android:textColor="@color/white" android:textStyle="bold" android:layout_width="wrap_content" android:layout_height="wrap_content" />
     </LinearLayout>

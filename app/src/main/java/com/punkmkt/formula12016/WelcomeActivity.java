@@ -27,25 +27,34 @@ public class WelcomeActivity extends AppCompatActivity {
             speedImg.setImageResource(R.drawable.speed_lovers_logo);
             background_speed_lover.setBackgroundResource(R.drawable.textura_speed_lovers);
             text_welcome.setText(getResources().getText(R.string.welcome_speed_lover));
+            new loading().execute();
         }
         else if(speed_lover.equals("euphoric_fans")){
             speedImg.setImageResource(R.drawable.euphoric_fans_logo);
             background_speed_lover.setBackgroundResource(R.drawable.textura_euphoric_fans);
             text_welcome.setText(getResources().getText(R.string.welcome_euphoric_fans));
+            new loading().execute();
         }
         else if(speed_lover.equals("true_racers")){
             speedImg.setImageResource(R.drawable.true_racers_logo);
             background_speed_lover.setBackgroundResource(R.drawable.textura_true_racers);
             text_welcome.setText(getResources().getText(R.string.welcome_true_racers));
+            new loading().execute();
         }
         else if(speed_lover.equals("vip_party_racers")){
             speedImg.setImageResource(R.drawable.vip_party_racers_logo);
             background_speed_lover.setBackgroundResource(R.drawable.textura_vip_party_racers);
             text_welcome.setText(getResources().getText(R.string.welcome_vip_party_racers));
+            new loading().execute();
+        }
+        else{
+            Intent goHome = new Intent(WelcomeActivity.this, MainActivity.class);
+            startActivity(goHome);
         }
 
 
-        new loading().execute();
+
+
     }
     private class loading extends AsyncTask<Void, Void, Void> {
 

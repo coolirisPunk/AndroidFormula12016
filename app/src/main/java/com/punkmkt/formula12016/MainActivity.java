@@ -22,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.punkmkt.formula12016.fragments.AutodromoFragment;
+import com.punkmkt.formula12016.fragments.BeyondTheTrackFragment;
 import com.punkmkt.formula12016.fragments.ConfiguracionFragment;
 import com.punkmkt.formula12016.fragments.HomeFragment;
 import com.punkmkt.formula12016.fragments.HorariosFragment;
@@ -63,7 +64,36 @@ public class MainActivity extends AppCompatActivity
         Intent intent = getIntent();
         String inf = intent.getStringExtra("fragment");
 
+        /*try{
+            if(inf.equals("noticias")){
+                if (savedInstanceState == null) {
+                    Fragment f1 = new NoticiasFragment();
+                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                    ft.add(R.id.frame, f1).commit();
+                }
+            }
+            else if(inf.equals("mexico")){
+                if (savedInstanceState == null) {
+                    Fragment f1 = new LaciudadFragment();
+                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                    ft.add(R.id.frame, f1).commit();
+                }
+            }
+            else if (inf.equals("tiendaRestaurantes")){
+                if (savedInstanceState == null) {
+                    Fragment f1 = new TiendaFragment();
+                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                    ft.add(R.id.frame, f1).commit();
+                }
+            }
+        }catch (Exception e){
+            if (savedInstanceState == null) {
+                Fragment f1 = new HomeFragment();
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ft.add(R.id.frame, f1).commit();
 
+            }
+        }*/
 
 
         if (savedInstanceState == null && inf== null) {
@@ -81,7 +111,16 @@ public class MainActivity extends AppCompatActivity
                 ftH.addToBackStack(null);
                 ftH.commit();
             }
+            else if(inf.equals("tiendaRestaurantes")){
+                Fragment fH = new TiendaFragment();
+                FragmentTransaction ftH = getSupportFragmentManager().beginTransaction();
+                ftH.replace(R.id.frame, fH);
+                ftH.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ftH.addToBackStack(null);
+                ftH.commit();
+            }
         }
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -112,6 +151,19 @@ public class MainActivity extends AppCompatActivity
         actionBarDrawerToggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+
+
+        //hide beyond the track
+        String shared_token = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getString("access_token", null);
+
+        if(shared_token==null){
+            Menu nav_Menu = navigationView.getMenu();
+            nav_Menu.findItem(R.id.nav_beyond_the_track).setVisible(false);
+        }
+
+
+
         navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -136,8 +188,11 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        //MenuItem item = menu.getItem(1).setVisible(false);
         return true;
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -277,7 +332,12 @@ public class MainActivity extends AppCompatActivity
             }
         }
         else if (id == R.id.nav_beyond_the_track) {
-
+            Fragment fH = new BeyondTheTrackFragment();
+            FragmentTransaction ftH = getSupportFragmentManager().beginTransaction();
+            ftH.replace(R.id.frame, fH);
+            ftH.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+            ftH.addToBackStack(null);
+            ftH.commit();
         }
 //        else if (id == R.id.nav_iniciar_sesion) {
 //            Intent intent_login = new Intent(getApplicationContext(), LoginActivity.class);

@@ -39,39 +39,33 @@ public class RestaurantesAdapter  extends RecyclerView.Adapter<RestaurantesAdapt
 
     public static class HospedajeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView nombre;
+        public TextView chef;
         public TextView ubicacion;
-        public TextView telefono;
-        public TextView vermas;
         public TextView sitiourl;
         public ImageView sitioicon;
+        public ImageView cheficon;
         public NetworkImageView imagen;
-        public ImageButton vermasbutton;
         public IMyViewHolderClicks mListener;
 
         public HospedajeViewHolder(View v, IMyViewHolderClicks listener) {
             super(v);
             mListener = listener;
             imagen = (NetworkImageView) v.findViewById(R.id.imageView);
-            vermasbutton = (ImageButton) v.findViewById(R.id.vermasbutton);
-            vermas = (TextView) v.findViewById(R.id.vermas);
             nombre = (TextView) v.findViewById(R.id.name);
             sitiourl = (TextView) v.findViewById(R.id.sitiourl);
             sitioicon = (ImageView) v.findViewById(R.id.sitioicon);
+            cheficon = (ImageView) v.findViewById(R.id.pinchef);
             ubicacion = (TextView) v.findViewById(R.id.ubicacion);
-            telefono = (TextView) v.findViewById(R.id.telefono);
-            telefono.setOnClickListener(this);
+
+            chef = (TextView) v.findViewById(R.id.chef);
+
             sitiourl.setOnClickListener(this);
-            vermas.setOnClickListener(this);
-            vermasbutton.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            if (v instanceof ImageButton) {
-                mListener.onTomato((ImageButton) v, getLayoutPosition());
-            } else if (v.getId() == R.id.vermas) {
-                mListener.onPotato((TextView) v, getLayoutPosition());
-            } else if (v.getId() == R.id.telefono) {
+
+            if (v.getId() == R.id.telefono) {
                 mListener.callPlace((TextView) v, getLayoutPosition());
             } else if (v.getId() == R.id.sitiourl) {
                 mListener.openSiteUrl((TextView) v, getLayoutPosition());
@@ -83,9 +77,7 @@ public class RestaurantesAdapter  extends RecyclerView.Adapter<RestaurantesAdapt
 
             public void callPlace(TextView textCall, int i);
 
-            public void onPotato(TextView caller, int i);
 
-            public void onTomato(ImageButton callerImage, int i);
         }
 
     }
@@ -103,14 +95,14 @@ public class RestaurantesAdapter  extends RecyclerView.Adapter<RestaurantesAdapt
     @Override
     public RestaurantesAdapter.HospedajeViewHolder onCreateViewHolder(final ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.row_layout_la_ciudad, viewGroup, false);
+                .inflate(R.layout.row_layout_restaurantes, viewGroup, false);
         if (imageLoader == null)
             imageLoader = MyVolleySingleton.getInstance().getImageLoader();
 
         RestaurantesAdapter.HospedajeViewHolder vh = new HospedajeViewHolder(v, new RestaurantesAdapter.HospedajeViewHolder.IMyViewHolderClicks() {
             public void onPotato(TextView caller, int i) {
                 Restaurante restaurante = items.get(i);
-                ((MainActivity) viewGroup.getContext()).getSupportActionBar().setTitle(context.getResources().getString(R.string.app_name));
+                //((MainActivity) viewGroup.getContext()).getSupportActionBar().setTitle(context.getResources().getString(R.string.app_name));
                 Fragment fH = new MapDetailFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("id", Integer.toString(restaurante.getId()));
@@ -132,7 +124,7 @@ public class RestaurantesAdapter  extends RecyclerView.Adapter<RestaurantesAdapt
             public void onTomato(ImageButton callerImage, int i) {
                 Restaurante restaurante = items.get(i);
 
-                ((MainActivity) viewGroup.getContext()).getSupportActionBar().setTitle(context.getResources().getString(R.string.app_name));
+                //((MainActivity) viewGroup.getContext()).getSupportActionBar().setTitle(context.getResources().getString(R.string.app_name));
                 Fragment fH = new MapDetailFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("id", Integer.toString(restaurante.getId()));
@@ -168,8 +160,14 @@ public class RestaurantesAdapter  extends RecyclerView.Adapter<RestaurantesAdapt
 
             public void openSiteUrl(TextView urlLink, int i) {
                 Restaurante hotel = items.get(i);
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(hotel.getUrlmap()));
-                viewGroup.getContext().startActivity(browserIntent);
+                try{
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(hotel.getWebsite()));
+                    viewGroup.getContext().startActivity(browserIntent);
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+
             }
 
             ;
@@ -182,12 +180,18 @@ public class RestaurantesAdapter  extends RecyclerView.Adapter<RestaurantesAdapt
         viewHolder.imagen.setImageUrl(items.get(i).getImagen(), imageLoader);
         viewHolder.nombre.setText(items.get(i).getNombre());
         viewHolder.ubicacion.setText(items.get(i).getUbicacion());
-        viewHolder.telefono.setText(items.get(i).getTelefono());
-        if (items.get(i).getUrlmap() == null) {
+        if (items.get(i).getChef() == null || items.get(i).getChef().equals("")) {
+            viewHolder.chef.setVisibility(View.GONE);
+            viewHolder.cheficon.setVisibility(View.GONE);
+        } else {
+            viewHolder.chef.setText(items.get(i).getChef());
+        }
+
+        if (items.get(i).getWebsite() == null || items.get(i).getWebsite().equals("")) {
             viewHolder.sitiourl.setVisibility(View.GONE);
             viewHolder.sitioicon.setVisibility(View.GONE);
         } else {
-            viewHolder.sitiourl.setText(items.get(i).getUrlmap());
+            viewHolder.sitiourl.setText(items.get(i).getWebsite());
         }
     }
 }

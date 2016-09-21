@@ -206,14 +206,16 @@ public class HomeFragment extends Fragment {
         mRecyclerView.setHasFixedSize(true);
 
         // use a linear layout manager
-        mLayoutManager = new GridLayoutManager(getActivity(),2);
+        //mLayoutManager = new GridLayoutManager(getActivity(),2);
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        //mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
 
         //mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
         mAdapter = new NewsAdapter(noticias,getActivity().getApplicationContext());
         final NoticiaMasonryAdapter masonryAdapter = new NoticiaMasonryAdapter(noticias, getActivity());
+
         mRecyclerView.setAdapter(masonryAdapter);
         if (NetworkUtils.haveNetworkConnection(getActivity().getApplicationContext())) {
         StringRequest request = new AuthRequest(getActivity().getApplicationContext(), Request.Method.GET, AHR_URL_NOTICIAS, "UTF-8", new Response.Listener<String>() {
@@ -390,7 +392,13 @@ public class HomeFragment extends Fragment {
                         ftH.commit();
                     }
                     else if(currentindex==3){
-                        //Noticias
+                        ((MainActivity)getActivity()).getSupportActionBar().setTitle(getResources().getString(R.string.app_name));
+                        Fragment fH = new NoticiasFragment();
+                        FragmentTransaction ftH = getActivity().getSupportFragmentManager().beginTransaction();
+                        ftH.replace(R.id.frame, fH);
+                        ftH.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                        ftH.addToBackStack(null);
+                        ftH.commit();
                     }
                 }
 
@@ -452,7 +460,13 @@ public class HomeFragment extends Fragment {
                         ftH.commit();
                     }
                     else if(currentindex==2){
-                        //store
+                        ((MainActivity)getActivity()).getSupportActionBar().setTitle(getResources().getString(R.string.app_name));
+                        Fragment fH = new TiendaFragment();
+                        FragmentTransaction ftH = getActivity().getSupportFragmentManager().beginTransaction();
+                        ftH.replace(R.id.frame, fH);
+                        ftH.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                        ftH.addToBackStack(null);
+                        ftH.commit();
                     }
                     else if(currentindex==3){
                         ((MainActivity)getActivity()).getSupportActionBar().setTitle(getResources().getString(R.string.app_name));
@@ -522,7 +536,13 @@ public class HomeFragment extends Fragment {
                         ftH.commit();
                     }
                     else if(currentindex==2){
-                        //store
+                        ((MainActivity)getActivity()).getSupportActionBar().setTitle(getResources().getString(R.string.app_name));
+                        Fragment fH = new TiendaFragment();
+                        FragmentTransaction ftH = getActivity().getSupportFragmentManager().beginTransaction();
+                        ftH.replace(R.id.frame, fH);
+                        ftH.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                        ftH.addToBackStack(null);
+                        ftH.commit();
                     }
                     else if(currentindex==3){
                         ((MainActivity)getActivity()).getSupportActionBar().setTitle(getResources().getString(R.string.app_name));
@@ -563,7 +583,13 @@ public class HomeFragment extends Fragment {
                         ftH.commit();
                     }
                     else if(currentindex==3){
-                        //Noticias
+                        ((MainActivity)getActivity()).getSupportActionBar().setTitle(getResources().getString(R.string.app_name));
+                        Fragment fH = new NoticiasFragment();
+                        FragmentTransaction ftH = getActivity().getSupportFragmentManager().beginTransaction();
+                        ftH.replace(R.id.frame, fH);
+                        ftH.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                        ftH.addToBackStack(null);
+                        ftH.commit();
                     }
                 }
 

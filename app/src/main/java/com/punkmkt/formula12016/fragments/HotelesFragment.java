@@ -52,7 +52,7 @@ public class HotelesFragment extends Fragment{
             @Override
             public void onResponse(String response) {
                 try {
-                    Log.d(TAG,response.toString());
+                    Log.d(TAG,response);
                     hoteles.clear();
                     JSONObject object = new JSONObject(response);
 
@@ -68,7 +68,8 @@ public class HotelesFragment extends Fragment{
                         hotel.setImagen(anEntry.getString("picture"));
                         hotel.setLatitud_mapa(anEntry.getString("latitude"));
                         hotel.setLongitud_mapa(anEntry.getString("longitude"));
-                        //hotel.setUrlmap(anEntry.getString("website"));
+                        hotel.setUrlmap(anEntry.getString("website"));
+                        hotel.setWebsite(anEntry.getString("website"));
                         hoteles.add(hotel);
                     }
                     adapter.notifyDataSetChanged();
@@ -102,6 +103,8 @@ public class HotelesFragment extends Fragment{
                         hotel.setImagen(anEntry.getString("picture"));
                         hotel.setLatitud_mapa(anEntry.getString("latitude"));
                         hotel.setLongitud_mapa(anEntry.getString("longitude"));
+                        hotel.setUrlmap(anEntry.getString("website"));
+                        hotel.setWebsite(anEntry.getString("website"));
                         hoteles.add(hotel);
                     }
                     adapter.notifyDataSetChanged();

@@ -179,6 +179,21 @@ a través de esta sección.\n\n
     <string name="enviar">ENVIAR</string>
     <string name="description_thanks_password">LOS PASOS PARA REESTABLECER TU CONTRASEÑA HAN SIDO ENVIADOS A TU CORREO ELECTRÓNICO.</string>
 
+    <string name="desc_uber">¡PIDE TU UBER PARA LLEGAR AL GRAN PREMIO DE MÉXICO 2016!</string>
+
+    <string name="desc_btt_1">Ya eres parte del equipo <b>Beyond The Track</b>\n
+        Bienvenido al programa de lealtad que va más allá de la pista.\n\n
+        Descubre el otro lado, experimenta de una forma memorable la #F1ESTA y recibe antes que nadie beneficios exclusivos. Serás el primero en disfrutar:
+
+    </string>
+
+    <string name="desc_btt_2">
+        Venta anticipada de boletos\n
+        Regalos auto\n
+        Sorpresas y privilegios
+    </string>
+        <string name="desc_btt_3">STAY TUNED, #STAYF1RST</string>
+    <string name="finalizar">FINALIZAR</string>
 
 </resources>
 

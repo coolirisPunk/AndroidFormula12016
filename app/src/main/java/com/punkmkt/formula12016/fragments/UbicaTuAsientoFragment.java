@@ -41,9 +41,8 @@ import com.punkmkt.formula12016.R;
  * Created by DaniPunk on 19/07/16.
  */
 public class UbicaTuAsientoFragment extends Fragment implements OnMapReadyCallback,GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,LocationListener, GoogleMap.OnMapClickListener, GoogleMap.OnMapLongClickListener, UbicaAsientoDialogFragment.UbicaAsientoDialogListener {
-    private Spinner zonas,gradas,seccion,filas, asientos;
-    String[] data_array_zonas;
-    GoogleMap map;
+
+    String current_zone, current_grandstand, current_section, current_fila, current_asiento;
     View view;
     SupportMapFragment mapFragment;
     //private OverscrollHandler mOverscrollHandler = new OverscrollHandler();
@@ -291,6 +290,7 @@ public class UbicaTuAsientoFragment extends Fragment implements OnMapReadyCallba
     // This is called when the dialog is completed and the results have been passed
     @Override
     public void onFinishEditDialog(String zonas,String gradas,String seccion,String filas, String asientos) {
+
         Toast.makeText(getActivity().getApplicationContext(),"Hi, " + zonas + gradas+ seccion + filas + asientos, Toast.LENGTH_SHORT).show();
     }
 

@@ -12,6 +12,8 @@ public class Restaurante {
     private String latitud_mapa;
     private String longitud_mapa;
     private String imagen;
+    private String chef;
+    private String website;
 
     public Restaurante(){
 
@@ -87,5 +89,21 @@ public class Restaurante {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
+    }
+
+    public String getChef() {
+        return chef;
+    }
+
+    public void setChef(String chef) {
+        this.chef = chef;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
     }
 }

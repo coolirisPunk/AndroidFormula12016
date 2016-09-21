@@ -12,6 +12,7 @@ public class Lugar {
     private String latitud_mapa;
     private String longitud_mapa;
     private String imagen;
+    private String exposicion;
 
     public Lugar(){
 
@@ -87,5 +88,13 @@ public class Lugar {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
+    }
+
+    public String getExposicion() {
+        return exposicion;
+    }
+
+    public void setExposicion(String exposicion) {
+        this.exposicion = exposicion;
     }
 }

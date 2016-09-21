@@ -40,8 +40,7 @@ public class AdondeIrAdapter extends RecyclerView.Adapter<AdondeIrAdapter.Hosped
         public TextView ubicacion;
         public TextView telefono;
         public TextView vermas;
-        public TextView sitiourl;
-        public ImageView sitioicon;
+        public TextView exposicion;
         public NetworkImageView imagen;
         public ImageButton vermasbutton;
         public IMyViewHolderClicks mListener;
@@ -53,12 +52,10 @@ public class AdondeIrAdapter extends RecyclerView.Adapter<AdondeIrAdapter.Hosped
             vermasbutton = (ImageButton) v.findViewById(R.id.vermasbutton);
             vermas = (TextView) v.findViewById(R.id.vermas);
             nombre = (TextView) v.findViewById(R.id.name);
-            sitiourl = (TextView) v.findViewById(R.id.sitiourl);
-            sitioicon = (ImageView) v.findViewById(R.id.sitioicon);
             ubicacion = (TextView) v.findViewById(R.id.ubicacion);
             telefono = (TextView) v.findViewById(R.id.telefono);
+            exposicion = (TextView) v.findViewById(R.id.exposicion);
             telefono.setOnClickListener(this);
-            sitiourl.setOnClickListener(this);
             vermas.setOnClickListener(this);
             vermasbutton.setOnClickListener(this);
         }
@@ -164,14 +161,9 @@ public class AdondeIrAdapter extends RecyclerView.Adapter<AdondeIrAdapter.Hosped
     public void onBindViewHolder(final HospedajeViewHolder viewHolder, int i) {
         viewHolder.imagen.setImageUrl(items.get(i).getImagen(), imageLoader);
         viewHolder.nombre.setText(items.get(i).getNombre());
-        viewHolder.ubicacion.setText(items.get(i).getUbicacion());
+        viewHolder.exposicion.setText(items.get(i).getExposicion());
         viewHolder.telefono.setText(items.get(i).getTelefono());
-        if (items.get(i).getUrlmap()==null){
-            viewHolder.sitiourl.setVisibility(View.GONE);
-            viewHolder.sitioicon.setVisibility(View.GONE);
-        }else {
-            viewHolder.sitiourl.setText(items.get(i).getUrlmap());
-        }
+
     }
 
 }

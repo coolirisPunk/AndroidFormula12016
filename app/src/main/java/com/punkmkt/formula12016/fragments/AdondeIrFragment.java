@@ -67,7 +67,7 @@ public class AdondeIrFragment extends Fragment{
                         lugar.setImagen(anEntry.getString("picture"));
                         lugar.setLatitud_mapa(anEntry.getString("latitude"));
                         lugar.setLongitud_mapa(anEntry.getString("longitude"));
-                        //hotel.setUrlmap(anEntry.getString("website"));
+                        lugar.setExposicion(anEntry.getString("exposition"));
                         lugares.add(lugar);
                     }
                     adapter.notifyDataSetChanged();
@@ -101,7 +101,7 @@ public class AdondeIrFragment extends Fragment{
                         lugar.setImagen(anEntry.getString("picture"));
                         lugar.setLatitud_mapa(anEntry.getString("latitude"));
                         lugar.setLongitud_mapa(anEntry.getString("longitude"));
-                        //hotel.setUrlmap(anEntry.getString("website"));
+                        lugar.setExposicion(anEntry.getString("exposition"));
                         lugares.add(lugar);
                     }
                     adapter.notifyDataSetChanged();

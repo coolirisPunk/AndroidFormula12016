@@ -41,7 +41,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="OHHHHHHHHOHHHHHHHHOHHHHHHHHOHHHHHHHHOHHHHHHHH"
+                android:text="Name"
                 android:id="@+id/name"
                 android:textColor="@color/white"
                 android:textSize="13sp"
@@ -51,19 +51,20 @@
                 android:maxWidth="250dp"
                 android:layout_alignParentStart="true"
                 android:gravity="start"/>
+
             <LinearLayout
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:id="@+id/container_exposicion"
+                android:id="@+id/container_chef"
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_below="@+id/name">
                 <ImageView
-                    android:id="@+id/pinexposicion"
+                    android:id="@+id/pinchef"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
-                    android:src="@drawable/exposiciones"
+                    android:src="@drawable/chef"
                     android:gravity="start"
                     android:layout_marginEnd="4dp"
                     />
@@ -73,64 +74,67 @@
                     android:text="OHHHHHHOHHHHHHOHHHHHHOHHHHHHOHHHHHHOHHHHHH"
                     android:textColor="@color/white"
                     android:maxLength="60"
-                    android:id="@+id/exposicion"
+                    android:id="@+id/chef"
                     android:layout_marginBottom="5dp"
                     android:gravity="start"
                     android:textSize="12sp"
                     android:fontFamily="sans-serif-condensed"
                     />
             </LinearLayout>
-
             <LinearLayout
-                android:id="@+id/container_telefono"
-                android:layout_width="match_parent"
+                android:layout_marginBottom="8dp"
+                android:id="@+id/container_sitio"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="8dp"
-                android:layout_below="@+id/container_exposicion">
+                android:layout_below="@+id/container_chef">
                 <ImageView
-                    android:id="@+id/telefonoicon"
+                    android:id="@+id/sitioicon"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
-                    android:src="@drawable/telefono"
+                    android:src="@drawable/website"
                     android:gravity="start"
                     android:layout_marginEnd="4dp"
                     />
                 <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="12sp"
                     android:textColor="@color/white"
                     android:maxLength="20"
-                    android:id="@+id/telefono"
-                    android:clickable="true"
-                    android:onClick="llamarHospedaje"
+                    android:id="@+id/sitiourl"
                     android:fontFamily="sans-serif-condensed"
-                    android:textSize="12sp"
                     />
             </LinearLayout>
-
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/container_telefono">
+                android:orientation="horizontal"
+                android:id="@+id/container_ubicacion"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_below="@+id/container_sitio">
+                <ImageView
+                    android:id="@+id/pinicon"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/pin_icon_white"
+                    android:gravity="start"
+                    android:layout_marginEnd="4dp"
+                    />
                 <TextView
-                    android:id="@+id/vermas"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="OHHHHHHOHHHHHHOHHHHHHOHHHHHHOHHHHHHOHHHHHH"
                     android:textColor="@color/white"
-                    android:textStyle="bold"
+                    android:maxLength="60"
+                    android:id="@+id/ubicacion"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="start"
                     android:textSize="12sp"
                     android:fontFamily="sans-serif-condensed"
-                    android:layout_toStartOf="@+id/vermasbutton"
-                    android:text="VER EN MAPA"/>
-                <ImageButton
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginStart="10dp"
-                    android:id="@+id/vermasbutton"
-                    android:layout_width="28dp"
-                    android:layout_height="15dp"
-                    android:background="@drawable/arrow_colors" />
-            </RelativeLayout>
+                    />
+            </LinearLayout>
 
         </RelativeLayout>
     </RelativeLayout>

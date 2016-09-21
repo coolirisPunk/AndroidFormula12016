@@ -1,5 +1,6 @@
 package com.punkmkt.formula12016;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -25,8 +26,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.NetworkImageView;
+import com.android.volley.toolbox.StringRequest;
 import com.facebook.AccessToken;
 import com.punkmkt.formula12016.adapters.CustomizedSpinnerAdapter;
+import com.punkmkt.formula12016.models.Noticia;
+import com.punkmkt.formula12016.models.Notificacion;
+import com.punkmkt.formula12016.models.Zone;
+import com.punkmkt.formula12016.utils.AuthRequest;
+import com.punkmkt.formula12016.utils.NetworkUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,17 +49,32 @@ public class UbicaTuAsientoActivity extends AppCompatActivity {
     private CoordinatorLayout coordinatorLayout;
     ProgressDialog progressDialog;
     private String AHR_CREATEPROFILE_JSON_API_URL = "http://104.236.3.158:82/api/auth/rest-auth/user-profile/user/";
+    private String AHR_URL_ZONAS = "http://104.236.3.158:82/api/premio/zones/";
+    private String AHR_URL_GRADAS = "http://104.236.3.158:82/api/premio/grandstands/";
+    private String AHR_URL_SECCIONES = "http://104.236.3.158:82/api/premio/sections/";
+    private String AHR_URL_FILAS = "http://104.236.3.158:82/api/premio/rows/";
+    private String AHR_URL_ASIENTOS = "http://104.236.3.158:82/api/premio/seats/";
+
+    ArrayList<Zone> array_zones = new ArrayList<>();
+    ArrayList<Zone> array_grandstands = new ArrayList<>();
+    ArrayList<Zone> array_sections = new ArrayList<>();
+    ArrayList<Zone> array_rows = new ArrayList<>();
+    ArrayList<Zone> array_seats = new ArrayList<>();
+
+    String current_zone, current_grandstand, current_section, current_fila, current_asiento;
+
+    Activity activity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ubica_tu_asiento);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id
                 .coordinatorLayout);
+        activity = this;
         Button saltar = (Button) findViewById(R.id.saltar);
         Button guardar_cambios = (Button) findViewById(R.id.guardar_cambios);
         final String Ukey = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getString("access_token",null);
         if (Ukey!=null){
-            //Toast.makeText(getApplicationContext(), Ukey, Toast.LENGTH_SHORT).show();
             Log.d(TAG,Ukey);
         }
         else{
@@ -66,42 +88,37 @@ public class UbicaTuAsientoActivity extends AppCompatActivity {
         filas = (Spinner) findViewById(R.id.filas_spinner);
         asientos = (Spinner) findViewById(R.id.asientos_spinner);
 
-        final String[] data_array_zonas = getResources().getStringArray(R.array.zonas_array);
 
-        final String[] data_gradas = new String[16];
-        final String[] data_seccion = new String[16];
-        final String[] data_filas = new String[16];
-        final String[] data_asientos = new String[16];
+//        final String[] data_gradas = new String[16];
+        //final String[] data_seccion = new String[16];
+       // final String[] data_filas = new String[16];
+      //  final String[] data_asientos = new String[16];
 
-        for (int i = 0; i<16;i++){
-            data_gradas[i] = Integer.toString(i+1);
-            data_seccion[i] = Integer.toString(i+1);
-            data_filas[i] = Integer.toString(i+1);
-            data_asientos[i] = Integer.toString(i+1);
-        }
-
-        final ArrayAdapter<String> adapter_zonas = new CustomizedSpinnerAdapter(
-                this, android.R.layout.simple_spinner_item, data_array_zonas);
-
-        final ArrayAdapter<String> adapter_gradas = new CustomizedSpinnerAdapter(
-                this, android.R.layout.simple_spinner_item, data_gradas);
-
-        final ArrayAdapter<String> adapter_secciones = new CustomizedSpinnerAdapter(
-                this, android.R.layout.simple_spinner_item, data_gradas);
-
-        final ArrayAdapter<String> adapter_filas = new CustomizedSpinnerAdapter(
-                this, android.R.layout.simple_spinner_item, data_filas);
-
-        final ArrayAdapter<String> adapter_asientos = new CustomizedSpinnerAdapter(
-                this, android.R.layout.simple_spinner_item, data_asientos);
-
-        zonas.setAdapter(adapter_zonas);
-        gradas.setAdapter(adapter_gradas);
-        seccion.setAdapter(adapter_secciones);
-        filas.setAdapter(adapter_filas);
-        asientos.setAdapter(adapter_asientos);
+      //  for (int i = 0; i<16;i++){
+           // data_gradas[i] = Integer.toString(i+1);
+            //data_seccion[i] = Integer.toString(i+1);
+         //  data_filas[i] = Integer.toString(i+1);
+          //  data_asientos[i] = Integer.toString(i+1);
+      //  }
 
 
+        //final ArrayAdapter<String> adapter_gradas = new CustomizedSpinnerAdapter(
+        //        this, android.R.layout.simple_spinner_item, data_gradas);
+
+        //final ArrayAdapter<String> adapter_secciones = new CustomizedSpinnerAdapter(
+                //this, android.R.layout.simple_spinner_item, data_seccion);
+
+       // final ArrayAdapter<String> adapter_filas = new CustomizedSpinnerAdapter(
+       //         this, android.R.layout.simple_spinner_item, data_filas);
+
+        //final ArrayAdapter<String> adapter_asientos = new CustomizedSpinnerAdapter(
+        //        this, android.R.layout.simple_spinner_item, data_asientos);
+
+        getzones();
+        //gradas.setAdapter(adapter_gradas);
+       // seccion.setAdapter(adapter_secciones);
+       // filas.setAdapter(adapter_filas);
+       // asientos.setAdapter(adapter_asientos);
 
         zonas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -110,16 +127,28 @@ public class UbicaTuAsientoActivity extends AppCompatActivity {
                 ((TextView) parentView.getChildAt(0)).setTextAlignment(TextView.TEXT_ALIGNMENT_CENTER);
                 switch (position){
                     case 0:
-                        ((TextView) parentView.getChildAt(0)).setBackgroundColor(Color.BLACK);
+                        ((TextView) parentView.getChildAt(0)).setBackgroundColor(Color.YELLOW);
                         break;
                     case 1:
-                        ((TextView) parentView.getChildAt(0)).setBackgroundColor(Color.RED);
-                        break;
-                    case 2:
                         ((TextView) parentView.getChildAt(0)).setBackgroundColor(Color.BLUE);
                         break;
+                    case 2:
+                        ((TextView) parentView.getChildAt(0)).setBackgroundColor(Color.BLACK);
+                        break;
+                    case 3:
+                        ((TextView) parentView.getChildAt(0)).setBackgroundColor(Color.BLACK);
+                        break;
+                    case 4:
+                        ((TextView) parentView.getChildAt(0)).setBackgroundColor(Color.BLACK);
+                        break;
+                    case 5:
+                        ((TextView) parentView.getChildAt(0)).setBackgroundColor(Color.BLACK);
+                        break;
                 }
+                current_zone = array_zones.get(position).getId();
+                getgrandstands(current_zone);
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) { }
         });
@@ -128,6 +157,8 @@ public class UbicaTuAsientoActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 ((TextView) parentView.getChildAt(0)).setTextColor(Color.WHITE);
                 ((TextView) parentView.getChildAt(0)).setTextAlignment(TextView.TEXT_ALIGNMENT_CENTER);
+                current_grandstand= array_grandstands.get(position).getId();
+                getsections(current_grandstand);
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) { }
@@ -137,6 +168,9 @@ public class UbicaTuAsientoActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 ((TextView) parentView.getChildAt(0)).setTextColor(Color.WHITE);
                 ((TextView) parentView.getChildAt(0)).setTextAlignment(TextView.TEXT_ALIGNMENT_CENTER);
+
+                current_section = array_sections.get(position).getId();
+                getrows(current_section);
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) { }
@@ -146,7 +180,10 @@ public class UbicaTuAsientoActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 ((TextView) parentView.getChildAt(0)).setTextColor(Color.WHITE);
                 ((TextView) parentView.getChildAt(0)).setTextAlignment(TextView.TEXT_ALIGNMENT_CENTER);
+                current_fila = array_rows.get(position).getId();
+                getseats(current_fila);
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) { }
         });
@@ -155,6 +192,7 @@ public class UbicaTuAsientoActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 ((TextView) parentView.getChildAt(0)).setTextColor(Color.WHITE);
                 ((TextView) parentView.getChildAt(0)).setTextAlignment(TextView.TEXT_ALIGNMENT_CENTER);
+                current_asiento = array_seats.get(position).getId();
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) { }
@@ -178,12 +216,12 @@ public class UbicaTuAsientoActivity extends AppCompatActivity {
                 JSONObject js = new JSONObject();
 
                 try {
-                    js.put("zone", zonas.getSelectedItem().toString());
-                    js.put("grada", gradas.getSelectedItem().toString());
-                    js.put("section", seccion.getSelectedItem().toString());
-                    js.put("fila", filas.getSelectedItem().toString());
-                    js.put("seat", asientos.getSelectedItem().toString());
-                    js.put("speed_lover", "true_racers");
+                    js.put("zone", current_zone);
+                    js.put("grada", current_grandstand);
+                    js.put("section", current_section);
+                    js.put("fila", current_fila);
+                    js.put("seat", current_asiento);
+                    //js.put("speed_lover", "true_racers");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -252,6 +290,15 @@ public class UbicaTuAsientoActivity extends AppCompatActivity {
                                         e.printStackTrace();
                                     }
                                     break;
+                                case 500:
+                                    json = new String(response.data);
+                                    try{
+                                        JSONObject obj = new JSONObject(json);
+                                        Log.d(TAG,obj.toString());
+                                    } catch(JSONException e){
+                                        e.printStackTrace();
+                                    }
+                                    break;
                                 default:
 
                                     break;
@@ -282,5 +329,192 @@ public class UbicaTuAsientoActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void getzones(){
+        Log.d(TAG+"GRANDSTANDS","ZONES");
+        if (NetworkUtils.haveNetworkConnection(getApplicationContext())) {
+            StringRequest request = new AuthRequest(getApplicationContext(), Request.Method.GET, AHR_URL_ZONAS, "UTF-8", new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        JSONObject object = new JSONObject(response);
+                        JSONArray results = object.getJSONArray("results");
+                        final String[] data_array_zonas = new String[results.length()];
+                        for (int count = 0; count < results.length(); count++) {
+                            JSONObject anEntry = results.getJSONObject(count);
+                            data_array_zonas[count] = anEntry.optString("title");
+                            array_zones.add(new Zone(anEntry.optString("id"),anEntry.optString("title")));
+                        }
+                        final ArrayAdapter<String> adapter_zonas = new CustomizedSpinnerAdapter(
+                                activity, android.R.layout.simple_spinner_item, data_array_zonas);
+                        zonas.setAdapter(adapter_zonas);
+
+                        //
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    error.printStackTrace();
+                }
+            });
+            MyVolleySingleton.getInstance().addToRequestQueue(request);
+
+        }
+    }
+    private void getgrandstands(String id){
+        Log.d(TAG+"GRANDSTANDS",id);
+        final ArrayList <Zone> copy_array_grandstands = new ArrayList<>();
+        if (NetworkUtils.haveNetworkConnection(getApplicationContext())) {
+
+            StringRequest request = new AuthRequest(getApplicationContext(), Request.Method.GET, AHR_URL_GRADAS + id + "/" , "UTF-8", new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        JSONObject object = new JSONObject(response);
+                        JSONArray results = object.getJSONArray("results");
+                        final String[] data_array_grandstands = new String[results.length()];
+
+                        for (int count = 0; count < results.length(); count++) {
+                            JSONObject anEntry = results.getJSONObject(count);
+                            data_array_grandstands[count] = anEntry.optString("title");
+                            copy_array_grandstands.add(new Zone(anEntry.optString("id"),anEntry.optString("title")));
+                        }
+                        array_grandstands = copy_array_grandstands;
+                        final ArrayAdapter<String> adapter_grandstands = new CustomizedSpinnerAdapter(
+                                activity, android.R.layout.simple_spinner_item, data_array_grandstands);
+                        gradas.setAdapter(adapter_grandstands);
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    error.printStackTrace();
+                }
+            });
+            MyVolleySingleton.getInstance().addToRequestQueue(request);
+
+        }
+    }
+    private void getsections(String id){
+        Log.d(TAG+"SECTIONS",id);
+        final ArrayList <Zone> copy_array_sections = new ArrayList<>();
+        if (NetworkUtils.haveNetworkConnection(getApplicationContext())) {
+
+            StringRequest request = new AuthRequest(getApplicationContext(), Request.Method.GET, AHR_URL_SECCIONES + id + "/" , "UTF-8", new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        JSONObject object = new JSONObject(response);
+                        JSONArray results = object.getJSONArray("results");
+                        final String[] data_array_sections = new String[results.length()];
+
+                        for (int count = 0; count < results.length(); count++) {
+                            JSONObject anEntry = results.getJSONObject(count);
+                            data_array_sections[count] = anEntry.optString("title");
+                            copy_array_sections.add(new Zone(anEntry.optString("id"),anEntry.optString("title")));
+                        }
+                        array_sections = copy_array_sections;
+                        final ArrayAdapter<String> adapter_sections = new CustomizedSpinnerAdapter(
+                                activity, android.R.layout.simple_spinner_item, data_array_sections);
+                        seccion.setAdapter(adapter_sections);
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    error.printStackTrace();
+                }
+            });
+            MyVolleySingleton.getInstance().addToRequestQueue(request);
+
+        }
+    }
+
+    private void getrows(String id){
+        Log.d(TAG+"ROWS",id);
+        final ArrayList <Zone> copy_array_rows = new ArrayList<>();
+        if (NetworkUtils.haveNetworkConnection(getApplicationContext())) {
+
+            StringRequest request = new AuthRequest(getApplicationContext(), Request.Method.GET, AHR_URL_FILAS + id + "/" , "UTF-8", new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        JSONObject object = new JSONObject(response);
+                        JSONArray results = object.getJSONArray("results");
+                        final String[] data_array_rows = new String[results.length()];
+
+                        for (int count = 0; count < results.length(); count++) {
+                            JSONObject anEntry = results.getJSONObject(count);
+                            data_array_rows[count] = anEntry.optString("title");
+                            copy_array_rows.add(new Zone(anEntry.optString("id"),anEntry.optString("title")));
+                        }
+                        array_rows = copy_array_rows;
+                        final ArrayAdapter<String> adapter_rows = new CustomizedSpinnerAdapter(
+                                activity, android.R.layout.simple_spinner_item, data_array_rows);
+                        filas.setAdapter(adapter_rows);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    error.printStackTrace();
+                }
+            });
+            MyVolleySingleton.getInstance().addToRequestQueue(request);
+
+        }
+    }
+    private void getseats(String id){
+        Log.d(TAG+"SEATS",id);
+        final ArrayList <Zone> copy_array_seats = new ArrayList<>();
+        if (NetworkUtils.haveNetworkConnection(getApplicationContext())) {
+            StringRequest request = new AuthRequest(getApplicationContext(), Request.Method.GET, AHR_URL_ASIENTOS + id + "/" , "UTF-8", new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        Log.d(TAG+"detale",response);
+                        JSONObject object = new JSONObject(response);
+                        JSONArray results = object.getJSONArray("results");
+                        final String[] data_array_seats = new String[results.length()];
+
+                        for (int count = 0; count < results.length(); count++) {
+                            JSONObject anEntry = results.getJSONObject(count);
+                            data_array_seats[count] = anEntry.optString("title");
+                            copy_array_seats.add(new Zone(anEntry.optString("id"),anEntry.optString("title")));
+                        }
+                        array_seats = copy_array_seats;
+                        final ArrayAdapter<String> adapter_seats = new CustomizedSpinnerAdapter(
+                                activity, android.R.layout.simple_spinner_item, data_array_seats);
+                        asientos.setAdapter(adapter_seats);
+//                        asientos.setSelection();
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    error.printStackTrace();
+                }
+            });
+            MyVolleySingleton.getInstance().addToRequestQueue(request);
+
+        }
     }
 }

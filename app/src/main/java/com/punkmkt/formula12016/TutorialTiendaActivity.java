@@ -45,8 +45,8 @@ public class TutorialTiendaActivity extends AppCompatActivity {
 
     public void EndViewPager(View v){
         Intent myIntent = new Intent(TutorialTiendaActivity.this, MainActivity.class);
-        TutorialTiendaActivity.this.startActivity(myIntent);
-        finish();
+        myIntent.putExtra("fragment","tiendaRestaurantes");
+        this.startActivity(myIntent);
     }
 
     @Override

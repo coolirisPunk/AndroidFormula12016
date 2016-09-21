@@ -33,7 +33,7 @@ import java.util.ArrayList;
  * Created by germanpunk on 30/08/16.
  */
 public class RestaurantesFragment extends Fragment{
-    String AHR_API_URL = "http://104.236.3.158:82/api/premio/la_ciudad/restaurantes/";
+    String AHR_API_URL = "http://104.236.3.158:82/api/premio/la_ciudad/sabor_del_chef/";
     private ArrayList<Restaurante> restaurantes = new ArrayList<>();
     private RecyclerView.Adapter adapter;
     private RecyclerView mRecyclerView;
@@ -53,7 +53,7 @@ public class RestaurantesFragment extends Fragment{
             public void onResponse(String response) {
                 try {
                     restaurantes.clear();
-                    Log.d(TAG,response.toString());
+                    Log.d(TAG,response);
                     JSONObject object = new JSONObject(response);
                     JSONArray results = object.getJSONArray("results");
                     for (int count = 0; count < results.length(); count++) {
@@ -63,10 +63,9 @@ public class RestaurantesFragment extends Fragment{
                         restaurante.setId(Integer.parseInt(anEntry.optString("id")));
                         restaurante.setNombre(anEntry.getString("name"));
                         restaurante.setUbicacion(anEntry.getString("location"));
-                        restaurante.setTelefono(anEntry.getString("phone"));
+                        restaurante.setWebsite(anEntry.getString("website"));
                         restaurante.setImagen(anEntry.getString("picture"));
-                        restaurante.setLatitud_mapa(anEntry.getString("latitude"));
-                        restaurante.setLongitud_mapa(anEntry.getString("longitude"));
+                        restaurante.setChef(anEntry.getString("chef"));
                         restaurantes.add(restaurante);
                     }
                     adapter.notifyDataSetChanged();
@@ -97,10 +96,9 @@ public class RestaurantesFragment extends Fragment{
                         restaurante.setId(Integer.parseInt(anEntry.optString("id")));
                         restaurante.setNombre(anEntry.getString("name"));
                         restaurante.setUbicacion(anEntry.getString("location"));
-                        restaurante.setTelefono(anEntry.getString("phone"));
+                        restaurante.setWebsite(anEntry.getString("website"));
                         restaurante.setImagen(anEntry.getString("picture"));
-                        restaurante.setLatitud_mapa(anEntry.getString("latitude"));
-                        restaurante.setLongitud_mapa(anEntry.getString("longitude"));
+                        restaurante.setChef(anEntry.getString("chef"));
                         restaurantes.add(restaurante);
                     }
                 } catch (UnsupportedEncodingException | JSONException e) {

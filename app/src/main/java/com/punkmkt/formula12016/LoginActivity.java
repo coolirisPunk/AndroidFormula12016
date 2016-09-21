@@ -250,6 +250,7 @@ public class LoginActivity extends AppCompatActivity {
                                     Log.d(TAG,key);
                                     getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit().putString("access_token", key).commit();
                                     getuserprofile(key);
+
                                     if(intent_from == null){
                                         Intent myIntent = new Intent(getApplicationContext(), WelcomeActivity.class);
                                         myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
