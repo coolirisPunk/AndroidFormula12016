@@ -8,19 +8,30 @@ android {
         applicationId "autodromo.punkmkt.com.ahrapp"
         minSdkVersion 19
         targetSdkVersion 23
-        versionCode 18
+        versionCode 19
         versionName "2.0"
         buildConfigField "String", "CLIENT_ID", "\"${loadSecret("UBER_CLIENT_ID")}\"" //Add your client id to gradle.properties
         buildConfigField "String", "REDIRECT_URI", "\"${loadSecret("UBER_REDIRECT_URI")}\"" //Add your redirect uri to gradle.properties
         buildConfigField "String", "SERVER_TOKEN", "\"${loadSecret("UBER_SERVER_TOKEN")}\"" //Add your server token to gradle.properties
     }
+    signingConfigs {
+        release {
+            storeFile file("my-release-key.keystore")
+            storePassword "Formula1Punk2015"
+            keyAlias "alias_name"
+            keyPassword "cooliris123123"
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
-
+    defaultConfig {
+        applicationId "autodromo.punkmkt.com.ahrapp"  // this is the id that your app has
+    }
 }
 
 repositories {
@@ -39,6 +50,9 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:9.2.1'
     compile 'com.google.android.gms:play-services-location:9.2.1'
     compile 'com.google.android.gms:play-services-analytics:9.2.1'
+    compile 'com.google.firebase:firebase-core:9.2.0'                        // this line must be included to integrate with Firebase
+    compile 'com.google.firebase:firebase-messaging:9.2.0'                   // this line must be included to use FCM
+
     compile 'com.sothree.slidinguppanel:library:3.3.0'
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.1'
 
@@ -48,7 +62,7 @@ dependencies {
 
 }
 
-//apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.gms.google-services'
 
 
 def loadSecret(String name) {

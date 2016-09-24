@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:113229680514:android:67836edabc819a0b",
         "android_client_info": {
-          "package_name": "com.punkmkt.formula12016"
+          "package_name": "autodromo.punkmkt.com.ahrapp"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "113229680514-b85qsok1ju65jk8kfdrg3liejgf4666l.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.punkmkt.formula12016",
+            "package_name": "autodromo.punkmkt.com.ahrapp",
             "certificate_hash": "5DEE335389690FCACFAEF32FE05C2B52BF077626"
           }
         },

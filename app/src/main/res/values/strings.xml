@@ -7,7 +7,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_settings">Configuración</string>
     <string name="action_login">Iniciar sesión</string>
-    <string name="user_api_token">5d324baacc85c965edce77af072bf8d81c4944dc</string>
+    <string name="user_api_token">7ce06e93bcf6634ea821ee1ff7610b6022a31a9a</string>
     <string name="google_maps_api">AIzaSyARGwm1wqxhQ6H7uqtW_J-zTYOrHWV5mxE</string>
     <!-- Tutorial -->
     <string name="saltar">SALTAR</string>
@@ -17,7 +17,6 @@
 
     <string name="step2_number3_1">EXPLORA:</string>
     <string name="step2_number3_2">DESCUBRE TODO EL CONTENIDO DE LA APLICACIÓN HACIENDO CLIC EN EL MENÚ.</string>
-
 
     <string name="preferencias">PREFERENCIAS</string>
     <string name="gps">GPS</string>
@@ -73,9 +72,25 @@
         <item>ROJO</item>
     </string-array>
     <string-array name="servicios_array">
-        <item>Primeros Auxilios</item>
-        <item>Segundos Auxilios</item>
-        <item>Terceros Auxilios</item>
+        <item>ACTIVACIONES</item>
+        <item>ALIMENTOS Y BEBIDAS</item>
+        <item>BAÑOS</item>
+        <item>BARRA</item>
+        <item>BEER GARDEN</item>
+        <item>BLENDERS ROOM</item>
+        <item>CAJEROS AUTOMÁTICOS</item>
+        <item>ENTRADA ESTACIONAMIENTO</item>
+        <item>ESCENARIO</item>
+        <item>ESTACIONAMIENTO</item>
+        <item>F1 GAME ZONE</item>
+        <item>FOOD COURT</item>
+        <item>MERCHANDISE</item>
+        <item>METRO</item>
+        <item>METROBUS</item>
+        <item>MÓDULO DE INFORMACIÓN</item>
+        <item>PARADA DE TRANSPORTE</item>
+        <item>SERVICIO MÉDICO</item>
+        <item>TAQUILLA</item>
     </string-array>
     <string name="zona">Zona</string>
     <string name="gradas">Gradas</string>
@@ -184,7 +199,6 @@ a través de esta sección.\n\n
     <string name="desc_btt_1">Ya eres parte del equipo <b>Beyond The Track</b>\n
         Bienvenido al programa de lealtad que va más allá de la pista.\n\n
         Descubre el otro lado, experimenta de una forma memorable la #F1ESTA y recibe antes que nadie beneficios exclusivos. Serás el primero en disfrutar:
-
     </string>
 
     <string name="desc_btt_2">

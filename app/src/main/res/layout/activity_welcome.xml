@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.punkmkt.ahrapp.WelcomeActivity"
+    tools:context="autodromo.punkmkt.com.ahrapp.WelcomeActivity"
     android:gravity="center"
     android:id="@+id/background_speed_lover"
     android:background="@drawable/textura_speed_lovers"

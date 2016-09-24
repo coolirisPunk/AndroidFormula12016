@@ -12,8 +12,8 @@
             <padding android:bottom="2dp" android:left="2dp" android:right="2dp" android:top="2dp" />
         </shape>
         </item>
-        <item><bitmap  android:gravity="center|right" android:src="@drawable/arrow_colors" />
-        </item>
+        <!--item><bitmap  android:gravity="center|right" android:src="@drawable/" />
+        </item-->
     </layer-list>
     </item>
 </selector>
