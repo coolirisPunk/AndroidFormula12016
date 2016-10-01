@@ -89,45 +89,10 @@
                 />
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="223dp"
+                android:layout_height="130dp"
                 android:orientation="vertical"
-
                 android:padding="20dp"
                 >
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="2"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    >
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/notificacion1"
-                        android:textSize="20sp"
-                        android:textColor="@color/text_grey"
-                        android:layout_weight="1"
-                        android:layout_gravity="center"
-                        />
-                    <RelativeLayout
-                        android:orientation="horizontal"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        >
-                        <ImageView
-                            android:id="@+id/notificacion1"
-                            android:layout_gravity="center"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@drawable/notificacion_inactiva"
-                            android:layout_centerVertical="true"
-                            android:layout_centerHorizontal="true" />
-                    </RelativeLayout>
-                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -55,37 +55,39 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:id="@+id/container_chef"
+                android:id="@+id/container_ubicacion"
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_below="@+id/name">
                 <ImageView
-                    android:id="@+id/pinchef"
+                    android:id="@+id/pinicon"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
-                    android:src="@drawable/chef"
+                    android:src="@drawable/pin_icon_white"
                     android:gravity="start"
                     android:layout_marginEnd="4dp"
                     />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="OHHHHHHOHHHHHHOHHHHHHOHHHHHHOHHHHHHOHHHHHH"
                     android:textColor="@color/white"
                     android:maxLength="60"
-                    android:id="@+id/chef"
+                    android:id="@+id/ubicacion"
                     android:layout_marginBottom="5dp"
                     android:gravity="start"
                     android:textSize="12sp"
                     android:fontFamily="sans-serif-condensed"
                     />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_marginBottom="8dp"
                 android:id="@+id/container_sitio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_below="@+id/container_chef">
+                android:layout_below="@+id/container_ubicacion">
                 <ImageView
                     android:id="@+id/sitioicon"
                     android:layout_width="15dp"
@@ -108,25 +110,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:id="@+id/container_ubicacion"
+                android:id="@+id/container_chef"
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_below="@+id/container_sitio">
                 <ImageView
-                    android:id="@+id/pinicon"
+                    android:id="@+id/pinchef"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
-                    android:src="@drawable/pin_icon_white"
+                    android:src="@drawable/chef"
                     android:gravity="start"
                     android:layout_marginEnd="4dp"
                     />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="OHHHHHHOHHHHHHOHHHHHHOHHHHHHOHHHHHHOHHHHHH"
                     android:textColor="@color/white"
                     android:maxLength="60"
-                    android:id="@+id/ubicacion"
+                    android:id="@+id/chef"
                     android:layout_marginBottom="5dp"
                     android:gravity="start"
                     android:textSize="12sp"

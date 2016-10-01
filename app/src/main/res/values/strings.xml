@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Formula12016</string>
+    <string name="app_name">México GP</string>
     <string name="facebook_app_id">801692569977560</string>
     <string name="fb_login_protocol_scheme">fb801692569977560</string>
 
@@ -100,7 +100,7 @@
     <!-- Home -->
     <string name="bienvenido_speedlover">BIENVENIDO SPEEDLOVER</string>
     <string name="faltan">FALTAN:</string>
-    <string name="noticias">NOTICIAS</string>
+    <string name="noticias">ÚLTIMAS NOTICIAS</string>
     <string name="lorem_ipsum">LOREM IPSUM</string>
 
     <!-- Autodromo -->
@@ -165,9 +165,9 @@
     <string name="prod_eliminado">¡PRODUCTO ELIMINADO!</string>
     <!--Tienda-->
     <string name="tienda_paso_uno">PASO 1\n</string>
-<string name="tpuno_instruccion">Selecciona qué quieres comer y tomar \n
-a través de esta sección.\n\n
-<b>¡Guarda tu lista para que no se te olvide nada!</b></string>
+<string name="tpuno_instruccion">Elige lo que quieres comer</string>
+    <string name="tpuno_instruccion_2">Paga en la caja más cercana</string>
+
     <string name="tienda_footer">TERMINA EL TUTORIAL PARA ACCEDER AL CATÁLOGO</string>
     <string name="tienda_paso_dos">PASO 2\n</string>
 <string name="tpuno_instruccion2">¿Ya sabs qué pedir? \n
@@ -176,7 +176,7 @@ a través de esta sección.\n\n
 <b>¡Guarda tu lista para que no se te olvide nada!</b></string>
     <string name="tuto_tip_dos"><b><font color="red">Tip.</font></b> Recuerda que existen filas diferentes para pagar con tarjeta o en efectivo.</string>
     <string name="tienda_paso_tres">PASO 3\n</string>
-    <string name="tpuno_instruccion3">¡Recoge tu pedido!</string>
+    <string name="tpuno_instruccion3">Canjea tu ticket</string>
     <string name="tuto_tip_tres"><b><font color="red">Tip.</font></b> Si pediste de varias marcas deberás dirigirte a la fila de correspondiente en cada caso.</string>
     <string name="tuto_termina">TERMINA EL TUTORIAL PARA ACCEDER AL CATÁLOGO</string>
     <string name="tienda_titulo">CATÁLOGO DE PRODUCTOS</string>
@@ -208,7 +208,231 @@ a través de esta sección.\n\n
     </string>
         <string name="desc_btt_3">STAY TUNED, #STAYF1RST</string>
     <string name="finalizar">FINALIZAR</string>
+<string name="f1_regresa">LA FORMULA 1\n REGRESA A MÉXICO</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="terminos_condiciones">Términos y condiciones</string>
+    <string name="aviso_de_privacidad_titulo">POLÍTICAS DE PRIVACIDAD</string>
 
+
+    <string name="terminos_titulo">TÉRMINOS Y CONDICIONES</string>
+    <string name="terminos_desc">
+        Bienvenido a la aplicación telefónica “México GP” (en adelante la “Aplicación”). A
+        continuación se describen los Términos y Condiciones que rigen el uso de la Aplicación y
+        que es propiedad de MAKE PRO S.A. de C.V. (en adelante “MAKE PRO”) y operado
+        conjuntamente por sus subsidiarias y/o filiales.\n\n
+
+        MAKE PRO administra el contenido y los servicios disponibles en la Aplicación de
+        conformidad con los siguientes Términos y Condiciones. Al acceder a la Aplicación, el
+        usuario de la Aplicación (en adelante el “Usuario) manifiesta su conformidad y se obliga a
+        cumplir los presentes Términos y Condiciones, así como la legislación aplicable en la
+        materia.\n\n
+        <b><font color="red">DESCRIPCIÓN DE USO:</font></b>\n\n
+        MAKE PRO se reserva el derecho de modificar, agregar o eliminar, en cualquier momento
+        y sin previo aviso la Aplicación, así como las condiciones requeridas para acceder y/o
+        utilizarlo, sólo limitándose a informar al Usuario, la actualización de la Aplicación y se
+        requerirá el consentimiento del Usuario para que continúe utilizándola en caso de
+        modificación de las condiciones de acceso.
+        \n\n
+        La Aplicación es únicamente para el uso personal de los Usuarios y no puede utilizarse con
+        relación a actividades comerciales. Los usos ilegales y/o no autorizados de la Aplicación
+        serán investigados y se iniciará la acción legal correspondiente.\n\n
+
+        <b><font color="red">CONTRASEÑA (EN CASO QUE LA APLICACIÓN LO LLEGUE A PEDIR)</font></b>\n\n
+
+        El Usuario es el único responsable de mantener la confidencialidad de los datos que
+        proporcione a la Aplicación, salvo las que correspondan a MAKE PRO por el Aviso de
+        Privacidad, y por tanto, el Usuario acuerda no acceder con el perfil, nombre o contraseña de
+        otro Usuario, así como no crear cuentas falsas o fraudulentas. La contraseña (en caso que la
+        Aplicación lo pida), es personal e intransferible por lo que el Usuario se compromete a
+        utilizarla de conformidad con los presentes Términos y Condiciones. El Usuario es el único
+        responsable de cualquier uso que se haga de su perfil y notificará de inmediato si sospecha
+        del uso no autorizado de su cuenta o acceso a su contraseña.\n\n
+
+        <b><font color="red">MARCAS REGISTRADAS Y DERECHOS DE PROPIEDAD DE LA APLICACIÓN</font></b>\n\n
+
+        MAKE PRO conserva todos los derechos de propiedad en los servicios de la Apliación. El
+        Usuario no deberá copiar, modificar, publicar, transmitir, distribuir, trabajar, tratar,
+        desplegar o vender dicha información, y el acceso a la Aplicación no le otorga ningún
+        derecho, concesión, título o interés de terceros con respecto a dicha propiedad.\n\n
+
+        <b><font color="red">CONTENIDO QUE PUDIERA SER PUBLICADO EN LA APLICACIÓN EN CASO QUE ÉSTA LO PERMITA</font></b>\n\n
+
+        El Usuario reconoce y acepta que MAKE PRO puede (pero no está obligado a) revisar el
+        contenido que llegare publica y, en su caso, borrar o rehusarse a ponerlo en línea.\n\n
+
+        El Usuario declara que no publicará (en caso que la Aplicación lo permita) contenido ilegal
+        o prohibido y no violará, malversará, infringirá o contravendrá algún derecho de tercero
+        (incluyendo, sin limitación, cualquier derecho de propiedad intelectual y personal) en la
+        Aplicación. Enseguida se enlista de manera enunciativa más no limitativa, el tipo de
+        contenido que es ilegal o está prohibido en la Aplicación:\n\n
+
+        - Que sea claramente ofensivo para la comunidad en línea, como contenido que
+        promueva el racismo, la intolerancia, el odio o la agresión física o moral de
+        cualquier tipo, en contra de cualquier grupo o individuo\n
+        - Que acose o promueva el acoso de otra persona\n
+        - Que involucre la transmisión o envío de correos masivos o spam y cartas cadena\n
+        - Que transmita virus, gusanos, defectos, caballos de Troya, o cualquier otro elemento
+        de naturaleza destructiva\n
+        - Que promueva información falsa o engañosa o promueva actividades ilegales o
+        conductas que sean abusivas, amenazantes, obscenas, difamatorias o calumniosas\n
+        - Que promueva la copia ilegal o no autorizada de obras protegidas por derechos de
+        autor (ya sea que estén marcadas o no), infrinja derechos de autor o proporcione
+        piratería o vínculos a ella\n
+        - Que contenga páginas restringidas o de acceso con contraseña, o páginas o
+        imágenes ocultas (aquellas no vinculadas o accesibles desde otra página) \n
+        - Que despliegue material pornográfico o sexualmente explícito de cualquier tipo y en
+        cualquier forma \n
+        - Que proporcione material que explote a cualquier persona de manera sexual o
+        violenta, o solicite información personal de otros \n
+        - Que proporcione instrucciones sobre actividades ilegales como atentar contra la
+        privacidad de alguien, o proporcionar o crear virus informáticos\n
+        - Que solicite contraseñas o información de identificación personal de cualquier tipo
+        para propósitos comerciales o ilegales; y esté involucrado en actividades
+        comerciales y/o ventas sin nuestro consentimiento previo, incluyendo, sin
+        limitación, concursos, loterías, trueques, publicidad y esquemas piramidales \n
+        - Que constituya, promueva o se use principalmente con el propósito de falsificar o
+        traficar bienes, productos robados, drogas ilegales y parafernalia, artículos usados
+        para robar, comercio no autorizado, o de otra manera viole los términos y cree
+        responsabilidad civil, penal o administrativa. \n\n
+
+        En caso de verificarse un incumplimiento por parte del Usuario hacia estos Términos y
+        Condiciones, MAKE PRO podrá denegar o retirar el acceso a la Aplicación en forma
+        inmediata.\n\n
+
+        <b><font color="red">USO PERMITIDO</font></b>\n\n
+
+        El Usuario manifiesta en este acto que conoce plenamente el estar autorizado para visitar,
+        ver, consultar, en algunos casos descargar (en caso que la Aplicación lo permita) y
+        comentar las páginas web o links de la Aplicación, para su propio uso, y que no deberá
+        duplicar, publicar, modificar, distribuir o alterar lo publicado por la Aplicación para ningún
+        propósito distinto que no sea revisar eventos e información de publicidad, para uso
+        personal, para participar en concursos y demás actividades contenidas en la Aplicación, a
+        menos que haya sido autorizado específicamente por MAKE PRO para otro fin. El
+        contenido y software de la Aplicación es propiedad de MAKE PRO y/o sus proveedores, y
+        está protegido bajo las leyes internacionales y nacionales de derecho de autor. \n\n
+
+        <b><font color="red">ENLACES Y RESULTADOS DE BÚSQUEDA</font></b>\n\n
+
+        La Aplicación puede producir automáticamente resultados de búsqueda que tienen
+        referencias o se enlazan a sitios de terceros. MAKE PRO no tiene control sobre estos sitios
+        o su contenido y no garantiza que el contenido de estos sitios sea exacto, legal y/o
+        inofensivo. MAKE PRO no patrocina el contenido de sitios de terceros, ni asegura que no
+        contendrán virus o que no impactarán de cualquier otra manera a su equipo. Al utilizar la
+        Aplicación para realizar búsquedas o para enlazarse a otro sitio (en caso que la Aplicación
+        lo permita), el Usuario está de acuerdo y entiende que no podrá realizar ningún reclamo en
+        contra de MAKE PRO por cualquier daño o pérdida, cualquiera que sea, al usar la
+        Aplicación. \n\n
+
+        <b><font color="red">ACCESO E INTERFERENCIA</font></b>\n\n
+
+        El Usuario está de acuerdo en no utilizar ningún tipo de aparato o software que interfiera
+        con el funcionamiento adecuado de la Aplicación, ni tratará de interferir con él. El Usuario
+        está de acuerdo en no copiar, reproducir, alterar y modificar sin previo permiso por escrito
+        de MAKE PRO (con excepción de que sea para uso personal y no comercial). \n\n
+
+        <b><font color="red">PROMOCIONES</font></b>\n\n
+
+        La Aplicación podría ofrecer participar en concursos que requieren el registro del Usuario.
+        Al participar en dicho concursos, los datos personales del Usuario se utilizarán
+        exclusivamente para fines de dicho concurso como, entre otros, contactarlos y entregar
+        el/los premio(s). Al participar a los concursos, el Usuario deberá apegarse a las bases de
+        cada una de ellas.  \n\n
+
+        <b><font color="red">VIOLACIÓN A LOS TÉRMINOS Y CONDICIONES</font></b>\n\n
+
+        Cualquier violación a los Términos y Condiciones puede ser investigada y se pueden tomar
+        las acciones legales necesarias, incluyendo más no limitándose, acciones civiles, penales y
+        cautelares. En este acto, el Usuario manifiesta su conformidad para que MAKE PRO pueda
+        restringir su acceso a la Aplicación, cancelar su participación en promociones, eliminar
+        cualquier contenido no autorizado del Usuario o ejercer cualquier otro recurso disponible si
+        MAKE PRO tiene elementos o indicios de que su conducta o la conducta en común con
+        cualquier tercero interfiera con la Aplicación.  \n\n
+
+        El Usuario está de acuerdo en que el uso ilegal de la Aplicación puede causar daños y
+        perjuicios a MAKE PRO, por lo que MAKE PRO se reserva el derecho de ejercer cualquier
+        acción legal en contra de quien le haya ocasionado dichos perjuicios. \n\n
+
+        <b><font color="red">CLÁUSULA DE EXENCIÓN DE RESPONSABILIDADES</font></b>\n\n
+        MAKE PRO no se obliga a que la Aplicación esté libre de errores o que no tendrá
+        interrupciones. MAKE PRO no será responsable por ningún daño de cualquier tipo que
+        surja del uso de la Aplicación, incluyendo sin limitación, daños directos, indirectos,
+        incidentales, punitivos y consecuenciales.  \n\n
+
+        <b><font color="red">CONFLICTO E INDEMNIZACIÓN</font></b>\n\n
+        En caso de conflicto, el mismo será regido por las leyes y la jurisdicción de la Ciudad de
+        México, Distrito Federal, renunciando en este acto a cualquier otra jurisdicción que pudiere
+        corresponderle de conformidad a su domicilio presente o futuro. \n\n
+
+        El Usuario acepta liberar a MAKE PRO y sus filiales, y a cada uno de los funcionarios,
+        directores, gerentes, agentes, empleados y contratistas de cualquier responsabilidad de
+        pérdida, obligación, reclamo o demanda, incluyendo los honorarios razonables de
+        abogados, realizados por un tercero, debido a, o que surjan del uso de la Aplicación.  \n\n
+
+        <b><font color="red">CONTACTO</font></b>\n\n
+
+        La siguiente dirección de correo electrónico queda a disposición del Usuario para cualquier
+        duda o comentario: info_mexgp@cie.com.mx
+
+
+
+
+
+    </string>
+    <string name="aviso_privacidad">Aviso de privacidad</string>
+    <string name="politicas_desc">
+        El presente Aviso de Privacidad, es respecto a la información que proporcione el Usuario de la aplicación telefónica “México GP” (en adelante la “Aplicación”), que voluntariamente decida instalar en su(s) teléfono(s) celular(es), misma que es operada por Make Pro S.A. de C.V. (en adelante “MAKE PRO”) y  que será el responsable de su uso, con domicilio en Thiers 251, Piso 14, Colonia Nueva Anzures, Código Postal 11590, en la ciudad de México, D.F.
+        \n\n
+        <b><font color="red">INFORMACIÓN QUE RECOPILA MAKE PRO A TRAVÉS DE LA APLICACIÓN</font></b>\n\n
+        MAKE PRO obtendrá del Usuario de la Aplicación, a través de los teléfonos portátiles en las que se encuentre voluntariamente instalada la Aplicación, los siguientes Datos Personales: nombre completo, dirección de correo electrónico, cuenta de “Facebook” y datos de los boletos que haya adquirido para ingresar al evento automovilístico “Formula 1 Gran Premio de México 2016”. Por lo tanto, el usuario una vez proporcionando los datos anteriores, se convertirá en el Titular de los Datos Personales y/o Usuario para efectos del presente Aviso de Privacidad.
+        \n\n
+        MAKE PRO obtendrá del Usuario de la Aplicación, a través de los teléfonos portátiles en las que se encuentre voluntariamente instalada la Aplicación, los siguientes Datos Personales: nombre completo, dirección de correo electrónico, cuenta de “Facebook” y datos de los boletos que haya adquirido para ingresar al evento automovilístico “Formula 1 Gran Premio de México 2016”. Por lo tanto, el usuario una vez proporcionando los datos anteriores, se convertirá en el Titular de los Datos Personales y/o Usuario para efectos del presente Aviso de Privacidad.
+        \n\n
+        MAKE PRO no recabará datos sensibles cuya utilización indebida pueda dar origen a discriminación o conlleve un riesgo grave para el Titular de los Datos Personales. Se consideran sensibles aquellos datos que puedan revelar aspectos como origen racial o étnico, estado de salud, información genética, creencias religiosas, filosóficas y morales, afiliación sindical, opiniones políticas y preferencia sexual.
+        \n\n
+        <b><font color="red">FINALIDAD</font></b>\n\n
+
+        MAKE PRO sólo recabará los Datos Personales que el Titular opcional y voluntariamente registre en la Aplicación, con la intención que participe en concursos que en su caso lleguen a realizarse, y en caso de resultar ganador, notificarle dicha circunstancia y sea publicado su nombre en la página web www.mexicogp.mx de manera temporal. En caso que el Usuario no proporcione sus datos personales, no es impedimento que utilicé la Aplicación; sin embargo, no podrá participar en los citados concursos por no ser una persona identificable.
+        \n\n
+        Al proporcionar los Datos Personales a través de la Aplicación, el Titular de los Datos Personales acepta conocer y estar de acuerdo con los términos del presente Aviso de Privacidad, y por tanto, consiente expresamente el tratamiento de sus Datos Personales conforme a lo descrito en él.
+        \n\n
+        <b><font color="red">PRIVACIDAD Y SEGURIDAD DE SU INFORMACIÓN</font></b>\n\n
+        Los Datos Personales pueden ser tratados por MAKE PRO, ya sea por sí o por medio de empresas expresamente contratadas para ello, y sus servicios son operados en los Estados Unidos Mexicanos. Si el Titular de los Datos Personales se encuentra fuera de los Estados Unidos Mexicanos, por favor tenga en cuenta que la información que recopilamos será procesada en el país señalado.
+        \n\n
+        MAKE PRO implementa medidas de seguridad razonables para proteger su información tanto online como offline, y utiliza tecnología a su alcance para la protección de la información proporcionada por el Titular de los Datos Personales.
+        \n\n
+        MAKE PRO no transfiere a ningún tercero los Datos Personales que recaba en la Aplicación, salvo las empresas que expresamente tenga contratadas para ello, así como las filiales o subsidiarias de MAKE PRO en términos de la fracción III del artículo 37 de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares.
+        \n\n
+        <b><font color="red">ACCESO, RECTIFICACIÓN, CANCELACIÓN Y OPOSICIÓN – DERECHOS ARCO</font></b>\n\n
+        El Usuario ingresará opcional y voluntariamente sus Datos Personales en la Aplicación, las cuales se archivarán en una base electrónica de datos de MAKE PRO. Si desea rectificar algún dato, deberá enviar un correo electrónico a info_mexgp@cie.com.mx con la siguiente información: la dirección de correo electrónico que proporcionó en la Aplicación, copia electrónica de algún documento que acredite su identidad (credencial para votar, pasaporte vigente, licencia para conducir vigente, cartilla militar), descripción clara y precisa de los Datos Personales de los cuales busca ejercer sus derechos de Acceso, Rectificación, Cancelación y Oposición (Derechos ARCO), e indicar las modificaciones a realizarse y/o las limitaciones al uso de los Datos proporcionados.
+        \n\n
+        Se dará seguimiento a la solicitud del Usuario y, en caso de ser válida, en un plazo no mayor a 20 días hábiles quedará eliminada su suscripción y no se usarán sus Datos Personales para ningún fin. Las solicitudes no serán válidas cuando: (1) el solicitante no sea el titular de los Datos Personales o el representante legal no esté debidamente acreditado para ello, (2) no se encuentren los Datos Personales del solicitante en la base de datos de MAKE PRO, (3) se lesionen los derechos de un tercero, (4) exista un impedimento legal o la resolución de una autoridad competente que restrinja el acceso a los datos personales, o no permita la rectificación, cancelación u oposición de los mismos (5) cuando la rectificación, cancelación u oposición haya sido previamente realizada.
+        \n\n
+        Como Usuario de la Aplicación, en este acto autoriza de manera expresa que MAKE PRO pueda contactarlo vía correo electrónico y utilizar o revelar, en los términos descritos, la información proporcionada en la Aplicación. En caso de oposición, el Usuario podrá hacerlo automáticamente desde cualquier envío que haya recibido de MAKE PRO dando click en el link para cancelar su suscripción (insertado en la parte inferior de los correos electrónicos que MAKE PRO llegue a enviarle).
+        \n\n
+        En virtud de lo anterior, el usuario podrá oponerse a: (i) tratamiento de sus datos, (ii) recepción de información vía email. En dado caso se dará de baja su suscripción y sus datos se eliminarán de la Base de Datos para con ello evitar el contacto de cualquier tipo.
+        \n\n
+        <b><font color="red">CAMBIOS EN EL AVISO DE PRIVACIDAD</font></b>\n\n
+        MAKE PRO notificará cualquier cambio en el Aviso de Privacidad al correo que el Usuario utilizó para registrarse en la Aplicación, en el entendido que no será responsabilidad de MAKE PRO si dicho correo fue dado de baja.
+        \n\n
+        Si tiene alguna duda o pregunta respecto al Aviso de Privacidad, por favor contáctenos en la siguiente dirección: info_mexgp@cie.com.mx
+
+    </string>
+    <string name="siguiente">SIGUIENTE</string>
+    <string name="desc_tut_1_1">¡TÓMALO EN CUENTA!</string>
+    <string name="desc_tut_1_2">
+        Las bebidas (aguas, cervezas, refrescos) y botanas se entregan en los puntos de bebida\n\n
+        ¡Evita filas! Realiza tus compras a tu llegada al Autódromo\n\n
+        Bares y Barras cuentas con sus propias cajas\n\n
+        Visita los Beer Gardens\n
+        (Zonas de Hospitalidad Cervecera)
+    </string>
+        <string name="desc_tut_2_2">
+        Las bebidas (aguas, cervezas, refrescos) y botanas se entregan en los puntos de bebida\n\n
+        ¡Evita filas! Realiza tus compras a tu llegada al Autódromo\n\n
+        Bares y Barras cuentas con sus propias cajas\n\n
+        Visita los Beer Gardens\n
+        (Zonas de Hospitalidad Cervecera)
+    </string>
 </resources>
 
 

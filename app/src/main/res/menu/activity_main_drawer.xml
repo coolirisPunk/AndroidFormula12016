@@ -40,26 +40,14 @@
             android:title="SOCIAL HUB" />
         <item
             android:id="@+id/nav_store"
-            android:icon="@drawable/tienda_icon"
-            android:title="STORE" />
+            android:icon="@drawable/ic_alimentos"
+            android:title="ALIMENTOS" />
         <item
             android:id="@+id/nav_beyond_the_track"
-            android:icon="@drawable/btt_icon"
+            android:icon="@drawable/ic_btt_icon"
             android:title="BEYOND THE TRACK" />
 
     </group>
 
-    <!--item android:title="Configuraciones">
-        <menu>
-            <item
-                android:id="@+id/nav_iniciar_sesion"
-                android:icon="@drawable/ic_menu_share"
-                android:title="INICIAR SESIÓN" />
-            <item
-                android:id="@+id/nav_configuracion"
-                android:icon="@drawable/ic_menu_send"
-                android:title="CONFIGURACIÓN" />
-        </menu>
-    </item-->
 
 </menu>

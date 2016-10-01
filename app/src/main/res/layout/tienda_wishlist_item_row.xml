@@ -16,7 +16,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal" />
-    <TextView android:id="@+id/precio" android:layout_gravity="center_vertical" android:text="$10.00 MXN" android:layout_weight="25" android:textSize="15sp" android:textColor="@color/red_button"
+    <TextView android:id="@+id/precio" android:visibility="invisible" android:layout_gravity="center_vertical" android:text="$10.00 MXN" android:layout_weight="25" android:textSize="15sp" android:textColor="@color/red_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal" />

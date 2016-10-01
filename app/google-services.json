@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "113229680514",
-    "firebase_url": "https://mexicogp-87440.firebaseio.com",
-    "project_id": "mexicogp-87440",
-    "storage_bucket": "mexicogp-87440.appspot.com"
+    "project_number": "868187508248",
+    "firebase_url": "https://autodromo-hermanos-rodri-41343.firebaseio.com",
+    "project_id": "autodromo-hermanos-rodri-41343",
+    "storage_bucket": "autodromo-hermanos-rodri-41343.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:113229680514:android:67836edabc819a0b",
+        "mobilesdk_app_id": "1:868187508248:android:430a49048de7b4d3",
         "android_client_info": {
           "package_name": "autodromo.punkmkt.com.ahrapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "113229680514-b85qsok1ju65jk8kfdrg3liejgf4666l.apps.googleusercontent.com",
+          "client_id": "868187508248-rl4lke69o7ahn2ko1c2gs2q0iv0ubg9c.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "autodromo.punkmkt.com.ahrapp",
@@ -23,13 +23,13 @@
           }
         },
         {
-          "client_id": "113229680514-so1drt20v2hfdomp0fa5mnup20afdksf.apps.googleusercontent.com",
+          "client_id": "868187508248-f1pqbrocl584m4ru8asgcan83oidgbfj.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyArvvpJoZjf7tBXgBPB9Rkjyb6WzSx5mN0"
+          "current_key": "AIzaSyCa64pSFvTOxiHNuZS1lrLJuNaE3xS0_wE"
         }
       ],
       "services": {
@@ -40,7 +40,15 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "113229680514-so1drt20v2hfdomp0fa5mnup20afdksf.apps.googleusercontent.com",
+              "client_id": "868187508248-cvuegehjl17fdjknfpv4mi6ig6g2g7rh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "punk.AHR",
+                "app_store_id": "1047256361"
+              }
+            },
+            {
+              "client_id": "868187508248-f1pqbrocl584m4ru8asgcan83oidgbfj.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

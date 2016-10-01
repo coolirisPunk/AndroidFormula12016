@@ -137,10 +137,13 @@
                             android:weightSum="100">
                             <TextView android:id="@+id/total" android:layout_weight="60" android:layout_gravity="center_vertical|left" android:text="TOTAL" android:textSize="18sp" android:textStyle="bold" android:textColor="@color/black"
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"
+                                android:visibility="invisible"
+                                />
                             <TextView android:id="@+id/sum_total"  android:layout_weight="40" android:layout_gravity="center_vertical" android:text=""  android:textSize="18sp"  android:textColor="@color/red_button"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:visibility="invisible"
                                 android:gravity="center_horizontal" />
                         </LinearLayout>
 
